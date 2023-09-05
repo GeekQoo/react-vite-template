@@ -1,0 +1,35 @@
+{
+    "compilerOptions": {
+        /* 基本选项 */
+        "target": "ES2020", // 生成代码的 ECMAScript 目标版本
+        "module": "ESNext", // 生成代码的模块标准
+        "useDefineForClassFields": true, // 是否使用 Object.defineProperty 定义类实例属性
+        "lib": ["ES2020", "DOM", "DOM.Iterable"], // 编译过程中需要引入的库文件的列表
+        "skipLibCheck": true, // 是否在编译时跳过对声明文件（.d.ts文件）的类型检查
+
+        /* 模块解析 */
+        "moduleResolution": "bundler", // 模块解析策略
+        "allowImportingTsExtensions": true, // 允许从没有默认导出的模块中导入类型定义(.d.ts)文件
+        "resolveJsonModule": true, // 自动解析JSON文件
+        "isolatedModules": true, // 控制是否将每个文件作为单独的模块处理
+        "noEmit": true, // 不生成输出文件
+        "jsx": "react-jsx", // 指定TypeScript文件中 JSX 语法的处理方式
+
+        /* 检查 */
+        "strict": true // 启用所有严格类型检查
+        // "noUnusedLocals": true, // 检查未使用的局部变量
+        // "noUnusedParameters": true, // 检查未使用的参数
+        // "noFallthroughCasesInSwitch": true // 检查 switch 语句包含正确的 break
+    },
+
+    /* 解析的文件 */
+    "include": ["src", "types"],
+    "exclude": ["node_modules"],
+
+    /* 引用目录 */
+    "references": [
+        {
+            "path": "./tsconfig.node.json"
+        }
+    ]
+}
