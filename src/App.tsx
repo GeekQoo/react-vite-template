@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { Button } from "antd";
 
-function App() {
-    const [title, setTitle] = useState("Hello World");
-
+export default function App() {
     return (
-        <>
-            <div className="text-50px">hello world</div>
-        </>
+        <div>
+            <div className="flex-y-center">
+                <Button>home</Button>
+                <Button>about</Button>
+            </div>
+            <div></div>
+        </div>
     );
 }
-
-export default App;
