@@ -1,13 +1,19 @@
-import Home from "../pages/Home";
-import NotFound from "../pages/System/NotFound.tsx";
+import { lazy } from "react";
+import App from "../App.tsx";
 
-export default [
+let Home = lazy(() => import("../pages/Home.tsx"));
+
+let routes = [
     {
         path: "/",
-        element: <Home />
-    },
-    {
-        path: "*",
-        element: <NotFound />
+        element: <App />,
+        children: [
+            {
+                path: "/",
+                element: <Home />
+            }
+        ]
     }
 ];
+
+export { routes };

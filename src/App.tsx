@@ -1,22 +1,19 @@
-import router from "./router/index";
-import { useNavigate, useRoutes } from "react-router-dom";
-import { Button, Space } from "antd";
+import React, { Suspense } from "react";
+import { Outlet } from "react-router-dom";
+import { Spin } from "antd";
 
-export default function App() {
-    let navigate = useNavigate();
+let App: React.FC = () => {
     return (
         <div>
-            <div className="flex-y-center">
-                <Space>
-                    <Button type="primary" onClick={() => navigate("/")}>
-                        Home
-                    </Button>
-                    <Button type="primary" onClick={() => navigate("/404")}>
-                        404
-                    </Button>
-                </Space>
+            <div className="header">头部</div>
+            <div>
+                <Suspense fallback={<Spin size="large" className="w-100% h-70% flex-center" />}>
+                    <Outlet />
+                </Suspense>
             </div>
-            <div>{useRoutes(router)}</div>
+            <div className="footer">底部</div>
         </div>
     );
-}
+};
+
+export default App;
