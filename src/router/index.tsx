@@ -9,7 +9,8 @@ let routes = [
         element: <App />,
         children: [
             {
-                path: "/",
+                index: true,
+                title: "首页",
                 element: <Home />
             }
         ]
