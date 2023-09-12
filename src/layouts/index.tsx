@@ -14,7 +14,7 @@ let BasicLayout: React.FC = () => {
                     token: {},
                     components: {
                         Layout: {
-                            headerBg: "#fff",
+                            headerColor: "#fff",
                             siderBg: "#fff"
                         },
                         Menu: {

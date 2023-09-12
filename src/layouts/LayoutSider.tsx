@@ -33,7 +33,7 @@ let LayoutSider: React.FC = () => {
     ];
 
     return (
-        <Sider>
+        <Sider className="shadow-lg">
             <Menu mode="inline" items={items} />
         </Sider>
     );
