@@ -1,3 +1,7 @@
-export default function Home() {
-    return <div>home page</div>;
-}
+import React from "react";
+
+let Home: React.FC = () => {
+    return <div className="home-page">home page</div>;
+};
+
+export default Home;
