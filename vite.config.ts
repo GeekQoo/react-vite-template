@@ -1,13 +1,26 @@
 import { defineConfig, loadEnv } from "vite";
+import { resolve } from "path";
 import react from "@vitejs/plugin-react";
 import autoprefixer from "autoprefixer";
 import unocss from "unocss/vite";
+import type { ViteMockOptions } from "vite-plugin-mock";
+import { viteMockServe } from "vite-plugin-mock";
 
 export default defineConfig(({ command, mode }) => {
     let viteEnv = loadEnv(mode, process.cwd(), "");
 
     return {
-        plugins: [react(), unocss()],
+        plugins: [
+            react(),
+            unocss(),
+            viteMockServe({
+                mockPath: "mock",
+                localEnabled: command === "serve",
+                prodEnabled: command !== "serve",
+                //  这样可以控制关闭mock的时候不让mock打包到最终代码内
+                injectCode: `import { setupProdMockServer } from "../mock/mockProdServer";setupProdMockServer();`
+            } as ViteMockOptions)
+        ],
         base: viteEnv.VITE_BASE_PATH, // 开发或生产环境服务的公共基础路径。
         publicDir: "public", // 作为静态资源服务的文件夹。
         build: {
@@ -19,7 +32,7 @@ export default defineConfig(({ command, mode }) => {
         resolve: {
             // 设置别名
             alias: {
-                "@": "/src/"
+                "@/": `${resolve(__dirname, "src")}/`
             }
         },
         css: {
