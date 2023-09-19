@@ -7,4 +7,12 @@ declare namespace App {
 
         [key: string]: unknown;
     }
+
+    // 用户信息
+    interface UserDataProps {
+        username?: string;
+        avatar?: string;
+
+        [key: string]: unknown;
+    }
 }
