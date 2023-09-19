@@ -1,10 +1,8 @@
-import React, { Suspense } from "react";
-import { Outlet } from "react-router-dom";
-import { ConfigProvider, Layout, Spin } from "antd";
+import React from "react";
+import { ConfigProvider, Layout } from "antd";
 import LayoutHeader from "./LayoutHeader.tsx";
 import LayoutSider from "./LayoutSider.tsx";
-
-let { Content } = Layout;
+import LayoutContent from "./LayoutContent.tsx";
 
 let BasicLayout: React.FC = () => {
     return (
@@ -27,13 +25,7 @@ let BasicLayout: React.FC = () => {
                     <LayoutHeader />
                     <Layout>
                         <LayoutSider />
-                        <Content>
-                            <div className="wh-100% p-4 overflow-y-auto">
-                                <Suspense fallback={<Spin size="large" className="wh-100% flex-center" />}>
-                                    <Outlet />
-                                </Suspense>
-                            </div>
-                        </Content>
+                        <LayoutContent />
                     </Layout>
                 </Layout>
             </ConfigProvider>
