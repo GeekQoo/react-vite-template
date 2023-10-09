@@ -12,17 +12,19 @@ let useAuthStore = create<StateProps>()(
     persist(
         (set) => ({
             token: "",
+            userData: {},
             setToken: (value?: string) => {
                 set(() => ({ token: value ?? "" }));
             },
-            userData: {},
             setUserData: (value?: App.UserDataProps) => {
                 set(() => ({ userData: value }));
             }
         }),
         {
             name: "auth",
-            partialize: (state) => Object.fromEntries(Object.entries(state).filter(([key]) => ["token"].includes(key))),
+            partialize: (state) => {
+                return Object.fromEntries(Object.entries(state).filter(([key]) => ["token"].includes(key)));
+            },
             storage: createJSONStorage(() => localStorage)
         }
     )

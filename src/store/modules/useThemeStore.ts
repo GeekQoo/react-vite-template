@@ -16,7 +16,9 @@ let useAuthStore = create<StateProps>()(
         }),
         {
             name: "theme",
-            // partialize: (state) => Object.fromEntries(Object.entries(state).filter(([key]) => [""].includes(key))),
+            partialize: (state) => {
+                return Object.fromEntries(Object.entries(state).filter(([key]) => ["globalLoading"].includes(key)));
+            },
             storage: createJSONStorage(() => localStorage)
         }
     )
