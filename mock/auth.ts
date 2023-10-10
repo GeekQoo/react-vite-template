@@ -33,7 +33,7 @@ export default [
                     {
                         label: "权限配置",
                         key: "/permission",
-                        icon: "MailOutlined",
+                        icon: "TeamOutlined",
                         children: [
                             {
                                 label: "角色管理",

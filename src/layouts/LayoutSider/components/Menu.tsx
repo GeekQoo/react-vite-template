@@ -1,14 +1,21 @@
 import React from "react";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
-import { HomeOutlined, MailOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuthStore } from "@/store";
+import { HomeOutlined, TeamOutlined } from "@ant-design/icons";
 
 let LayoutSiderMenu: React.FC = () => {
     type MenuItem = Required<MenuProps>["items"][number];
 
     let navigate = useNavigate();
     let { pathname } = useLocation();
+    let { userData } = useAuthStore();
+
+    let icons: Record<string, React.ReactNode> = {
+        HomeOutlined: <HomeOutlined />,
+        TeamOutlined: <TeamOutlined />
+    };
 
     let getItem = (
         label: React.ReactNode,
@@ -20,10 +27,9 @@ let LayoutSiderMenu: React.FC = () => {
         return { key, icon, children, label, type };
     };
 
-    let items: MenuItem[] = [
-        getItem("首页", "/", <HomeOutlined />),
-        getItem("权限配置", "/permission", <MailOutlined />, [getItem("角色管理", "/permission/role/list")])
-    ];
+    let items = (): MenuItem[] => {
+        return (userData?.menu ?? []).map((i) => getItem(i.label, i.key, icons[i.icon], i.children));
+    };
 
     let onMenuClick: MenuProps["onClick"] = ({ key }) => {
         navigate(key);
@@ -37,7 +43,7 @@ let LayoutSiderMenu: React.FC = () => {
     return (
         <Menu
             mode="inline"
-            items={items}
+            items={items()}
             onClick={onMenuClick}
             defaultSelectedKeys={[pathname]}
             defaultOpenKeys={renderOpenKeys()}
