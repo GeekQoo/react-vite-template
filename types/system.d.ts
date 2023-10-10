@@ -1,4 +1,4 @@
-declare namespace App {
+declare namespace System {
     // 响应类型
     interface ResponseProps<T = unknown> {
         code: number;

@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import App from "../App.tsx";
+import MyApp from "../App.tsx";
 import NotFound from "../pages/NotFound.tsx";
 
 let Home = lazy(() => import("../pages/Home"));
@@ -8,7 +8,7 @@ let RoleList = lazy(() => import("../pages/Permission/RoleList"));
 let routes = [
     {
         path: "/",
-        element: <App />,
+        element: <MyApp />,
         children: [
             {
                 index: true,

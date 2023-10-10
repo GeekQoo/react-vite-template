@@ -4,13 +4,13 @@ import { Result, Spin } from "antd";
 import { useAuthStore, useThemeStore } from "@/store";
 import { GET_USERINFO } from "@/api/auth.ts";
 
-let App: React.FC = () => {
+let MyApp: React.FC = () => {
     let { setUserData } = useAuthStore();
     let { globalLoading, setGlobalLoading } = useThemeStore();
 
     let getUserData = () => {
         setGlobalLoading(true);
-        GET_USERINFO<App.UserDataProps>({}).then((res) => {
+        GET_USERINFO<System.UserDataProps>({}).then((res) => {
             setUserData(res.data.data ?? {});
             setGlobalLoading(false);
         });
@@ -34,4 +34,4 @@ let App: React.FC = () => {
     );
 };
 
-export default App;
+export default MyApp;

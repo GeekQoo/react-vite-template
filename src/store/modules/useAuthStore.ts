@@ -4,8 +4,8 @@ import { createJSONStorage, persist } from "zustand/middleware";
 interface StateProps {
     token: string;
     setToken: (value?: string) => void;
-    userData: App.UserDataProps;
-    setUserData: (value?: App.UserDataProps) => void;
+    userData: System.UserDataProps;
+    setUserData: (value?: System.UserDataProps) => void;
 }
 
 let useAuthStore = create<StateProps>()(
@@ -16,7 +16,7 @@ let useAuthStore = create<StateProps>()(
             setToken: (value?: string) => {
                 set(() => ({ token: value ?? "" }));
             },
-            setUserData: (value?: App.UserDataProps) => {
+            setUserData: (value?: System.UserDataProps) => {
                 set(() => ({ userData: value }));
             }
         }),
