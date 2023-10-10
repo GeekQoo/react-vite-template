@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout, Space } from "antd";
-import { SettingOutlined } from "@ant-design/icons";
+import { LayoutHeaderSettings } from "./components";
 
 let { Header } = Layout;
 
@@ -14,9 +14,9 @@ let LayoutHeader: React.FC = () => {
                 />
                 <div className="text-20px">React Vite template</div>
             </div>
-            <div className="h-100% ml-a">
+            <div className="flex-y-center ml-a">
                 <Space className="h-100%">
-                    <SettingOutlined className="block text-20px cursor-pointer" />
+                    <LayoutHeaderSettings />
                 </Space>
             </div>
         </Header>

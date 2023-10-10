@@ -1,8 +1,8 @@
 import React from "react";
 import { ConfigProvider, Layout } from "antd";
-import LayoutHeader from "./LayoutHeader.tsx";
-import LayoutSider from "./LayoutSider.tsx";
-import LayoutContent from "./LayoutContent.tsx";
+import LayoutHeader from "./LayoutHeader";
+import LayoutSider from "./LayoutSider";
+import LayoutContent from "./LayoutContent";
 
 let BasicLayout: React.FC = () => {
     return (

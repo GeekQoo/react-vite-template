@@ -1,12 +1,10 @@
 import React from "react";
 import type { MenuProps } from "antd";
-import { Layout, Menu } from "antd";
+import { Menu } from "antd";
 import { HomeOutlined, MailOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 
-let { Sider } = Layout;
-
-let LayoutSider: React.FC = () => {
+let LayoutSiderMenu: React.FC = () => {
     type MenuItem = Required<MenuProps>["items"][number];
 
     let navigate = useNavigate();
@@ -19,13 +17,7 @@ let LayoutSider: React.FC = () => {
         children?: MenuItem[],
         type?: "group"
     ): MenuItem => {
-        return {
-            key,
-            icon,
-            children,
-            label,
-            type
-        } as MenuItem;
+        return { key, icon, children, label, type };
     };
 
     let items: MenuItem[] = [
@@ -43,16 +35,14 @@ let LayoutSider: React.FC = () => {
     };
 
     return (
-        <Sider className="shadow-lg">
-            <Menu
-                mode="inline"
-                items={items}
-                onClick={onMenuClick}
-                defaultSelectedKeys={[pathname]}
-                defaultOpenKeys={renderOpenKeys()}
-            />
-        </Sider>
+        <Menu
+            mode="inline"
+            items={items}
+            onClick={onMenuClick}
+            defaultSelectedKeys={[pathname]}
+            defaultOpenKeys={renderOpenKeys()}
+        />
     );
 };
 
-export default LayoutSider;
+export default LayoutSiderMenu;
