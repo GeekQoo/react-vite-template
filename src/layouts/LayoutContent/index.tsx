@@ -2,10 +2,12 @@ import React, { Suspense } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import { Layout, Spin } from "antd";
+import { useThemeStore } from "@/store";
 
 let { Content } = Layout;
 
 let LayoutContent: React.FC = () => {
+    let { pageAnimation } = useThemeStore();
     let { pathname } = useLocation();
 
     return (
@@ -13,7 +15,7 @@ let LayoutContent: React.FC = () => {
             <div className="wh-100% p-4 overflow-y-auto overflow-x-hidden">
                 <Suspense fallback={<Spin size="large" className="wh-100% flex-center" />}>
                     <SwitchTransition>
-                        <CSSTransition timeout={300} classNames="fade-scale" key={pathname} appear={true}>
+                        <CSSTransition timeout={300} classNames={pageAnimation} key={pathname} appear={true}>
                             <Outlet />
                         </CSSTransition>
                     </SwitchTransition>
