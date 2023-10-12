@@ -18,18 +18,21 @@ let LayoutHeaderSettings: React.FC = () => {
         <div>
             <SettingOutlined className="block text-20px cursor-pointer" onClick={() => changeDrawerShow(true)} />
             <Drawer
-                title="系统设置"
+                title="设置面板"
                 width={350}
                 placement="right"
                 onClose={() => changeDrawerShow(false)}
                 open={drawerShow}
             >
-                <Select
-                    className="w-100%"
-                    value={pageAnimation}
-                    onSelect={(value) => setPageAnimation(value)}
-                    options={pageAnimationPreset}
-                />
+                <div className="flex-y-center mb">
+                    <span>切换动画</span>
+                    <Select
+                        className="ml flex-auto"
+                        value={pageAnimation}
+                        onSelect={(value) => setPageAnimation(value)}
+                        options={pageAnimationPreset}
+                    />
+                </div>
             </Drawer>
         </div>
     );
