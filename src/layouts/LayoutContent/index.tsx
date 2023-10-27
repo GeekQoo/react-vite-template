@@ -22,6 +22,7 @@ let LayoutContent: React.FC = () => {
                             appear
                             mountOnEnter
                             unmountOnExit
+                            exit={false}
                         >
                             <Outlet />
                         </CSSTransition>
