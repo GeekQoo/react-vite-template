@@ -10,7 +10,7 @@ let Home: React.FC = () => {
         <div className="home-page">
             <Card>
                 <div className="flex-y-center">
-                    <Avatar size={80}>{userData.username}</Avatar>
+                    <Avatar size={80} src={userData.avatar} />
                     <div className="ml">
                         <Title className="mt-0!" level={3}>
                             你好，{userData.username}，祝你开心每一天！
