@@ -14,8 +14,15 @@ let LayoutContent: React.FC = () => {
         <Content>
             <div className="wh-100% p-4 overflow-y-auto overflow-x-hidden">
                 <Suspense fallback={<Spin size="large" className="wh-100% flex-center" />}>
-                    <SwitchTransition>
-                        <CSSTransition timeout={300} classNames={pageAnimation} key={pathname} appear={true}>
+                    <SwitchTransition mode="out-in">
+                        <CSSTransition
+                            timeout={300}
+                            classNames={pageAnimation}
+                            key={pathname}
+                            appear
+                            mountOnEnter
+                            unmountOnExit
+                        >
                             <Outlet />
                         </CSSTransition>
                     </SwitchTransition>

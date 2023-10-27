@@ -1,13 +1,4 @@
 /* fade */
-.fade-appear {
-    opacity: 0;
-}
-
-.fade-appear-active {
-    opacity: 1;
-    transition: opacity 0.3s ease-in-out;
-}
-
 .fade-enter {
     opacity: 0;
 }

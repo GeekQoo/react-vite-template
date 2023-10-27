@@ -37,7 +37,7 @@ export default [
                         children: [
                             {
                                 label: "角色管理",
-                                key: "/permission/role/list"
+                                key: "/permission/role-list"
                             }
                         ]
                     }

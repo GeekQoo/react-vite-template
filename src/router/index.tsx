@@ -16,7 +16,7 @@ let routes = [
                 element: <Home />
             },
             {
-                path: "/permission/role/list",
+                path: "/permission/role-list",
                 title: "角色管理",
                 element: <RoleList />
             }
