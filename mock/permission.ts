@@ -4,12 +4,12 @@ export default [
     {
         url: "/mock/api/permission/role",
         method: "get",
-        timeout: 1000,
+        timeout: 500,
         response: () => ({
             code: 1,
             "data|10": [
                 {
-                    id: "@natural(0,10000)",
+                    id: "@natural(0,100)",
                     "name|1": ["超级管理员", "管理员", "普通用户", "游客"]
                 }
             ],
