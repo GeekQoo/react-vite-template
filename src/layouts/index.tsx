@@ -3,6 +3,7 @@ import { App, ConfigProvider, Layout } from "antd";
 import LayoutHeader from "./LayoutHeader";
 import LayoutSider from "./LayoutSider";
 import LayoutContent from "./LayoutContent";
+import zhCN from "antd/locale/zh_CN";
 
 let MyLayout: React.FC = () => {
     return (
@@ -20,6 +21,7 @@ let BasicLayout: React.FC = () => {
     return (
         <div>
             <ConfigProvider
+                locale={zhCN}
                 theme={{
                     token: {},
                     components: {
