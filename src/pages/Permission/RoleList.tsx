@@ -1,29 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Card, Table } from "antd";
 import { GET_ROLE_LIST } from "@/api/permission.ts";
-import type { ColumnsType, TablePaginationConfig } from "antd/es/table";
+import type { ColumnsType } from "antd/es/table";
+import { useCommonTable } from "@/hooks";
 
 interface TableDataProps {
     id: string | number;
     name: string;
 }
 
-interface TableParamProps {
-    pagination?: TablePaginationConfig;
-}
-
 let RoleList: React.FC = () => {
-    let [tableLoading, setTableLoading] = useState<boolean>(false);
-    let [tableData, setTableData] = useState<TableDataProps[]>([]);
-    let [tableParams, setTableParams] = useState<TableParamProps>({
-        pagination: {
-            showQuickJumper: true,
-            showSizeChanger: true,
-            current: 1,
-            pageSize: 10,
-            total: 0
-        }
-    });
+    let {
+        tableLoading,
+        setTableLoading,
+        tableData,
+        setTableData,
+        tableParams,
+        setTableParams,
+        tableRowKey,
+        handleTableChange
+    } = useCommonTable<TableDataProps>("id");
 
     useEffect(() => {
         getTableData();
@@ -52,13 +48,6 @@ let RoleList: React.FC = () => {
         });
     };
 
-    let handleTableChange = (pagination: TablePaginationConfig) => {
-        setTableParams({ pagination });
-        if (pagination.pageSize !== tableParams.pagination?.pageSize) {
-            setTableData([]);
-        }
-    };
-
     return (
         <div className="role-list-page">
             <Card>
@@ -69,7 +58,7 @@ let RoleList: React.FC = () => {
                     columns={tableColumns}
                     pagination={tableParams.pagination}
                     onChange={handleTableChange}
-                    rowKey={(row) => row.id}
+                    rowKey={tableRowKey}
                 />
             </Card>
         </div>
