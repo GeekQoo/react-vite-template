@@ -34,6 +34,9 @@ export function useCommonTable<T = UnKnownObject>(rowKeyName?: keyof T) {
         }
     };
 
+    // 表格选中项
+    let [tableSelection, setTableSelection] = useState<React.Key[]>([]);
+
     return {
         tableLoading,
         setTableLoading,
@@ -42,6 +45,8 @@ export function useCommonTable<T = UnKnownObject>(rowKeyName?: keyof T) {
         tableParams,
         setTableParams,
         tableRowKey,
-        handleTableChange
+        handleTableChange,
+        tableSelection,
+        setTableSelection
     };
 }

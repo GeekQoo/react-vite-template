@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Card, Table } from "antd";
+import { App, Button, Card, Space, Table } from "antd";
 import { GET_ROLE_LIST } from "@/api/permission.ts";
 import type { ColumnsType } from "antd/es/table";
 import { useCommonTable } from "@/hooks";
@@ -10,6 +10,8 @@ interface TableDataProps {
 }
 
 let RoleList: React.FC = () => {
+    let { message } = App.useApp();
+
     let {
         tableLoading,
         setTableLoading,
@@ -18,7 +20,9 @@ let RoleList: React.FC = () => {
         tableParams,
         setTableParams,
         tableRowKey,
-        handleTableChange
+        handleTableChange,
+        tableSelection,
+        setTableSelection
     } = useCommonTable<TableDataProps>("id");
 
     useEffect(() => {
@@ -48,9 +52,31 @@ let RoleList: React.FC = () => {
         });
     };
 
+    // 批量删除
+    let onDelete = () => {
+        if (tableSelection.length === 0) {
+            message.error("请先选择要删除的数据");
+        } else {
+            message.error(`您要删除的ID为：${tableSelection.join(",")}`);
+        }
+    };
+
+    // 新增
+    let onAdd = () => {
+        message.warning("正在开发中");
+    };
+
     return (
         <div className="role-list-page">
             <Card>
+                <Space className="mb">
+                    <Button type="primary" onClick={onAdd}>
+                        新增
+                    </Button>
+                    <Button type="primary" danger onClick={onDelete}>
+                        批量删除
+                    </Button>
+                </Space>
                 <Table
                     bordered
                     dataSource={tableData}
@@ -59,6 +85,12 @@ let RoleList: React.FC = () => {
                     pagination={tableParams.pagination}
                     onChange={handleTableChange}
                     rowKey={tableRowKey}
+                    rowSelection={{
+                        type: "checkbox",
+                        onChange: (selectedRowKeys, selectedRows) => {
+                            setTableSelection(selectedRowKeys);
+                        }
+                    }}
                 />
             </Card>
         </div>
