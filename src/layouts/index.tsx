@@ -1,5 +1,5 @@
 import React from "react";
-import { App, ConfigProvider, Layout } from "antd";
+import { App, ConfigProvider, Layout, theme } from "antd";
 import LayoutHeader from "./LayoutHeader";
 import LayoutSider from "./LayoutSider";
 import LayoutContent from "./LayoutContent";
@@ -19,13 +19,14 @@ let MyLayout: React.FC = () => {
 };
 
 let BasicLayout: React.FC = () => {
-    let { themeColor } = useThemeStore();
+    let { themeColor, currentTheme } = useThemeStore();
 
     return (
         <div>
             <ConfigProvider
                 locale={zhCN}
                 theme={{
+                    algorithm: theme[currentTheme as "defaultAlgorithm" | "darkAlgorithm" | "compactAlgorithm"],
                     token: {
                         colorPrimary: themeColor
                     },

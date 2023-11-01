@@ -1,8 +1,16 @@
 // 默认主题配置
 export const defaultThemeConfig = {
+    currentTheme: "defaultAlgorithm",
     pageAnimation: "fade-scale",
     themeColor: "#1677ff"
 };
+
+// 当前主题预设
+export const currentThemePreset = [
+    { label: "常规", value: "defaultAlgorithm" },
+    { label: "夜间", value: "darkAlgorithm" },
+    { label: "紧凑", value: "compactAlgorithm" }
+];
 
 // 页面切换动画预设
 export const pageAnimationPreset = [

@@ -4,9 +4,11 @@ import { defaultThemeConfig } from "@/setttings/theme.ts";
 
 interface StateProps {
     globalLoading: boolean;
+    currentTheme: string;
     pageAnimation: string;
     themeColor: string;
     setGlobalLoading: (value: boolean) => void;
+    setCurrentTheme: (value: string) => void;
     setPageAnimation: (value: string) => void;
     setThemeColor: (value: string) => void;
 }
@@ -15,10 +17,14 @@ let useAuthStore = create<StateProps>()(
     persist(
         (set) => ({
             globalLoading: false,
+            currentTheme: defaultThemeConfig.currentTheme,
             pageAnimation: defaultThemeConfig.pageAnimation,
             themeColor: defaultThemeConfig.themeColor,
             setGlobalLoading: (value?: boolean) => {
                 set(() => ({ globalLoading: value }));
+            },
+            setCurrentTheme(value: string) {
+                set(() => ({ currentTheme: value }));
             },
             setPageAnimation: (value?: string) => {
                 set(() => ({ pageAnimation: value }));
@@ -32,7 +38,7 @@ let useAuthStore = create<StateProps>()(
             partialize: (state) => {
                 return Object.fromEntries(
                     Object.entries(state).filter(([key]) =>
-                        ["globalLoading", "pageAnimation", "themeColor"].includes(key)
+                        ["globalLoading", "currentTheme", "pageAnimation", "themeColor"].includes(key)
                     )
                 );
             },

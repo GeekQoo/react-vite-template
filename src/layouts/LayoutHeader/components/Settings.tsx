@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { SettingOutlined } from "@ant-design/icons";
-import { ColorPicker, Drawer, Select } from "antd";
+import { ColorPicker, Divider, Drawer, Radio, Select, Typography } from "antd";
 import { useThemeStore } from "@/store";
-import { pageAnimationPreset, themeColorPreset } from "@/setttings/theme.ts";
+import { currentThemePreset, pageAnimationPreset, themeColorPreset } from "@/setttings/theme.ts";
 
 let LayoutHeaderSettings: React.FC = () => {
-    let { pageAnimation, setPageAnimation, themeColor, setThemeColor } = useThemeStore();
+    let { Text } = Typography;
+    let { pageAnimation, setPageAnimation, themeColor, setThemeColor, currentTheme, setCurrentTheme } = useThemeStore();
 
     // 设置抽屉
     let [drawerShow, setDrawerShow] = useState<boolean>(false);
@@ -24,28 +25,37 @@ let LayoutHeaderSettings: React.FC = () => {
                 onClose={() => changeDrawerShow(false)}
                 open={drawerShow}
             >
+                <Divider>风格设置</Divider>
                 <div className="flex-y-center mb">
-                    <span>切换动画</span>
-                    <Select
-                        className="ml flex-auto"
-                        value={pageAnimation}
-                        onSelect={(value) => setPageAnimation(value)}
-                        options={pageAnimationPreset}
+                    <Text>夜间模式</Text>
+                    <Radio.Group
+                        className="ml-a"
+                        options={currentThemePreset}
+                        value={currentTheme}
+                        optionType="button"
+                        buttonStyle="solid"
+                        onChange={(e) => {
+                            setCurrentTheme(e.target.value);
+                        }}
                     />
                 </div>
                 <div className="flex-y-center mb">
-                    <span>主题颜色</span>
+                    <Text>主题颜色</Text>
                     <ColorPicker
-                        className="ml flex-auto"
+                        className="ml-a"
                         value={themeColor}
                         onChange={(color) => setThemeColor(color.toHexString())}
-                        presets={[
-                            {
-                                label: "预设颜色",
-                                colors: themeColorPreset
-                            }
-                        ]}
-                        showText={(color) => <span>当前主题色：{color.toHexString()}</span>}
+                        presets={[{ label: "预设颜色", colors: themeColorPreset }]}
+                        showText={(color) => <span>{color.toHexString()}</span>}
+                    />
+                </div>
+                <div className="flex-y-center mb">
+                    <Text>切换动画</Text>
+                    <Select
+                        className="ml-a min-w-100px"
+                        value={pageAnimation}
+                        onSelect={(value) => setPageAnimation(value)}
+                        options={pageAnimationPreset}
                     />
                 </div>
             </Drawer>
