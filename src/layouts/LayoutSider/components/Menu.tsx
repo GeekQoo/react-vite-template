@@ -42,6 +42,7 @@ let LayoutSiderMenu: React.FC = () => {
 
     return (
         <Menu
+            className="h-100%"
             mode="inline"
             items={items()}
             onClick={onMenuClick}

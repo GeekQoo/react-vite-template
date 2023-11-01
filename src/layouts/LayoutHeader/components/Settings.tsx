@@ -27,7 +27,7 @@ let LayoutHeaderSettings: React.FC = () => {
             >
                 <Divider>风格设置</Divider>
                 <div className="flex-y-center mb">
-                    <Text>夜间模式</Text>
+                    <Text>主题风格</Text>
                     <Radio.Group
                         className="ml-a"
                         options={currentThemePreset}
