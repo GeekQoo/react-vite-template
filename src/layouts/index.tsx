@@ -32,8 +32,7 @@ let BasicLayout: React.FC = () => {
                     },
                     components: {
                         Layout: {
-                            headerColor: "#fff",
-                            siderBg: "#fff"
+                            headerColor: "#fff"
                         },
                         Menu: {
                             activeBarBorderWidth: 0
