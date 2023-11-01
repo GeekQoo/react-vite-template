@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { SettingOutlined } from "@ant-design/icons";
-import { Drawer, Select } from "antd";
+import { ColorPicker, Drawer, Select } from "antd";
 import { useThemeStore } from "@/store";
-import { pageAnimationPreset } from "@/setttings/theme.ts";
+import { pageAnimationPreset, themeColorPreset } from "@/setttings/theme.ts";
 
 let LayoutHeaderSettings: React.FC = () => {
-    let { pageAnimation, setPageAnimation } = useThemeStore();
+    let { pageAnimation, setPageAnimation, themeColor, setThemeColor } = useThemeStore();
 
     // 设置抽屉
     let [drawerShow, setDrawerShow] = useState<boolean>(false);
@@ -31,6 +31,21 @@ let LayoutHeaderSettings: React.FC = () => {
                         value={pageAnimation}
                         onSelect={(value) => setPageAnimation(value)}
                         options={pageAnimationPreset}
+                    />
+                </div>
+                <div className="flex-y-center mb">
+                    <span>主题颜色</span>
+                    <ColorPicker
+                        className="ml flex-auto"
+                        value={themeColor}
+                        onChange={(color) => setThemeColor(color.toHexString())}
+                        presets={[
+                            {
+                                label: "预设颜色",
+                                colors: themeColorPreset
+                            }
+                        ]}
+                        showText={(color) => <span>当前主题色：{color.toHexString()}</span>}
                     />
                 </div>
             </Drawer>

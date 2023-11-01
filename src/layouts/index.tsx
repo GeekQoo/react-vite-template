@@ -4,6 +4,7 @@ import LayoutHeader from "./LayoutHeader";
 import LayoutSider from "./LayoutSider";
 import LayoutContent from "./LayoutContent";
 import zhCN from "antd/locale/zh_CN";
+import { useThemeStore } from "@/store";
 
 let MyLayout: React.FC = () => {
     return (
@@ -18,12 +19,16 @@ let MyLayout: React.FC = () => {
 };
 
 let BasicLayout: React.FC = () => {
+    let { themeColor } = useThemeStore();
+
     return (
         <div>
             <ConfigProvider
                 locale={zhCN}
                 theme={{
-                    token: {},
+                    token: {
+                        colorPrimary: themeColor
+                    },
                     components: {
                         Layout: {
                             headerColor: "#fff",
