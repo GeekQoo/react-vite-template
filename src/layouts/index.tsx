@@ -19,7 +19,7 @@ let MyLayout: React.FC = () => {
 };
 
 let BasicLayout: React.FC = () => {
-    let { themeColor, currentTheme } = useThemeStore();
+    let { themeColor, currentTheme, borderRadius } = useThemeStore();
 
     return (
         <div>
@@ -28,7 +28,8 @@ let BasicLayout: React.FC = () => {
                 theme={{
                     algorithm: theme[currentTheme as "defaultAlgorithm" | "darkAlgorithm" | "compactAlgorithm"],
                     token: {
-                        colorPrimary: themeColor
+                        colorPrimary: themeColor,
+                        borderRadius: borderRadius
                     },
                     components: {
                         Layout: {

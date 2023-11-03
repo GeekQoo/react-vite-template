@@ -3,14 +3,16 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import { defaultThemeConfig } from "@/setttings/theme.ts";
 
 interface StateProps {
-    globalLoading: boolean;
-    currentTheme: string;
-    pageAnimation: string;
-    themeColor: string;
+    globalLoading: boolean; // 全局loading
+    currentTheme: string; // 当前主题
+    pageAnimation: string; // 页面切换动画
+    themeColor: string; // 主题颜色
+    borderRadius: number; // 圆角
     setGlobalLoading: (value: boolean) => void;
     setCurrentTheme: (value: string) => void;
     setPageAnimation: (value: string) => void;
     setThemeColor: (value: string) => void;
+    setBorderRadius: (value: number) => void;
 }
 
 let useAuthStore = create<StateProps>()(
@@ -20,6 +22,7 @@ let useAuthStore = create<StateProps>()(
             currentTheme: defaultThemeConfig.currentTheme,
             pageAnimation: defaultThemeConfig.pageAnimation,
             themeColor: defaultThemeConfig.themeColor,
+            borderRadius: defaultThemeConfig.borderRadius,
             setGlobalLoading: (value?: boolean) => {
                 set(() => ({ globalLoading: value }));
             },
@@ -31,6 +34,9 @@ let useAuthStore = create<StateProps>()(
             },
             setThemeColor: (value?: string) => {
                 set(() => ({ themeColor: value }));
+            },
+            setBorderRadius: (value?: number) => {
+                set(() => ({ borderRadius: value }));
             }
         }),
         {
@@ -38,7 +44,7 @@ let useAuthStore = create<StateProps>()(
             partialize: (state) => {
                 return Object.fromEntries(
                     Object.entries(state).filter(([key]) =>
-                        ["globalLoading", "currentTheme", "pageAnimation", "themeColor"].includes(key)
+                        ["globalLoading", "currentTheme", "pageAnimation", "themeColor", "borderRadius"].includes(key)
                     )
                 );
             },

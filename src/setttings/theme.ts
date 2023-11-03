@@ -2,7 +2,8 @@
 export const defaultThemeConfig = {
     currentTheme: "defaultAlgorithm",
     pageAnimation: "fade-scale",
-    themeColor: "#1677ff"
+    themeColor: "#1677ff",
+    borderRadius: 6
 };
 
 // 当前主题预设
