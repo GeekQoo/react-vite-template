@@ -7,10 +7,12 @@ import { useCommonTable } from "@/hooks";
 interface TableDataProps {
     id: string | number;
     name: string;
+
+    [key: string]: any;
 }
 
 let RoleList: React.FC = () => {
-    let { message } = App.useApp();
+    let { message, modal } = App.useApp();
 
     let {
         tableLoading,
@@ -31,7 +33,23 @@ let RoleList: React.FC = () => {
 
     let tableColumns: ColumnsType<TableDataProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
-        { title: "角色名称", align: "center", dataIndex: "name" }
+        { title: "角色名称", align: "center", dataIndex: "name" },
+        {
+            title: "操作",
+            key: "action",
+            align: "center",
+            width: 180,
+            render: (_, record) => (
+                <Space>
+                    <Button type="primary" ghost onClick={() => onEdit(record)}>
+                        编辑
+                    </Button>
+                    <Button type="primary" danger ghost onClick={() => onDelete(record)}>
+                        删除
+                    </Button>
+                </Space>
+            )
+        }
     ];
 
     let getTableData = () => {
@@ -53,17 +71,31 @@ let RoleList: React.FC = () => {
     };
 
     // 批量删除
-    let onDelete = () => {
-        if (tableSelection.length === 0) {
-            message.error("请先选择要删除的数据");
-        } else {
-            message.error(`您要删除的ID为：${tableSelection.join(",")}`);
-        }
+    let onDelete = (record?: TableDataProps) => {
+        let ids = record ? [record.id] : tableSelection;
+        if (ids.length < 1) return message.error("请先选择要删除的数据");
+        modal.confirm({
+            title: "提示",
+            content: "确认删除吗？",
+            okText: "确认",
+            cancelText: "取消",
+            onOk() {
+                message.success(`删除成功，您删除的ID为：${ids.join(",")}`);
+            },
+            onCancel() {
+                message.info("您取消了删除");
+            }
+        });
     };
 
     // 新增
     let onAdd = () => {
         message.warning("正在开发中");
+    };
+
+    // 编辑
+    let onEdit = (record: TableDataProps) => {
+        message.warning(`您要编辑的ID为：${record.id}`);
     };
 
     return (
@@ -73,7 +105,7 @@ let RoleList: React.FC = () => {
                     <Button type="primary" onClick={onAdd}>
                         新增
                     </Button>
-                    <Button type="primary" danger onClick={onDelete}>
+                    <Button type="primary" danger onClick={() => onDelete()}>
                         批量删除
                     </Button>
                 </Space>
