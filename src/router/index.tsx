@@ -2,8 +2,8 @@ import { lazy } from "react";
 import MyApp from "../App.tsx";
 import NotFound from "../pages/NotFound.tsx";
 
-let Home = lazy(() => import("../pages/Home"));
-let RoleList = lazy(() => import("../pages/Permission/RoleList"));
+let Home = lazy(() => import("../pages/Container/Home.tsx"));
+let RoleList = lazy(() => import("@/pages/Container/Permission/RoleList"));
 
 let routes = [
     {
