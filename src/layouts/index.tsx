@@ -1,10 +1,11 @@
-import React from "react";
-import { App, ConfigProvider, Layout, theme } from "antd";
+import React, { useEffect } from "react";
+import { App, ConfigProvider, Layout, Result, Spin, theme } from "antd";
 import LayoutHeader from "./LayoutHeader";
 import LayoutSider from "./LayoutSider";
 import LayoutContent from "./LayoutContent";
 import zhCN from "antd/locale/zh_CN";
-import { useThemeStore } from "@/store";
+import { useAuthStore, useThemeStore } from "@/store";
+import { GET_USERINFO } from "@/api/auth.ts";
 
 let MyLayout: React.FC = () => {
     return (
@@ -19,7 +20,20 @@ let MyLayout: React.FC = () => {
 };
 
 let BasicLayout: React.FC = () => {
-    let { themeColor, currentTheme, borderRadius } = useThemeStore();
+    let { themeColor, currentTheme, borderRadius, globalLoading, setGlobalLoading } = useThemeStore();
+    let { setUserData } = useAuthStore();
+
+    let getUserData = () => {
+        setGlobalLoading(true);
+        GET_USERINFO<System.UserDataProps>({}).then((res) => {
+            setUserData(res.data.data ?? {});
+            setGlobalLoading(false);
+        });
+    };
+
+    useEffect(() => {
+        getUserData();
+    }, []);
 
     return (
         <div>
@@ -42,6 +56,13 @@ let BasicLayout: React.FC = () => {
                 }}
             >
                 <App>
+                    {globalLoading && (
+                        <div className="fixed wh-100% top-0 left-0 bg-[#fff] z-9999">
+                            <div className="wh-100% flex-center">
+                                <Result icon={<Spin size="large" />} title="加载中" subTitle="先去喝杯茶吧" />
+                            </div>
+                        </div>
+                    )}
                     <MyLayout />
                 </App>
             </ConfigProvider>

@@ -26,7 +26,7 @@ export default [
                 avatar: "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
                 menu: [
                     {
-                        label: "控制台",
+                        label: "工作台",
                         key: "/",
                         icon: "HomeOutlined"
                     },

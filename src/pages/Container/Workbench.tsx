@@ -2,12 +2,12 @@ import React from "react";
 import { Avatar, Card, Space, Statistic, Typography } from "antd";
 import { useAuthStore } from "@/store";
 
-let Home: React.FC = () => {
+let Workbench: React.FC = () => {
     let { userData } = useAuthStore();
     let { Title, Text } = Typography;
 
     return (
-        <div className="home-page">
+        <div className="workbench-page">
             <Card>
                 <div className="flex-y-center">
                     <Avatar size={80} src={userData.avatar} />
@@ -28,4 +28,4 @@ let Home: React.FC = () => {
     );
 };
 
-export default Home;
+export default Workbench;

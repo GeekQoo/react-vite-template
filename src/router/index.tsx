@@ -1,19 +1,30 @@
-import { lazy } from "react";
-import MyApp from "../App.tsx";
-import NotFound from "../pages/NotFound.tsx";
+import React, { lazy } from "react";
+import BasicLayout from "@/layouts";
+import NotFound from "@/pages/NotFound.tsx";
+import Login from "@/pages/Auth/Login.tsx";
+import { Navigate } from "react-router-dom";
 
-let Home = lazy(() => import("../pages/Container/Home.tsx"));
+let Workbench = lazy(() => import("@/pages/Container/Workbench.tsx"));
 let RoleList = lazy(() => import("@/pages/Container/Permission/RoleList"));
 
 let routes = [
     {
+        path: "/login",
+        title: "登录",
+        element: <Login />
+    },
+    {
         path: "/",
-        element: <MyApp />,
+        element: <BasicLayout />,
         children: [
             {
-                index: true,
-                title: "首页",
-                element: <Home />
+                path: "/",
+                element: <Navigate to="/workbench" />
+            },
+            {
+                path: "/workbench",
+                title: "工作台",
+                element: <Workbench />
             },
             {
                 path: "/permission/role-list",
