@@ -27,7 +27,7 @@ export default [
                 menu: [
                     {
                         label: "工作台",
-                        key: "/",
+                        key: "/workbench",
                         icon: "HomeOutlined"
                     },
                     {
