@@ -1,15 +1,17 @@
 import { router } from "@/router";
+import { message } from "antd";
 
 // 错误提示
-let errorMessage = (message: string) => {
-    console.log(message);
+let errorMessage = (msg: string) => {
+    message.error(msg);
 };
 
 export function checkStatus(status: number | null, msg: string = "服务异常，请稍后再试") {
     switch (status) {
         case 401:
-            router.navigate("/login");
-            errorMessage("登录状态失效，请重新登录");
+            router.navigate("/login").then(() => {
+                errorMessage("登录状态失效，请重新登录");
+            });
             break;
         case 403:
             errorMessage("您没有权限操作");

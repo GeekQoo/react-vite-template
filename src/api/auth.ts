@@ -1,8 +1,6 @@
 import { httpRequest } from "@/utils/request";
 import { useAuthStore } from "@/store";
 
-let { token } = useAuthStore.getState();
-
 // 账号密码登录
 export function AUTH_LOGIN<T = unknown>(params: object) {
     return httpRequest<T>("/auth/login", "post", {
@@ -12,6 +10,7 @@ export function AUTH_LOGIN<T = unknown>(params: object) {
 
 // 获取登录用户信息
 export function GET_USERINFO<T = unknown>(params: object) {
+    let { token } = useAuthStore.getState();
     return httpRequest<T>("/auth/currentUser", "get", {
         params,
         headers: {

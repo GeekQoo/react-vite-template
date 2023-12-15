@@ -20,13 +20,13 @@ let Login: React.FC = () => {
         AUTH_LOGIN({
             username: formData.username,
             password: formData.password
-        }).then(async (res) => {
+        }).then((res) => {
             if (res.data.code === 0) {
+                setToken(res.headers.token);
                 message.success({
                     content: "登录成功，正在跳转...",
                     duration: 2,
                     onClose: () => {
-                        setToken(res.headers.token);
                         navigate("/");
                     }
                 });
