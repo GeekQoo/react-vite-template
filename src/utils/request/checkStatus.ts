@@ -1,3 +1,5 @@
+import { router } from "@/router";
+
 // 错误提示
 let errorMessage = (message: string) => {
     console.log(message);
@@ -6,6 +8,7 @@ let errorMessage = (message: string) => {
 export function checkStatus(status: number | null, msg: string = "服务异常，请稍后再试") {
     switch (status) {
         case 401:
+            router.navigate("/login");
             errorMessage("登录状态失效，请重新登录");
             break;
         case 403:

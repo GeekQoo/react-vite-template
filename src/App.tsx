@@ -1,9 +1,9 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import zhCN from "antd/locale/zh_CN";
 import { App, ConfigProvider, theme } from "antd";
 import { useThemeStore } from "@/store";
-import { routes } from "@/router";
+import { router } from "@/router";
 
 let MyApp: React.FC = () => {
     let { themeColor, currentTheme, borderRadius } = useThemeStore();
@@ -28,7 +28,7 @@ let MyApp: React.FC = () => {
             }}
         >
             <App>
-                <RouterProvider router={createBrowserRouter(routes)} />
+                <RouterProvider router={router} />
             </App>
         </ConfigProvider>
     );

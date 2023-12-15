@@ -2,7 +2,7 @@ import React, { lazy } from "react";
 import BasicLayout from "@/layouts";
 import NotFound from "@/pages/NotFound.tsx";
 import Login from "@/pages/Auth/Login.tsx";
-import { Navigate } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
 let Workbench = lazy(() => import("@/pages/Container/Workbench.tsx"));
 let RoleList = lazy(() => import("@/pages/Container/Permission/RoleList"));
@@ -39,4 +39,6 @@ let routes = [
     }
 ];
 
-export { routes };
+let router = createBrowserRouter(routes);
+
+export { routes, router };
