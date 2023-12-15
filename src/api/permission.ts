@@ -3,12 +3,13 @@ import { useAuthStore } from "@/store";
 
 let { token } = useAuthStore.getState();
 
-// 获取角色列表
-export function GET_ROLE_LIST<T = unknown>(params: object) {
-    return httpRequest<T>("/api/permission/role", "get", {
+// 获取用户列表
+export function GET_USER_LIST<T = unknown>(params: object) {
+    let { token } = useAuthStore.getState();
+    return httpRequest<T>("/system/user", "get", {
         params,
         headers: {
-            token: token
+            Authorization: `Bearer ${token}`
         }
     });
 }
