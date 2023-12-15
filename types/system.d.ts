@@ -3,6 +3,7 @@ declare namespace System {
     interface ResponseProps<T = unknown> {
         code: number;
         data?: T;
+        msg?: string;
         total?: Nullable<number>;
 
         [key: string]: unknown;

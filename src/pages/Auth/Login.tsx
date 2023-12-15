@@ -1,14 +1,37 @@
 import React from "react";
-import { Button, Card, Input } from "antd";
+import { App, Button, Card, Input } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { AUTH_LOGIN } from "@/api/auth.ts";
+import { useAuthStore } from "@/store";
+import { useNavigate } from "react-router-dom";
 
 let Login: React.FC = () => {
+    let { message } = App.useApp();
+    let { token, setToken } = useAuthStore();
+
+    let navigate = useNavigate();
+
     let [formData, setFormData] = React.useState({
-        username: "",
-        password: ""
+        username: "admin",
+        password: "admin"
     });
 
     let onSubmit = () => {
+        AUTH_LOGIN({
+            username: formData.username,
+            password: formData.password
+        }).then(async (res) => {
+            if (res.data.code === 0) {
+                message.success({
+                    content: "登录成功，正在跳转...",
+                    duration: 2,
+                    onClose: () => {
+                        setToken(res.headers.token);
+                        navigate("/");
+                    }
+                });
+            } else message.error(res.data.msg);
+        });
         console.log(formData);
     };
 
