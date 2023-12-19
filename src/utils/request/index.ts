@@ -16,7 +16,7 @@ service.interceptors.request.use(
 
 // 响应拦截
 service.interceptors.response.use(
-    (response: AxiosResponse<System.ResponseProps>) => response,
+    (response: AxiosResponse<Request.ResponseProps>) => response,
     (error) => {
         checkStatus(error?.response?.status);
         return Promise.reject(error.response);
@@ -28,7 +28,7 @@ export function httpRequest<T>(
     url: string,
     method: Method,
     config?: UnKnownObject
-): Promise<AxiosResponse<System.ResponseProps<T>>> {
+): Promise<AxiosResponse<Request.ResponseProps<T>>> {
     return service({
         url,
         method,

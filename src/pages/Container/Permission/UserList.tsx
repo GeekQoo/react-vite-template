@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { App, Button, Card, Space, Table } from "antd";
 import { DELETE_USER, GET_USER_LIST } from "@/api/permission.ts";
 import type { ColumnsType } from "antd/es/table";
@@ -42,7 +42,7 @@ let UserList: React.FC = () => {
             width: 180,
             render: (_, record) => (
                 <Space>
-                    <Button type="primary" ghost onClick={() => onEdit(record)}>
+                    <Button type="primary" ghost onClick={() => openEditModal(record)}>
                         编辑
                     </Button>
                     <Button type="primary" danger ghost onClick={() => onDelete(record)}>
@@ -96,21 +96,24 @@ let UserList: React.FC = () => {
         });
     };
 
-    // 新增
-    let onAdd = () => {
-        message.warning("正在开发中");
-    };
+    // 新增编辑
+    let [editModal, setEditModal] = useState<System.ModalConfigProps<TableDataProps>>({
+        show: false,
+        configData: null
+    });
 
-    // 编辑
-    let onEdit = (record: TableDataProps) => {
-        message.warning(`您要编辑的ID为：${record.id}`);
+    let openEditModal = (record?: TableDataProps) => {
+        setEditModal({
+            show: true,
+            configData: record ?? null
+        });
     };
 
     return (
         <div className="user-list-page">
             <Card>
                 <Space className="mb">
-                    <Button type="primary" onClick={onAdd}>
+                    <Button type="primary" onClick={() => openEditModal()}>
                         新增
                     </Button>
                 </Space>

@@ -1,14 +1,8 @@
+/*
+ * @description: 系统相关的类型定义
+ */
+
 declare namespace System {
-    // 响应类型
-    interface ResponseProps<T = unknown> {
-        code: number;
-        data?: T;
-        msg?: string;
-        total?: Nullable<number>;
-
-        [key: string]: unknown;
-    }
-
     interface MenuProps {
         label: string;
         key: string | number;
@@ -23,5 +17,11 @@ declare namespace System {
         menu?: MenuProps[];
 
         [key: string]: unknown;
+    }
+
+    // Modal操作类型
+    interface ModalConfigProps<T = UnKnownObject> {
+        show: boolean;
+        configData: Nullable<T>;
     }
 }
