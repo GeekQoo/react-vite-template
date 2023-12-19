@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { App, Button, Card, Space, Table } from "antd";
-import { GET_USER_LIST } from "@/api/permission.ts";
+import { DELETE_USER, GET_USER_LIST } from "@/api/permission.ts";
 import type { ColumnsType } from "antd/es/table";
 import { useCommonTable } from "@/hooks";
 
@@ -64,7 +64,6 @@ let UserList: React.FC = () => {
             size: tableParams.pagination?.pageSize
         }).then((res) => {
             if (res.data.code === 0) {
-                console.log(res.data);
                 setTableData(res.data.data?.list ?? []);
             }
             setTableParams({
@@ -88,7 +87,16 @@ let UserList: React.FC = () => {
             okText: "确认",
             cancelText: "取消",
             onOk() {
-                message.success(`删除成功，您删除的ID为：${ids.join(",")}`);
+                DELETE_USER({
+                    id: ids[0]
+                }).then((res) => {
+                    if (res.data.code === 0) {
+                        message.success("删除成功");
+                        getTableData();
+                    } else {
+                        message.error(res.data.msg ?? "删除失败");
+                    }
+                });
             },
             onCancel() {
                 message.info("您取消了删除");
@@ -112,9 +120,6 @@ let UserList: React.FC = () => {
                 <Space className="mb">
                     <Button type="primary" onClick={onAdd}>
                         新增
-                    </Button>
-                    <Button type="primary" danger onClick={() => onDelete()}>
-                        批量删除
                     </Button>
                 </Space>
                 <Table

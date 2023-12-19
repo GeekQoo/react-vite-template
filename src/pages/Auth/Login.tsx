@@ -32,7 +32,6 @@ let Login: React.FC = () => {
                 });
             } else message.error(res.data.msg);
         });
-        console.log(formData);
     };
 
     return (
