@@ -34,6 +34,7 @@ let UserList: React.FC = () => {
     let tableColumns: ColumnsType<TableDataProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
         { title: "用户名", align: "center", dataIndex: "username" },
+        { title: "昵称", align: "center", dataIndex: "nickname" },
         {
             title: "操作",
             key: "action",
@@ -86,21 +87,12 @@ let UserList: React.FC = () => {
             content: "确认删除吗？",
             okText: "确认",
             cancelText: "取消",
-            onOk() {
-                DELETE_USER({
-                    id: ids[0]
-                }).then((res) => {
-                    if (res.data.code === 0) {
-                        message.success("删除成功");
-                        getTableData();
-                    } else {
-                        message.error(res.data.msg ?? "删除失败");
-                    }
-                });
+            onOk: async () => {
+                let res = await DELETE_USER({ id: ids[0] });
+                res.data.code === 0 ? message.success("删除成功") : message.error(res.data.msg ?? "删除失败");
+                getTableData();
             },
-            onCancel() {
-                message.info("您取消了删除");
-            }
+            onCancel: () => message.info("您取消了删除")
         });
     };
 
