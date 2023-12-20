@@ -5,6 +5,7 @@ import type { ColumnsType } from "antd/es/table";
 import type { RowProps } from "./types";
 import { useCommonTable } from "@/hooks";
 import UserEdit from "./UserEdit.tsx";
+import { ModalConfigProps } from "#/system";
 
 const UserList: React.FC = () => {
     let { message, modal } = App.useApp();
@@ -92,7 +93,7 @@ const UserList: React.FC = () => {
     };
 
     // 新增编辑
-    let [editModal, setEditModal] = useState<System.ModalConfigProps<RowProps>>({
+    let [editModal, setEditModal] = useState<ModalConfigProps<RowProps>>({
         show: false,
         configData: null
     });

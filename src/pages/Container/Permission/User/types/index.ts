@@ -1,9 +1,11 @@
+import { ModalConfigProps } from "#/system";
+
 export interface RowProps {
     id: string | number;
     username: string;
 }
 
-type ValueProps = System.ModalConfigProps<RowProps>;
+type ValueProps = ModalConfigProps<RowProps>;
 
 export interface PropsType {
     value: ValueProps;

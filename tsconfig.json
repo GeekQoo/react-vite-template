@@ -6,7 +6,8 @@
         "useDefineForClassFields": true, // 是否使用 Object.defineProperty 定义类实例属性
         "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"]
+            "@/*": ["src/*"],
+            "#/*": ["types/*"]
         },
         "lib": ["ES2020", "DOM", "DOM.Iterable"], // 编译过程中需要引入的库文件的列表
         "skipLibCheck": true, // 是否在编译时跳过对声明文件（.d.ts文件）的类型检查

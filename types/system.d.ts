@@ -2,6 +2,12 @@
  * @description: 系统相关的类型定义
  */
 
+// Modal操作类型
+export interface ModalConfigProps<T = UnKnownObject> {
+    show: boolean;
+    configData: Nullable<T>;
+}
+
 declare namespace System {
     interface MenuProps {
         label: string;
@@ -17,11 +23,5 @@ declare namespace System {
         menu?: MenuProps[];
 
         [key: string]: unknown;
-    }
-
-    // Modal操作类型
-    interface ModalConfigProps<T = UnKnownObject> {
-        show: boolean;
-        configData: Nullable<T>;
     }
 }

@@ -20,7 +20,8 @@ export default defineConfig(({ command, mode }) => {
         resolve: {
             // 设置别名
             alias: {
-                "@/": `${resolve(__dirname, "src")}/`
+                "@/": `${resolve(__dirname, "src")}/`,
+                "#/": `${resolve(__dirname, "types")}/`
             }
         },
         css: {
