@@ -119,7 +119,7 @@ const UserEdit: React.FC<PropsType> = (props) => {
                             <Form.Item<FormProps>
                                 label="登录密码"
                                 name="password"
-                                rules={[{ required: true, message: "请输入密码" }]}
+                                rules={[{ required: !props.value.configData, message: "请输入密码" }]}
                             >
                                 <Input.Password allowClear placeholder="请输入密码" />
                             </Form.Item>

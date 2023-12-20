@@ -38,7 +38,7 @@ export function ADD_USER<T = unknown>(params: UnKnownObject) {
 // 修改用户
 export function UPDATE_USER<T = unknown>(params: UnKnownObject) {
     let { token } = useAuthStore.getState();
-    return httpRequest<T>("/system/user", "patch", {
+    return httpRequest<T>(`/system/user/${params.id}`, "patch", {
         data: params,
         headers: {
             Authorization: `Bearer ${token}`
