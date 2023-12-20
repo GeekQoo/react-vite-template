@@ -88,7 +88,7 @@ const UserList: React.FC = () => {
                 res.data.code === 0 ? message.success("删除成功") : message.error(res.data.msg ?? "删除失败");
                 getTableData();
             },
-            onCancel: () => message.info("您取消了删除")
+            onCancel: () => {}
         });
     };
 
@@ -99,10 +99,7 @@ const UserList: React.FC = () => {
     });
 
     let openEditModal = (record?: RowProps) => {
-        setEditModal({
-            show: true,
-            configData: record ?? null
-        });
+        setEditModal({ show: true, configData: record ?? null });
     };
 
     return (

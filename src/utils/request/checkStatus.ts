@@ -22,6 +22,9 @@ export function checkStatus(status: number | null, msg: string = "服务异常�
         case 408:
             errorMessage("请求超时");
             break;
+        case 422:
+            errorMessage("请求参数错误，请检查后重试");
+            break;
         case 500:
             errorMessage("服务器发生错误，请检查服务器");
             break;
