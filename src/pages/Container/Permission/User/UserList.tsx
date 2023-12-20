@@ -102,6 +102,10 @@ const UserList: React.FC = () => {
         setEditModal({ show: true, configData: record ?? null });
     };
 
+    useEffect(() => {
+        getTableData();
+    }, [editModal]);
+
     return (
         <div className="user-list-page">
             <Card>
