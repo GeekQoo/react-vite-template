@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 import { App, Button, Card, Space, Table } from "antd";
 import { DELETE_USER, GET_USER_LIST } from "@/api/permission.ts";
 import type { ColumnsType } from "antd/es/table";
+import type { RowProps } from "./types";
 import { useCommonTable } from "@/hooks";
+import UserEdit from "./UserEdit.tsx";
 
-interface TableDataProps {
-    id: string | number;
-    username: string;
-}
-
-let UserList: React.FC = () => {
+const UserList: React.FC = () => {
     let { message, modal } = App.useApp();
 
     let {
@@ -23,13 +20,13 @@ let UserList: React.FC = () => {
         handleTableChange,
         tableSelection,
         setTableSelection
-    } = useCommonTable<TableDataProps>("id");
+    } = useCommonTable<RowProps>("id");
 
     useEffect(() => {
         getTableData();
     }, [tableParams.pagination?.current, tableParams.pagination?.pageSize]);
 
-    let tableColumns: ColumnsType<TableDataProps> = [
+    let tableColumns: ColumnsType<RowProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
         { title: "用户名", align: "center", dataIndex: "username" },
         { title: "昵称", align: "center", dataIndex: "nickname" },
@@ -54,7 +51,7 @@ let UserList: React.FC = () => {
     let getTableData = () => {
         setTableLoading(true);
         GET_USER_LIST<{
-            list: TableDataProps[];
+            list: RowProps[];
             pagination: {
                 total: number;
             };
@@ -77,7 +74,7 @@ let UserList: React.FC = () => {
     };
 
     // 批量删除
-    let onDelete = (record?: TableDataProps) => {
+    let onDelete = (record?: RowProps) => {
         let ids = record ? [record.id] : tableSelection;
         if (ids.length < 1) return message.error("请先选择要删除的数据");
         modal.confirm({
@@ -95,12 +92,12 @@ let UserList: React.FC = () => {
     };
 
     // 新增编辑
-    let [editModal, setEditModal] = useState<System.ModalConfigProps<TableDataProps>>({
+    let [editModal, setEditModal] = useState<System.ModalConfigProps<RowProps>>({
         show: false,
         configData: null
     });
 
-    let openEditModal = (record?: TableDataProps) => {
+    let openEditModal = (record?: RowProps) => {
         setEditModal({
             show: true,
             configData: record ?? null
@@ -131,6 +128,7 @@ let UserList: React.FC = () => {
                     }}
                 />
             </Card>
+            <UserEdit value={editModal} updateValue={setEditModal} />
         </div>
     );
 };
