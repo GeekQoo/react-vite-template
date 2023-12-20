@@ -7,8 +7,6 @@ import { useCommonTable } from "@/hooks";
 interface TableDataProps {
     id: string | number;
     username: string;
-
-    [key: string]: any;
 }
 
 let UserList: React.FC = () => {

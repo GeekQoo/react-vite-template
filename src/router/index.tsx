@@ -5,7 +5,7 @@ import Login from "@/pages/Auth/Login.tsx";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
 let Workbench = lazy(() => import("@/pages/Container/Workbench.tsx"));
-let UserList = lazy(() => import("@/pages/Container/Permission/UserList.tsx"));
+let UserList = lazy(() => import("@/pages/Container/Permission/User/UserList.tsx"));
 
 let routes = [
     {
