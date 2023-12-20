@@ -8,20 +8,18 @@ export interface ModalConfigProps<T = UnKnownObject> {
     configData: Nullable<T>;
 }
 
-declare namespace System {
-    interface MenuProps {
-        label: string;
-        key: string | number;
-        icon: string;
-        children?: MenuProps[];
-    }
+// 用户信息类型
+interface UserMenuProps {
+    label: string;
+    key: string | number;
+    icon: string;
+    children?: UserMenuProps[];
+}
 
-    // 用户信息
-    interface UserDataProps {
-        username?: string;
-        avatar?: string;
-        menu?: MenuProps[];
+export interface UserDataProps {
+    username?: string;
+    avatar?: string;
+    menu?: UserMenuProps[];
 
-        [key: string]: unknown;
-    }
+    [key: string]: unknown;
 }

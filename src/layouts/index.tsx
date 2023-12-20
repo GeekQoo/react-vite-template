@@ -5,6 +5,7 @@ import LayoutSider from "./LayoutSider";
 import LayoutContent from "./LayoutContent";
 import { useAuthStore, useThemeStore } from "@/store";
 import { GET_USERINFO } from "@/api/auth.ts";
+import { UserDataProps } from "#/system";
 
 let MyLayout: React.FC = () => {
     return (
@@ -24,7 +25,7 @@ let BasicLayout: React.FC = () => {
 
     let getUserData = () => {
         setGlobalLoading(true);
-        GET_USERINFO<System.UserDataProps>({}).then((res) => {
+        GET_USERINFO<UserDataProps>({}).then((res) => {
             setUserData(res.data.data ?? {});
             setGlobalLoading(false);
         });
