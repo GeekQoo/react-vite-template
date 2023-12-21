@@ -12,7 +12,7 @@ export interface ModalConfigProps<T = UnKnownObject> {
 interface UserMenuProps {
     label: string;
     key: string | number;
-    icon: string;
+    icon?: string;
     children?: UserMenuProps[];
 }
 
