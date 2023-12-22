@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { App, Button, Col, Form, Input, Modal, Row } from "antd";
 import { ADD_USER, GET_ROLE_ALL, GET_USER_BY_ID, UPDATE_USER } from "@/api/permission.ts";
-import type { RowProps } from "./types";
 import type { SysModalProps } from "#/system";
+import type { RoleProps, UserProps } from "#/permission";
 
-const UserEdit: React.FC<SysModalProps<RowProps>> = (props) => {
+const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
     let { message } = App.useApp();
 
     interface FormProps {
@@ -37,11 +37,6 @@ const UserEdit: React.FC<SysModalProps<RowProps>> = (props) => {
     };
 
     // 获取选项
-    interface RoleProps {
-        roleName: string;
-        id: string | number;
-    }
-
     let [roleOptions, setRoleOptions] = useState<RoleProps[]>([]);
 
     let getOption = () => {

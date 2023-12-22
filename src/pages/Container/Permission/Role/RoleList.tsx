@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { App, Button, Card, Space, Table } from "antd";
 import { DELETE_ROLE, GET_ROLE_LIST } from "@/api/permission.ts";
-import type { ColumnsType } from "antd/es/table";
-import type { RowProps } from "./types";
 import { useCommonTable } from "@/hooks";
 import RoleEdit from "./RoleEdit.tsx";
-import { SysModalConfig } from "#/system";
 import * as dayjs from "dayjs";
+import type { ColumnsType } from "antd/es/table";
+import type { SysModalConfig } from "#/system";
+import type { RoleProps } from "#/permission";
 
 const RoleList: React.FC = () => {
     let { message, modal } = App.useApp();
@@ -22,13 +22,13 @@ const RoleList: React.FC = () => {
         handleTableChange,
         tableSelection,
         setTableSelection
-    } = useCommonTable<RowProps>("id");
+    } = useCommonTable<RoleProps>("id");
 
     useEffect(() => {
         getTableData();
     }, [tableParams.pagination?.current, tableParams.pagination?.pageSize]);
 
-    let tableColumns: ColumnsType<RowProps> = [
+    let tableColumns: ColumnsType<RoleProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
         { title: "角色名称", align: "center", dataIndex: "roleName" },
         {
@@ -64,7 +64,7 @@ const RoleList: React.FC = () => {
     let getTableData = () => {
         setTableLoading(true);
         GET_ROLE_LIST<{
-            list: RowProps[];
+            list: RoleProps[];
             pagination: {
                 total: number;
             };
@@ -87,7 +87,7 @@ const RoleList: React.FC = () => {
     };
 
     // 批量删除
-    let onDelete = (record?: RowProps) => {
+    let onDelete = (record?: RoleProps) => {
         let ids = record ? [record.id] : tableSelection;
         if (ids.length < 1) return message.error("请先选择要删除的数据");
         modal.confirm({
@@ -105,12 +105,12 @@ const RoleList: React.FC = () => {
     };
 
     // 新增编辑
-    let [editModal, setEditModal] = useState<SysModalConfig<RowProps>>({
+    let [editModal, setEditModal] = useState<SysModalConfig<RoleProps>>({
         show: false,
         configData: null
     });
 
-    let openEditModal = (record?: RowProps) => {
+    let openEditModal = (record?: RoleProps) => {
         setEditModal({ show: true, configData: record ?? null });
     };
 

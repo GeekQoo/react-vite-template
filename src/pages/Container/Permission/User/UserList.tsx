@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { App, Button, Card, Space, Table } from "antd";
 import { DELETE_USER, GET_USER_LIST } from "@/api/permission.ts";
-import type { ColumnsType } from "antd/es/table";
-import type { RowProps } from "./types";
 import { useCommonTable } from "@/hooks";
 import UserEdit from "./UserEdit.tsx";
-import { SysModalConfig } from "#/system";
 import * as dayjs from "dayjs";
+import type { ColumnsType } from "antd/es/table";
+import type { SysModalConfig } from "#/system";
+import type { UserProps } from "#/permission";
 
 const UserList: React.FC = () => {
     let { message, modal } = App.useApp();
@@ -22,13 +22,13 @@ const UserList: React.FC = () => {
         handleTableChange,
         tableSelection,
         setTableSelection
-    } = useCommonTable<RowProps>("id");
+    } = useCommonTable<UserProps>("id");
 
     useEffect(() => {
         getTableData();
     }, [tableParams.pagination?.current, tableParams.pagination?.pageSize]);
 
-    let tableColumns: ColumnsType<RowProps> = [
+    let tableColumns: ColumnsType<UserProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
         { title: "用户名", align: "center", dataIndex: "username" },
         { title: "昵称", align: "center", dataIndex: "nickname" },
@@ -65,7 +65,7 @@ const UserList: React.FC = () => {
     let getTableData = () => {
         setTableLoading(true);
         GET_USER_LIST<{
-            list: RowProps[];
+            list: UserProps[];
             pagination: {
                 total: number;
             };
@@ -88,7 +88,7 @@ const UserList: React.FC = () => {
     };
 
     // 批量删除
-    let onDelete = (record?: RowProps) => {
+    let onDelete = (record?: UserProps) => {
         let ids = record ? [record.id] : tableSelection;
         if (ids.length < 1) return message.error("请先选择要删除的数据");
         modal.confirm({
@@ -106,12 +106,12 @@ const UserList: React.FC = () => {
     };
 
     // 新增编辑
-    let [editModal, setEditModal] = useState<SysModalConfig<RowProps>>({
+    let [editModal, setEditModal] = useState<SysModalConfig<UserProps>>({
         show: false,
         configData: null
     });
 
-    let openEditModal = (record?: RowProps) => {
+    let openEditModal = (record?: UserProps) => {
         setEditModal({ show: true, configData: record ?? null });
     };
 

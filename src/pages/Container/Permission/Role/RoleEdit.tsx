@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { App, Button, Col, Form, Input, Modal, Row } from "antd";
 import { ADD_ROLE, GET_ROLE_BY_ID, UPDATE_ROLE } from "@/api/permission.ts";
-import type { RowProps } from "./types";
 import type { SysModalProps } from "#/system";
+import type { RoleProps } from "#/permission";
 
-const RoleEdit: React.FC<SysModalProps<RowProps>> = (props) => {
+const RoleEdit: React.FC<SysModalProps<RoleProps>> = (props) => {
     let { message } = App.useApp();
 
     interface FormProps {
