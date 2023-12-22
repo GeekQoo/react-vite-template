@@ -2,11 +2,8 @@ import { ModalConfigProps } from "#/system";
 
 export interface RowProps {
     id: string | number;
-    username: string;
-    password: string;
-    nickname: string;
-    email: string;
-    phone: string;
+    roleName: string;
+    remark: string;
     createdAt: string;
     updatedAt: string;
 }

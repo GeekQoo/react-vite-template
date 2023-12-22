@@ -34,7 +34,10 @@ let BasicLayout: React.FC = () => {
                 label: "权限配置",
                 key: "/permission",
                 icon: "TeamOutlined",
-                children: [{ label: "用户管理", key: "/permission/user-list" }]
+                children: [
+                    { label: "用户管理", key: "/permission/user-list" },
+                    { label: "角色管理", key: "/permission/role-list" }
+                ]
             }
         ];
         GET_USERINFO<UserDataProps>({}).then((res) => {

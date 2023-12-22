@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { App, Button, Card, Space, Table } from "antd";
-import { DELETE_USER, GET_USER_LIST } from "@/api/permission.ts";
+import { DELETE_ROLE, GET_ROLE_LIST } from "@/api/permission.ts";
 import type { ColumnsType } from "antd/es/table";
 import type { RowProps } from "./types";
 import { useCommonTable } from "@/hooks";
-import UserEdit from "./UserEdit.tsx";
+import RoleEdit from "./RoleEdit.tsx";
 import { ModalConfigProps } from "#/system";
 import * as dayjs from "dayjs";
 
-const UserList: React.FC = () => {
+const RoleList: React.FC = () => {
     let { message, modal } = App.useApp();
 
     let {
@@ -30,8 +30,7 @@ const UserList: React.FC = () => {
 
     let tableColumns: ColumnsType<RowProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
-        { title: "用户名", align: "center", dataIndex: "username" },
-        { title: "昵称", align: "center", dataIndex: "nickname" },
+        { title: "角色名称", align: "center", dataIndex: "roleName" },
         {
             title: "创建时间",
             align: "center",
@@ -64,7 +63,7 @@ const UserList: React.FC = () => {
 
     let getTableData = () => {
         setTableLoading(true);
-        GET_USER_LIST<{
+        GET_ROLE_LIST<{
             list: RowProps[];
             pagination: {
                 total: number;
@@ -97,7 +96,7 @@ const UserList: React.FC = () => {
             okText: "确认",
             cancelText: "取消",
             onOk: async () => {
-                let res = await DELETE_USER({ id: ids[0] });
+                let res = await DELETE_ROLE({ id: ids[0] });
                 res.data.code === 0 ? message.success("删除成功") : message.error(res.data.msg ?? "删除失败");
                 getTableData();
             },
@@ -120,7 +119,7 @@ const UserList: React.FC = () => {
     }, [editModal]);
 
     return (
-        <div className="user-list-page">
+        <div className="role-list-page">
             <Card>
                 <Space className="mb">
                     <Button type="primary" onClick={() => openEditModal()}>
@@ -143,9 +142,9 @@ const UserList: React.FC = () => {
                     }}
                 />
             </Card>
-            <UserEdit value={editModal} updateValue={setEditModal} />
+            <RoleEdit value={editModal} updateValue={setEditModal} />
         </div>
     );
 };
 
-export default UserList;
+export default RoleList;

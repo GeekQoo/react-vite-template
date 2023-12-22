@@ -6,6 +6,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 
 let Workbench = lazy(() => import("@/pages/Container/Workbench.tsx"));
 let UserList = lazy(() => import("@/pages/Container/Permission/User/UserList.tsx"));
+let RoleList = lazy(() => import("@/pages/Container/Permission/Role/RoleList.tsx"));
 
 let routes = [
     {
@@ -30,6 +31,11 @@ let routes = [
                 path: "/permission/user-list",
                 title: "用户管理",
                 element: <UserList />
+            },
+            {
+                path: "/permission/role-list",
+                title: "角色管理",
+                element: <RoleList />
             }
         ]
     },
