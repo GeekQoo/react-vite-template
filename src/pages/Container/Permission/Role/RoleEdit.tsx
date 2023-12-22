@@ -12,7 +12,7 @@ const RoleEdit: React.FC<PropsType> = (props) => {
     }
 
     // 获取表单实例
-    let [formInst] = Form.useForm();
+    let [formInst] = Form.useForm<FormProps>();
 
     // 获取详情
     let getDetail = () => {
