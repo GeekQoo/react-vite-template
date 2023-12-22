@@ -1,14 +1,21 @@
 /*
- * @description: 系统相关的类型定义
+ * Modal操作类型
  */
 
-// Modal操作类型
-export interface ModalConfigProps<T = UnKnownObject> {
+export interface SysModalConfig<T = UnKnownObject> {
     show: boolean;
     configData: Nullable<T>;
 }
 
-// 用户信息类型
+export interface SysModalProps<T> {
+    value: SysModalConfig<T>;
+    updateValue: (value: SysModalConfig<T>) => void;
+}
+
+/*
+ * 用户信息类型
+ */
+
 interface UserMenuProps {
     label: string;
     key: string | number;

@@ -5,7 +5,7 @@ import type { ColumnsType } from "antd/es/table";
 import type { RowProps } from "./types";
 import { useCommonTable } from "@/hooks";
 import UserEdit from "./UserEdit.tsx";
-import { ModalConfigProps } from "#/system";
+import { SysModalConfig } from "#/system";
 import * as dayjs from "dayjs";
 
 const UserList: React.FC = () => {
@@ -106,7 +106,7 @@ const UserList: React.FC = () => {
     };
 
     // 新增编辑
-    let [editModal, setEditModal] = useState<ModalConfigProps<RowProps>>({
+    let [editModal, setEditModal] = useState<SysModalConfig<RowProps>>({
         show: false,
         configData: null
     });

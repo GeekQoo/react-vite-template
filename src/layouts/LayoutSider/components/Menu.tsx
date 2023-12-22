@@ -36,7 +36,9 @@ let LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
     };
 
     let items = (): MenuItem[] => {
-        return (userData?.menu ?? []).map((i) => getItem(i.label, i.key, icons[i.icon], i.children));
+        return (userData?.menu ?? []).map((i) => {
+            return getItem(i.label, i.key, i.icon ? icons[i.icon] : null, i.children);
+        });
     };
 
     let onMenuClick: MenuProps["onClick"] = ({ key }) => {

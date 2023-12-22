@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { App, Button, Col, Form, Input, Modal, Row } from "antd";
-import type { PropsType } from "./types";
 import { ADD_USER, GET_ROLE_ALL, GET_USER_BY_ID, UPDATE_USER } from "@/api/permission.ts";
+import type { RowProps } from "./types";
+import type { SysModalProps } from "#/system";
 
-const UserEdit: React.FC<PropsType> = (props) => {
+const UserEdit: React.FC<SysModalProps<RowProps>> = (props) => {
     let { message } = App.useApp();
 
     interface FormProps {
