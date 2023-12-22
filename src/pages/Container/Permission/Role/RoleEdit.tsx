@@ -26,8 +26,6 @@ const RoleEdit: React.FC<PropsType> = (props) => {
                     });
                 }
             });
-        } else {
-            formInst.resetFields();
         }
     };
 
@@ -38,11 +36,11 @@ const RoleEdit: React.FC<PropsType> = (props) => {
     // 关闭弹窗
     let closeModal = () => {
         props.updateValue({ ...props.value, show: false });
+        formInst.resetFields();
     };
 
     // 提交
     let onSubmit = (values: FormProps) => {
-        console.log("values", values);
         if (props.value.configData) {
             UPDATE_ROLE({
                 id: props.value.configData.id,
@@ -80,6 +78,7 @@ const RoleEdit: React.FC<PropsType> = (props) => {
             destroyOnClose
             width="600px"
             onCancel={closeModal}
+            forceRender
             footer={[
                 <Button key="submit" type="primary" onClick={() => formInst.submit()}>
                     提交

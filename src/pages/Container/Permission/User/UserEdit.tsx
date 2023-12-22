@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { App, Button, Col, Form, Input, Modal, Row } from "antd";
 import type { PropsType } from "./types";
-import { ADD_USER, GET_USER_BY_ID, UPDATE_USER } from "@/api/permission.ts";
+import { ADD_USER, GET_ROLE_ALL, GET_USER_BY_ID, UPDATE_USER } from "@/api/permission.ts";
 
 const UserEdit: React.FC<PropsType> = (props) => {
     let { message } = App.useApp();
@@ -32,23 +32,36 @@ const UserEdit: React.FC<PropsType> = (props) => {
                     });
                 }
             });
-        } else {
-            formInst.resetFields();
         }
     };
 
+    // 获取选项
+    interface RoleProps {
+        roleName: string;
+        id: string | number;
+    }
+
+    let [roleOptions, setRoleOptions] = useState<RoleProps[]>([]);
+
+    let getOption = () => {
+        GET_ROLE_ALL<RoleProps[]>({}).then((res) => {
+            setRoleOptions(res.data.data ?? []);
+        });
+    };
+
     useEffect(() => {
+        getOption();
         getDetail();
     }, [props.value]);
 
     // 关闭弹窗
     let closeModal = () => {
         props.updateValue({ ...props.value, show: false });
+        formInst.resetFields();
     };
 
     // 提交
     let onSubmit = (values: FormProps) => {
-        console.log("values", values);
         if (props.value.configData) {
             UPDATE_USER({
                 id: props.value.configData.id,
@@ -86,6 +99,7 @@ const UserEdit: React.FC<PropsType> = (props) => {
             destroyOnClose
             width="600px"
             onCancel={closeModal}
+            forceRender
             footer={[
                 <Button key="submit" type="primary" onClick={() => formInst.submit()}>
                     提交

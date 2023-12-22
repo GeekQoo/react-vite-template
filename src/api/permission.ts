@@ -78,6 +78,16 @@ export function GET_ROLE_LIST<T = unknown>(params: UnKnownObject) {
     });
 }
 
+// 获取所有角色
+export function GET_ROLE_ALL<T = unknown>(params: UnKnownObject) {
+    let { token } = useAuthStore.getState();
+    return httpRequest<T>("/system/role/all", "get", {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
 // 通过ID查询角色
 export function GET_ROLE_BY_ID<T = unknown>(params: UnKnownObject) {
     let { token } = useAuthStore.getState();
