@@ -24,3 +24,18 @@ export interface UserProps {
     createdAt: string;
     updatedAt: string;
 }
+
+interface UserMenuProps {
+    label: string;
+    key: string | number;
+    icon?: string;
+    children?: UserMenuProps[];
+}
+
+export interface UserDataProps {
+    username?: string;
+    avatar?: string;
+    menu?: UserMenuProps[];
+
+    [key: string]: unknown;
+}
