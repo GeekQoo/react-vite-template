@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { App, Button, Col, Form, Input, Modal, Row } from "antd";
+import { App, Button, Col, Form, Input, Modal, Row, Select } from "antd";
 import { ADD_USER, GET_ROLE_ALL, GET_USER_BY_ID, UPDATE_USER } from "@/api/permission.ts";
 import type { SysModalProps } from "#/system";
 import type { RoleProps, UserProps } from "#/permission";
@@ -10,6 +10,7 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
     interface FormProps {
         username: string;
         password: string;
+        roles: number[];
         nickname: string;
         email: string;
         phone: string;
@@ -27,6 +28,7 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
                     formInst.setFieldsValue({
                         username: formData.username,
                         password: formData.password,
+                        roles: formData.roles,
                         nickname: formData.nickname,
                         email: formData.email,
                         phone: formData.phone
@@ -93,7 +95,7 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
             open={props.value.show}
             maskClosable={false}
             destroyOnClose
-            width="600px"
+            width="800px"
             onCancel={closeModal}
             forceRender
             footer={[
@@ -111,8 +113,8 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
                     labelAlign="right"
                     labelWrap
                     form={formInst}
-                    labelCol={{ span: 8 }}
-                    wrapperCol={{ span: 16 }}
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 18 }}
                     scrollToFirstError
                     onFinish={onSubmit}
                     onFinishFailed={onSubmitFailed}
@@ -134,6 +136,24 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
                                 rules={[{ required: !props.value.configData, message: "请输入密码" }]}
                             >
                                 <Input.Password allowClear placeholder="请输入密码" />
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <Form.Item<FormProps>
+                                label="所属角色"
+                                name="roles"
+                                rules={[{ required: true, message: "请选择所属角色" }]}
+                            >
+                                <Select
+                                    fieldNames={{
+                                        label: "roleName",
+                                        value: "id"
+                                    }}
+                                    mode="multiple"
+                                    allowClear
+                                    placeholder="请选择角色"
+                                    options={roleOptions}
+                                />
                             </Form.Item>
                         </Col>
                         <Col span={12}>
