@@ -21,7 +21,7 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
 
     // 获取详情
     let getDetail = () => {
-        if (props.value.configData) {
+        if (props.value.configData && props.value.show) {
             GET_USER_BY_ID<FormProps>({ id: props.value.configData.id }).then((res) => {
                 if (res.data.code === 0 && res.data.data) {
                     let formData = res.data.data;
