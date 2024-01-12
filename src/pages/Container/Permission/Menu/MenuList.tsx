@@ -6,6 +6,7 @@ import * as dayjs from "dayjs";
 import type { ColumnsType } from "antd/es/table";
 import type { SysModalConfig } from "#/system";
 import type { MenuProps } from "#/permission";
+import MenuEdit from "./MenuEdit.tsx";
 
 const MenuList: React.FC = () => {
     let { message, modal } = App.useApp();
@@ -16,6 +17,7 @@ const MenuList: React.FC = () => {
     let tableColumns: ColumnsType<MenuProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
         { title: "菜单名称", align: "center", dataIndex: "menuName" },
+        { title: "菜单路由", align: "center", dataIndex: "router" },
         {
             title: "创建时间",
             align: "center",
@@ -86,7 +88,7 @@ const MenuList: React.FC = () => {
 
     useEffect(() => {
         getTableData();
-    }, []);
+    }, [editModal]);
 
     return (
         <div className="role-list-page">
@@ -111,6 +113,7 @@ const MenuList: React.FC = () => {
                     }}
                 />
             </Card>
+            <MenuEdit value={editModal} updateValue={setEditModal} />
         </div>
     );
 };

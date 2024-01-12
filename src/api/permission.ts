@@ -147,6 +147,38 @@ export function GET_MENU_LIST<T = unknown>(params: UnKnownObject) {
     });
 }
 
+// 通过ID查询菜单
+export function GET_MENU_BY_ID<T = unknown>(params: UnKnownObject) {
+    let { token } = useAuthStore.getState();
+    return httpRequest<T>(`/system/menu/${params.id}`, "get", {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
+// 新增菜单
+export function ADD_MENU<T = unknown>(params: UnKnownObject) {
+    let { token } = useAuthStore.getState();
+    return httpRequest<T>("/system/menu", "post", {
+        data: params,
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
+// 修改菜单
+export function UPDATE_MENU<T = unknown>(params: UnKnownObject) {
+    let { token } = useAuthStore.getState();
+    return httpRequest<T>(`/system/menu/${params.id}`, "patch", {
+        data: params,
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
 // 删除菜单
 export function DELETE_MENU<T = unknown>(params: UnKnownObject) {
     let { token } = useAuthStore.getState();

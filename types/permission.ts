@@ -1,5 +1,6 @@
 /*
  * 角色类型
+ * 接口返回的数据类型
  */
 
 export interface RoleProps {
@@ -12,16 +13,21 @@ export interface RoleProps {
 
 /*
  * 菜单类型
+ * 接口返回的数据类型
  */
 export interface MenuProps {
-    id: string | number;
-    menuName: string;
-    createdAt: string;
-    updatedAt: string;
+    id: number; // 菜单ID
+    parentId: number; // 父级菜单ID
+    menuName: string; // 菜单名称
+    type: 1 | 2 | 3; // 1: 目录 2: 菜单 3: 按钮
+    router: string; // 菜单路由
+    createdAt: string; // 创建时间
+    updatedAt: string; // 更新时间
 }
 
 /*
  * 用户类型
+ * UserMenuProps为系统菜单类型，而非接口返回的数据类型
  */
 
 export interface UserProps {

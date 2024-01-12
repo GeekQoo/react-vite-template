@@ -5,7 +5,7 @@ import "uno.css";
 import MyApp from "@/App.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-    // <React.StrictMode>
-    <MyApp />
-    // </React.StrictMode>
+    <React.StrictMode>
+        <MyApp />
+    </React.StrictMode>
 );
