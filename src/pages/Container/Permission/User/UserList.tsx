@@ -24,10 +24,6 @@ const UserList: React.FC = () => {
         setTableSelection
     } = useCommonTable<UserProps>("id");
 
-    useEffect(() => {
-        getTableData();
-    }, [tableParams.pagination?.current, tableParams.pagination?.pageSize]);
-
     let tableColumns: ColumnsType<UserProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
         { title: "用户名", align: "center", dataIndex: "username" },
@@ -117,7 +113,7 @@ const UserList: React.FC = () => {
 
     useEffect(() => {
         getTableData();
-    }, [editModal]);
+    }, [tableParams.pagination?.current, tableParams.pagination?.pageSize, editModal]);
 
     return (
         <div className="user-list-page">

@@ -24,10 +24,6 @@ const RoleList: React.FC = () => {
         setTableSelection
     } = useCommonTable<RoleProps>("id");
 
-    useEffect(() => {
-        getTableData();
-    }, [tableParams.pagination?.current, tableParams.pagination?.pageSize]);
-
     let tableColumns: ColumnsType<RoleProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
         { title: "角色名称", align: "center", dataIndex: "roleName" },
@@ -116,7 +112,7 @@ const RoleList: React.FC = () => {
 
     useEffect(() => {
         getTableData();
-    }, [editModal]);
+    }, [tableParams.pagination?.current, tableParams.pagination?.pageSize, editModal]);
 
     return (
         <div className="role-list-page">
