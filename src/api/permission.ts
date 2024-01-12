@@ -130,3 +130,30 @@ export function DELETE_ROLE<T = unknown>(params: UnKnownObject) {
         }
     });
 }
+
+/*
+ * 菜单管理
+ * MENU
+ */
+
+// 获取菜单列表
+export function GET_MENU_LIST<T = unknown>(params: UnKnownObject) {
+    let { token } = useAuthStore.getState();
+    return httpRequest<T>("/system/menu", "get", {
+        params,
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
+// 删除菜单
+export function DELETE_MENU<T = unknown>(params: UnKnownObject) {
+    let { token } = useAuthStore.getState();
+    return httpRequest<T>(`/system/menu/${params.id}`, "delete", {
+        data: params,
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}

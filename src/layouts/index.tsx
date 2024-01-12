@@ -36,7 +36,8 @@ let BasicLayout: React.FC = () => {
                 icon: "TeamOutlined",
                 children: [
                     { label: "用户管理", key: "/permission/user-list" },
-                    { label: "角色管理", key: "/permission/role-list" }
+                    { label: "角色管理", key: "/permission/role-list" },
+                    { label: "菜单管理", key: "/permission/menu-list" }
                 ]
             }
         ];

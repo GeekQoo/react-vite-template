@@ -26,7 +26,7 @@ export function useCommonTable<T = UnKnownObject>(rowKeyName?: keyof T) {
     // 表格rowKey
     let tableRowKey = (row: T) => (rowKeyName ? row[rowKeyName] : "");
 
-    // 表格变化事件
+    // 表格变化事件，包括分页、排序、筛选，目前只处理分页
     let handleTableChange = (pagination: TablePaginationConfig) => {
         setTableParams({ pagination });
         if (pagination.pageSize !== tableParams.pagination?.pageSize) {

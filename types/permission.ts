@@ -11,6 +11,16 @@ export interface RoleProps {
 }
 
 /*
+ * 菜单类型
+ */
+export interface MenuProps {
+    id: string | number;
+    menuName: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+/*
  * 用户类型
  */
 
