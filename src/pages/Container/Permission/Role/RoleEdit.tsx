@@ -31,7 +31,9 @@ const RoleEdit: React.FC<SysModalProps<RoleProps>> = (props) => {
     };
 
     useEffect(() => {
-        getDetail();
+        if (props.value.show) {
+            getDetail();
+        }
     }, [props.value]);
 
     // 关闭弹窗

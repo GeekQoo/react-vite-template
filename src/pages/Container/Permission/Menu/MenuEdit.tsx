@@ -79,8 +79,10 @@ const MenuEdit: React.FC<SysModalProps<MenuProps>> = (props) => {
     };
 
     useEffect(() => {
-        getOptions();
-        getDetail();
+        if (props.value.show) {
+            getOptions();
+            getDetail();
+        }
     }, [props.value]);
 
     return (

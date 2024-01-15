@@ -48,8 +48,10 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
     };
 
     useEffect(() => {
-        getOption();
-        getDetail();
+        if (props.value.show) {
+            getOption();
+            getDetail();
+        }
     }, [props.value]);
 
     // 关闭弹窗
