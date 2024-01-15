@@ -131,6 +131,16 @@ export function DELETE_ROLE<T = unknown>(params: UnKnownObject) {
     });
 }
 
+// 查询角色菜单
+export function GET_ROLE_MENU<T = unknown>(params: UnKnownObject) {
+    let { token } = useAuthStore.getState();
+    return httpRequest<T>(`/system/role/${params.id}/menus`, "get", {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
 /*
  * 菜单管理
  * MENU

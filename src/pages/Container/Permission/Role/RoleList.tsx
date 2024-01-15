@@ -3,6 +3,7 @@ import { App, Button, Card, Space, Table } from "antd";
 import { DELETE_ROLE, GET_ROLE_LIST } from "@/api/permission.ts";
 import { useCommonTable } from "@/hooks";
 import RoleEdit from "./RoleEdit.tsx";
+import RoleBindMenus from "./RoleBindMenus.tsx";
 import * as dayjs from "dayjs";
 import type { ColumnsType } from "antd/es/table";
 import type { SysModalConfig } from "#/system";
@@ -43,11 +44,14 @@ const RoleList: React.FC = () => {
             title: "操作",
             key: "action",
             align: "center",
-            width: 180,
+            width: 280,
             render: (_, record) => (
                 <Space>
                     <Button type="primary" ghost onClick={() => openEditModal(record)}>
                         编辑
+                    </Button>
+                    <Button type="primary" ghost onClick={() => openBindModal(record)}>
+                        绑定菜单
                     </Button>
                     <Button type="primary" danger ghost onClick={() => onDelete(record)}>
                         删除
@@ -110,6 +114,16 @@ const RoleList: React.FC = () => {
         setEditModal({ show: true, configData: record ?? null });
     };
 
+    // 绑定菜单
+    let [bindModal, setBindModal] = useState<SysModalConfig<RoleProps>>({
+        show: false,
+        configData: null
+    });
+
+    let openBindModal = (record?: RoleProps) => {
+        setBindModal({ show: true, configData: record ?? null });
+    };
+
     useEffect(() => {
         getTableData();
     }, [tableParams.pagination?.current, tableParams.pagination?.pageSize, editModal]);
@@ -139,6 +153,7 @@ const RoleList: React.FC = () => {
                 />
             </Card>
             <RoleEdit value={editModal} updateValue={setEditModal} />
+            <RoleBindMenus value={bindModal} updateValue={setBindModal} />
         </div>
     );
 };
