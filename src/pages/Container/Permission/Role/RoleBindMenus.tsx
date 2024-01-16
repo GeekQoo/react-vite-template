@@ -95,6 +95,7 @@ const RoleBindMenus: React.FC<SysModalProps<RoleProps>> = (props) => {
             <div className="w-100% pt">
                 <Tree
                     checkable
+                    checkStrictly
                     fieldNames={{ title: "menuName", key: "id", children: "children" }}
                     treeData={menuTree}
                     onCheck={onCheck}
