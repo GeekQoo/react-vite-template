@@ -27,13 +27,17 @@ let LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
     };
 
     let getItems = (menus: UserDataProps["menus"]): MenuItem[] => {
-        return (menus ?? []).map((i) => {
-            if (i.children && i.children.length > 0) {
-                return { label: i.menuName, key: i.id, icon: icons[i.icon] ?? null, children: getItems(i.children) };
-            } else {
-                return { label: i.menuName, key: i.id, icon: icons[i.icon] ?? null };
-            }
-        });
+        return (menus ?? [])
+            .filter((i) => i.type !== 3)
+            .map((i) => {
+                let children = i.children && i.children.length > 0 ? getItems(i.children) : undefined;
+                return {
+                    label: i.menuName,
+                    key: i.id,
+                    icon: icons[i.icon] ?? null,
+                    ...(children && children.length > 0 ? { children } : {})
+                };
+            });
     };
 
     let onMenuClick: MenuProps["onClick"] = ({ key }) => {
