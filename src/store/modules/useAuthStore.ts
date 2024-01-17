@@ -5,7 +5,7 @@ import { UserDataProps } from "#/permission.ts";
 interface StateProps {
     token: string;
     setToken: (value?: string) => void;
-    userData: UserDataProps;
+    userData: Partial<UserDataProps>;
     setUserData: (value?: UserDataProps) => void;
 }
 

@@ -4,7 +4,7 @@
  */
 
 export interface RoleProps {
-    id: string | number;
+    id: number;
     roleName: string;
     remark: string;
     createdAt: string;
@@ -13,27 +13,28 @@ export interface RoleProps {
 
 /*
  * 菜单类型
- * 接口返回的数据类型
  */
 export interface MenuProps {
     id: number; // 菜单ID
     parentId: number; // 父级菜单ID
     menuName: string; // 菜单名称
     type: 1 | 2 | 3; // 1: 目录 2: 菜单 3: 按钮
+    icon: string; // 菜单图标
     router: string; // 菜单路由
-    createdAt: string; // 创建时间
-    updatedAt: string; // 更新时间
+    createdAt: string;
+    updatedAt: string;
+    children?: MenuProps[]; // 子菜单
 }
 
 /*
  * 用户类型
- * UserMenuProps为系统菜单类型，而非接口返回的数据类型
  */
 
 export interface UserProps {
-    id: string | number;
+    id: number;
     username: string;
     password: string;
+    avatar: string;
     nickname: string;
     email: string;
     phone: string;
@@ -41,17 +42,9 @@ export interface UserProps {
     updatedAt: string;
 }
 
-interface UserMenuProps {
-    label: string;
-    key: string | number;
-    icon?: string;
-    children?: UserMenuProps[];
-}
-
-export interface UserDataProps {
-    username?: string;
-    avatar?: string;
-    menu?: UserMenuProps[];
-
-    [key: string]: unknown;
+/*
+ * 当前用户类型
+ */
+export interface UserDataProps extends UserProps {
+    menus?: MenuProps[];
 }

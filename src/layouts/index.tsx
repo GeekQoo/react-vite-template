@@ -25,27 +25,8 @@ let BasicLayout: React.FC = () => {
 
     let getUserData = () => {
         setGlobalLoading(true);
-        /*
-         * 菜单暂时写死
-         */
-        let mockMenu = [
-            { label: "控制台", key: "/workbench", icon: "HomeOutlined" },
-            {
-                label: "权限配置",
-                key: "/permission",
-                icon: "TeamOutlined",
-                children: [
-                    { label: "用户管理", key: "/permission/user-list" },
-                    { label: "角色管理", key: "/permission/role-list" },
-                    { label: "菜单管理", key: "/permission/menu-list" }
-                ]
-            }
-        ];
         GET_USERINFO<UserDataProps>({}).then((res) => {
-            setUserData({
-                ...res.data.data,
-                menu: mockMenu
-            });
+            setUserData(res.data.data);
             setGlobalLoading(false);
         });
     };

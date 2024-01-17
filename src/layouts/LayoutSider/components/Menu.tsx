@@ -4,6 +4,7 @@ import { Menu, theme } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store";
 import { HomeOutlined, MenuFoldOutlined, MenuUnfoldOutlined, TeamOutlined } from "@ant-design/icons";
+import { UserDataProps } from "#/permission.ts";
 
 let { useToken } = theme;
 
@@ -25,19 +26,13 @@ let LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
         TeamOutlined: <TeamOutlined />
     };
 
-    let getItem = (
-        label: React.ReactNode,
-        key: React.Key,
-        icon?: React.ReactNode,
-        children?: MenuItem[],
-        type?: "group"
-    ): MenuItem => {
-        return { key, icon, children, label, type };
-    };
-
-    let items = (): MenuItem[] => {
-        return (userData?.menu ?? []).map((i) => {
-            return getItem(i.label, i.key, i.icon ? icons[i.icon] : null, i.children);
+    let getItems = (menus: UserDataProps["menus"]): MenuItem[] => {
+        return (menus ?? []).map((i) => {
+            if (i.children && i.children.length > 0) {
+                return { label: i.menuName, key: i.id, icon: icons[i.icon] ?? null, children: getItems(i.children) };
+            } else {
+                return { label: i.menuName, key: i.id, icon: icons[i.icon] ?? null };
+            }
         });
     };
 
@@ -55,7 +50,7 @@ let LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
             <Menu
                 style={{ height: "calc(100% - 50px)" }}
                 mode="inline"
-                items={items()}
+                items={getItems(userData?.menus ?? [])}
                 onClick={onMenuClick}
                 defaultSelectedKeys={[pathname]}
                 defaultOpenKeys={renderOpenKeys()}
