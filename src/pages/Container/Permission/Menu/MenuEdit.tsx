@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { App, Button, Col, Form, Input, Modal, Row, Select, TreeSelect } from "antd";
 import { ADD_MENU, GET_MENU_BY_ID, GET_MENU_LIST, UPDATE_MENU } from "@/api/permission.ts";
 import type { SysModalProps } from "#/system";
-import type { MenuProps } from "#/permission";
+import type { NavMenuProps } from "#/permission";
 
-const MenuEdit: React.FC<SysModalProps<MenuProps>> = (props) => {
+const MenuEdit: React.FC<SysModalProps<NavMenuProps>> = (props) => {
     let { message } = App.useApp();
 
     // 转成可选类型
-    type FormProps = Partial<MenuProps>;
+    type FormProps = Partial<NavMenuProps>;
 
     // 获取表单实例
     let [formInst] = Form.useForm<FormProps>();
@@ -31,10 +31,10 @@ const MenuEdit: React.FC<SysModalProps<MenuProps>> = (props) => {
     };
 
     // 获取选项
-    let [menuOptions, setMenuOptions] = useState<MenuProps[]>([]);
+    let [menuOptions, setMenuOptions] = useState<NavMenuProps[]>([]);
 
     let getOptions = () => {
-        GET_MENU_LIST<MenuProps[]>({}).then((res) => {
+        GET_MENU_LIST<NavMenuProps[]>({}).then((res) => {
             if (res.data.code === 0) {
                 setMenuOptions(res.data.data ?? []);
             }

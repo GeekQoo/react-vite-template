@@ -5,16 +5,16 @@ import { useCommonTable } from "@/hooks";
 import * as dayjs from "dayjs";
 import type { ColumnsType } from "antd/es/table";
 import type { SysModalConfig } from "#/system";
-import type { MenuProps } from "#/permission";
+import type { NavMenuProps } from "#/permission";
 import MenuEdit from "./MenuEdit.tsx";
 
 const MenuList: React.FC = () => {
     let { message, modal } = App.useApp();
 
     let { tableLoading, setTableLoading, tableData, setTableData, tableRowKey, tableSelection, setTableSelection } =
-        useCommonTable<MenuProps>("id");
+        useCommonTable<NavMenuProps>("id");
 
-    let tableColumns: ColumnsType<MenuProps> = [
+    let tableColumns: ColumnsType<NavMenuProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
         { title: "菜单名称", align: "center", dataIndex: "menuName" },
         { title: "菜单路由", align: "center", dataIndex: "router" },
@@ -50,7 +50,7 @@ const MenuList: React.FC = () => {
 
     let getTableData = () => {
         setTableLoading(true);
-        GET_MENU_LIST<MenuProps[]>({}).then((res) => {
+        GET_MENU_LIST<NavMenuProps[]>({}).then((res) => {
             if (res.data.code === 0) {
                 setTableData(res.data.data ?? []);
             }
@@ -59,7 +59,7 @@ const MenuList: React.FC = () => {
     };
 
     // 批量删除
-    let onDelete = (record?: MenuProps) => {
+    let onDelete = (record?: NavMenuProps) => {
         let ids = record ? [record.id] : tableSelection;
         if (ids.length < 1) return message.error("请先选择要删除的数据");
         modal.confirm({
@@ -77,12 +77,12 @@ const MenuList: React.FC = () => {
     };
 
     // 新增编辑
-    let [editModal, setEditModal] = useState<SysModalConfig<MenuProps>>({
+    let [editModal, setEditModal] = useState<SysModalConfig<NavMenuProps>>({
         show: false,
         configData: null
     });
 
-    let openEditModal = (record?: MenuProps) => {
+    let openEditModal = (record?: NavMenuProps) => {
         setEditModal({ show: true, configData: record ?? null });
     };
 

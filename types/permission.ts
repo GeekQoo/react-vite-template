@@ -1,50 +1,44 @@
+import { SysTableBase } from "#/system";
+
 /*
  * 角色类型
- * 接口返回的数据类型
  */
 
-export interface RoleProps {
-    id: number;
+export interface RoleProps extends SysTableBase {
     roleName: string;
     remark: string;
-    createdAt: string;
-    updatedAt: string;
 }
 
 /*
  * 菜单类型
+ * 用NavMenuProps避免和antd的MenuProps冲突
+ * @params type 1: 目录 2: 菜单 3: 按钮
  */
-export interface MenuProps {
-    id: number; // 菜单ID
-    parentId: number; // 父级菜单ID
-    menuName: string; // 菜单名称
-    type: 1 | 2 | 3; // 1: 目录 2: 菜单 3: 按钮
-    icon: string; // 菜单图标
-    router: string; // 菜单路由
-    createdAt: string;
-    updatedAt: string;
-    children?: MenuProps[]; // 子菜单
+export interface NavMenuProps extends SysTableBase {
+    parentId: number;
+    menuName: string;
+    type: 1 | 2 | 3;
+    icon: string;
+    router: string;
+    children?: NavMenuProps[];
 }
 
 /*
  * 用户类型
  */
 
-export interface UserProps {
-    id: number;
+export interface UserProps extends SysTableBase {
     username: string;
     password: string;
     avatar: string;
     nickname: string;
     email: string;
     phone: string;
-    createdAt: string;
-    updatedAt: string;
 }
 
 /*
  * 当前用户类型
  */
 export interface UserDataProps extends UserProps {
-    menus?: MenuProps[];
+    menus?: NavMenuProps[];
 }

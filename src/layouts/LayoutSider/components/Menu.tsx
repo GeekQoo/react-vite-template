@@ -4,7 +4,7 @@ import { Menu, theme } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store";
 import { HomeOutlined, MenuFoldOutlined, MenuUnfoldOutlined, TeamOutlined } from "@ant-design/icons";
-import { UserDataProps } from "#/permission.ts";
+import { NavMenuProps } from "#/permission.ts";
 
 let { useToken } = theme;
 
@@ -26,7 +26,7 @@ let LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
         TeamOutlined: <TeamOutlined />
     };
 
-    let getItems = (menus: UserDataProps["menus"]): MenuItem[] => {
+    let getItems = (menus: NavMenuProps[]): MenuItem[] => {
         return (menus ?? [])
             .filter((i) => i.type !== 3)
             .map((i) => {
