@@ -1,17 +1,13 @@
 import React from "react";
 import type { MenuProps } from "antd";
 import { Menu, theme } from "antd";
-import type { GetProps } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store";
-import Icon from "@ant-design/icons";
-import * as icons from "@ant-design/icons";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { NavMenuProps } from "#/permission.ts";
+import { DynamicIcon } from "@/components/Dynamic";
 
 let { useToken } = theme;
-
-type CustomIconComponentProps = GetProps<typeof Icon>;
 
 interface ComponentProps {
     collapsed: boolean; // 侧边栏折叠状态
@@ -34,17 +30,7 @@ let LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
                 return {
                     label: i.menuName,
                     key: i.router,
-                    icon: i.icon ? (
-                        <Icon
-                            component={
-                                (
-                                    icons as {
-                                        [key: string]: CustomIconComponentProps;
-                                    }
-                                )[i.icon] as React.FC
-                            }
-                        />
-                    ) : null,
+                    icon: i.icon ? <DynamicIcon icon={i.icon} /> : null,
                     ...(children && children.length > 0 ? { children } : {})
                 };
             });
