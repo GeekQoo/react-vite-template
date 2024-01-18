@@ -129,7 +129,7 @@ const MenuEdit: React.FC<SysModalProps<NavMenuProps>> = (props) => {
                             <Form.Item<FormProps>
                                 label="父级菜单"
                                 name="parentId"
-                                rules={[{ required: true, message: "请选择父级菜单" }]}
+                                rules={[{ required: false, message: "请选择父级菜单" }]}
                             >
                                 <TreeSelect
                                     fieldNames={{ label: "menuName", value: "id", children: "children" }}
@@ -160,7 +160,7 @@ const MenuEdit: React.FC<SysModalProps<NavMenuProps>> = (props) => {
                             <Form.Item<FormProps>
                                 label="菜单路由"
                                 name="router"
-                                rules={[{ required: true, message: "请输入菜单路由" }]}
+                                rules={[{ required: false, message: "请输入菜单路由" }]}
                             >
                                 <Input allowClear placeholder="请输入菜单路由" />
                             </Form.Item>

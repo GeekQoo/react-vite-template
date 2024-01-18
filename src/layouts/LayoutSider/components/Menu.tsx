@@ -1,12 +1,17 @@
 import React from "react";
 import type { MenuProps } from "antd";
 import { Menu, theme } from "antd";
+import type { GetProps } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store";
-import { HomeOutlined, MenuFoldOutlined, MenuUnfoldOutlined, TeamOutlined } from "@ant-design/icons";
+import Icon from "@ant-design/icons";
+import * as icons from "@ant-design/icons";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { NavMenuProps } from "#/permission.ts";
 
 let { useToken } = theme;
+
+type CustomIconComponentProps = GetProps<typeof Icon>;
 
 interface ComponentProps {
     collapsed: boolean; // 侧边栏折叠状态
@@ -21,11 +26,6 @@ let LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
     let { userData } = useAuthStore();
     let { token } = useToken();
 
-    let icons: Record<string, React.ReactNode> = {
-        HomeOutlined: <HomeOutlined />,
-        TeamOutlined: <TeamOutlined />
-    };
-
     let getItems = (menus: NavMenuProps[]): MenuItem[] => {
         return (menus ?? [])
             .filter((i) => i.type !== 3)
@@ -33,8 +33,18 @@ let LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
                 let children = i.children && i.children.length > 0 ? getItems(i.children) : undefined;
                 return {
                     label: i.menuName,
-                    key: i.id,
-                    icon: icons[i.icon] ?? null,
+                    key: i.router,
+                    icon: i.icon ? (
+                        <Icon
+                            component={
+                                (
+                                    icons as {
+                                        [key: string]: CustomIconComponentProps;
+                                    }
+                                )[i.icon] as React.FC
+                            }
+                        />
+                    ) : null,
                     ...(children && children.length > 0 ? { children } : {})
                 };
             });
