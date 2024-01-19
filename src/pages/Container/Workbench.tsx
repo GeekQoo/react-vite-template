@@ -13,9 +13,9 @@ let Workbench: React.FC = () => {
                     <Avatar size={80} src={userData.avatar} />
                     <div className="ml">
                         <Title className="mt-0!" level={3}>
-                            你好，{userData.username}，祝你开心每一天！
+                            你好，{userData.nickname}，祝你开心每一天！
                         </Title>
-                        <Text className="my-0!">技术部 | 前端开发工程师</Text>
+                        <Text className="my-0!">{(userData.roleNames ?? []).join(",")}</Text>
                     </div>
                     <Space size="large" className="ml-a">
                         <Statistic title="项目数量" value={1111} />

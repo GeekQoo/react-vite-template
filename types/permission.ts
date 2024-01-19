@@ -40,5 +40,6 @@ export interface UserProps extends SysTableBase {
  * 当前用户类型
  */
 export interface UserDataProps extends UserProps {
-    menus?: NavMenuProps[];
+    menus: NavMenuProps[];
+    roleNames: string[];
 }
