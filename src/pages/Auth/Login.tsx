@@ -27,7 +27,7 @@ let Login: React.FC = () => {
                     content: "登录成功，正在跳转...",
                     duration: 2,
                     onClose: () => {
-                        navigate("/");
+                        navigate("/workbench");
                     }
                 });
             } else message.error(res.data.msg);
