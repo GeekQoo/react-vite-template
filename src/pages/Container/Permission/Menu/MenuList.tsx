@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { App, Button, Card, Space, Table } from "antd";
 import { DELETE_MENU, GET_MENU_LIST } from "@/api/permission.ts";
 import { useCommonTable } from "@/hooks";
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 import type { ColumnsType } from "antd/es/table";
 import type { SysModalConfig } from "#/system";
 import type { NavMenuProps } from "#/permission";

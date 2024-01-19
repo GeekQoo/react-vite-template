@@ -4,7 +4,7 @@ import { DELETE_ROLE, GET_ROLE_LIST } from "@/api/permission.ts";
 import { useCommonTable } from "@/hooks";
 import RoleEdit from "./RoleEdit.tsx";
 import RoleBindMenus from "./RoleBindMenus.tsx";
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 import type { ColumnsType } from "antd/es/table";
 import type { SysModalConfig } from "#/system";
 import type { RoleProps } from "#/permission";

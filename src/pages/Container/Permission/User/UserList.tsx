@@ -3,7 +3,7 @@ import { App, Button, Card, Space, Table } from "antd";
 import { DELETE_USER, GET_USER_LIST } from "@/api/permission.ts";
 import { useCommonTable } from "@/hooks";
 import UserEdit from "./UserEdit.tsx";
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 import type { ColumnsType } from "antd/es/table";
 import type { SysModalConfig } from "#/system";
 import type { UserProps } from "#/permission";
