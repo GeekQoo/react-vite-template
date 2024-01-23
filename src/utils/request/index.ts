@@ -27,7 +27,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     (response: AxiosResponse<ResponseProps>) => response,
     (error) => {
-        checkStatus(error?.response?.status);
+        checkStatus(error?.response?.status, error?.response?.statusText);
         return Promise.reject(error.response);
     }
 );
