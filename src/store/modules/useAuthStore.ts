@@ -1,12 +1,14 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { UserDataProps } from "#/permission.ts";
+import { useNavigate } from "react-router-dom";
 
 interface StateProps {
     token: string;
     setToken: (value?: string) => void;
     userData: Partial<UserDataProps>;
     setUserData: (value?: UserDataProps) => void;
+    logout: () => void;
 }
 
 let useAuthStore = create<StateProps>()(
@@ -19,6 +21,9 @@ let useAuthStore = create<StateProps>()(
             },
             setUserData: (value?: UserDataProps) => {
                 set(() => ({ userData: value }));
+            },
+            logout: () => {
+                set(() => ({ token: "", userData: {} }));
             }
         }),
         {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout, Space } from "antd";
-import { LayoutHeaderSettings } from "./components";
+import { LayoutHeaderSettings, LayoutHeaderCurrentUser } from "./components";
 
 let { Header } = Layout;
 
@@ -15,8 +15,9 @@ let LayoutHeader: React.FC = () => {
                 <div className="text-20px">React Vite template</div>
             </div>
             <div className="flex-y-center ml-a">
-                <Space className="h-100%">
+                <Space size="middle" className="h-100%">
                     <LayoutHeaderSettings />
+                    <LayoutHeaderCurrentUser />
                 </Space>
             </div>
         </Header>
