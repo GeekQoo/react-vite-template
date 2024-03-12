@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { App, Button, Col, Form, Input, Modal, Row, Select } from "antd";
+import { App, Button, Col, Form, Input, Modal, Row, Select, Upload } from "antd";
 import { ADD_USER, GET_ROLE_ALL, GET_USER_BY_ID, UPDATE_USER } from "@/api/permission.ts";
 import type { SysModalProps } from "#/system";
 import type { RoleProps, UserProps } from "#/permission";
+import AvatarUploader from "@/components/Uploader/AvatarUploader.tsx";
 
 const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
     let { message } = App.useApp();
@@ -14,6 +15,7 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
         nickname: string;
         email: string;
         phone: string;
+        avatar: string;
     }
 
     // 获取表单实例
@@ -31,7 +33,8 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
                         roles: formData.roles,
                         nickname: formData.nickname,
                         email: formData.email,
-                        phone: formData.phone
+                        phone: formData.phone,
+                        avatar: formData.avatar
                     });
                 }
             });
@@ -122,6 +125,17 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
                     onFinishFailed={onSubmitFailed}
                 >
                     <Row gutter={16}>
+                        <Col span={24}>
+                            <Form.Item<FormProps>
+                                label="头像"
+                                labelCol={{ span: 3 }}
+                                wrapperCol={{ span: 21 }}
+                                name="avatar"
+                                rules={[{ required: true, message: "请上传头像" }]}
+                            >
+                                <AvatarUploader />
+                            </Form.Item>
+                        </Col>
                         <Col span={12}>
                             <Form.Item<FormProps>
                                 label="用户名"

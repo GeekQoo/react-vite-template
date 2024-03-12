@@ -27,7 +27,12 @@ const UserList: React.FC = () => {
     let tableColumns: ColumnsType<UserProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
         { title: "用户名", align: "center", dataIndex: "username" },
-        { title: "昵称", align: "center", dataIndex: "nickname" },
+        {
+            title: "昵称",
+            align: "center",
+            dataIndex: "nickname",
+            render: (_, record) => record.nickname || "暂无"
+        },
         {
             title: "创建时间",
             align: "center",
