@@ -3,18 +3,19 @@ import { App, Button, Col, Form, Input, Modal, Row, Select, TreeSelect } from "a
 import { ADD_MENU, GET_MENU_BY_ID, GET_MENU_LIST, UPDATE_MENU } from "@/api/permission.ts";
 import type { SysModalProps } from "#/system";
 import type { NavMenuProps } from "#/permission";
+import IconSelect from "@/components/Selector/IconSelector.tsx";
 
 const MenuEdit: React.FC<SysModalProps<NavMenuProps>> = (props) => {
-    let { message } = App.useApp();
+    const { message } = App.useApp();
 
     // 转成可选类型
     type FormProps = Partial<NavMenuProps>;
 
     // 获取表单实例
-    let [formInst] = Form.useForm<FormProps>();
+    const [formInst] = Form.useForm<FormProps>();
 
     // 获取详情
-    let getDetail = () => {
+    const getDetail = () => {
         if (props.value.configData && props.value.show) {
             GET_MENU_BY_ID<FormProps>({ id: props.value.configData.id }).then((res) => {
                 if (res.data.code === 0 && res.data.data) {
@@ -23,7 +24,8 @@ const MenuEdit: React.FC<SysModalProps<NavMenuProps>> = (props) => {
                         menuName: formData.menuName,
                         parentId: formData.parentId,
                         type: formData.type,
-                        router: formData.router
+                        router: formData.router,
+                        icon: formData.icon
                     });
                 }
             });
@@ -31,9 +33,9 @@ const MenuEdit: React.FC<SysModalProps<NavMenuProps>> = (props) => {
     };
 
     // 获取选项
-    let [menuOptions, setMenuOptions] = useState<NavMenuProps[]>([]);
+    const [menuOptions, setMenuOptions] = useState<NavMenuProps[]>([]);
 
-    let getOptions = () => {
+    const getOptions = () => {
         GET_MENU_LIST<NavMenuProps[]>({}).then((res) => {
             if (res.data.code === 0) {
                 setMenuOptions(res.data.data ?? []);
@@ -42,13 +44,13 @@ const MenuEdit: React.FC<SysModalProps<NavMenuProps>> = (props) => {
     };
 
     // 关闭弹窗
-    let closeModal = () => {
+    const closeModal = () => {
         props.updateValue({ ...props.value, show: false });
         formInst.resetFields();
     };
 
     // 提交
-    let onSubmit = (values: FormProps) => {
+    const onSubmit = (values: FormProps) => {
         if (props.value.configData) {
             UPDATE_MENU({
                 id: props.value.configData.id,
@@ -73,7 +75,7 @@ const MenuEdit: React.FC<SysModalProps<NavMenuProps>> = (props) => {
         }
     };
 
-    let onSubmitFailed = () => {
+    const onSubmitFailed = () => {
         message.error("提交失败，请检查后再试");
     };
 
@@ -91,7 +93,7 @@ const MenuEdit: React.FC<SysModalProps<NavMenuProps>> = (props) => {
             open={props.value.show}
             maskClosable={false}
             destroyOnClose
-            width="600px"
+            width="800px"
             onCancel={closeModal}
             forceRender
             footer={[
@@ -109,8 +111,8 @@ const MenuEdit: React.FC<SysModalProps<NavMenuProps>> = (props) => {
                     labelAlign="right"
                     labelWrap
                     form={formInst}
-                    labelCol={{ span: 8 }}
-                    wrapperCol={{ span: 16 }}
+                    labelCol={{ span: 6 }}
+                    wrapperCol={{ span: 18 }}
                     scrollToFirstError
                     onFinish={onSubmit}
                     onFinishFailed={onSubmitFailed}
@@ -163,6 +165,15 @@ const MenuEdit: React.FC<SysModalProps<NavMenuProps>> = (props) => {
                                 rules={[{ required: false, message: "请输入菜单路由" }]}
                             >
                                 <Input allowClear placeholder="请输入菜单路由" />
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <Form.Item
+                                name="icon"
+                                label="菜单图标"
+                                rules={[{ required: false, message: "请选择图标" }]}
+                            >
+                                <IconSelect />
                             </Form.Item>
                         </Col>
                     </Row>

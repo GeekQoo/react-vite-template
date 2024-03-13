@@ -4,7 +4,13 @@ import Icon, * as icons from "@ant-design/icons";
 
 type CustomIconComponentProps = GetProps<typeof Icon>;
 
-export let DynamicIcon: React.FC<{ icon: string; className?: string }> = (props) => {
+interface DynamicIconProps {
+    icon: string;
+    className?: string;
+    onClick?: () => void;
+}
+
+export let DynamicIcon: React.FC<DynamicIconProps> = (props) => {
     return (
         <Icon
             component={
@@ -15,6 +21,7 @@ export let DynamicIcon: React.FC<{ icon: string; className?: string }> = (props)
                 )[props.icon] as React.FC
             }
             className={props.className}
+            onClick={props.onClick}
         />
     );
 };
