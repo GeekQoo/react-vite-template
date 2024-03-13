@@ -125,17 +125,6 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
                     onFinishFailed={onSubmitFailed}
                 >
                     <Row gutter={16}>
-                        <Col span={24}>
-                            <Form.Item<FormProps>
-                                label="头像"
-                                labelCol={{ span: 3 }}
-                                wrapperCol={{ span: 21 }}
-                                name="avatar"
-                                rules={[{ required: true, message: "请上传头像" }]}
-                            >
-                                <AvatarUploader />
-                            </Form.Item>
-                        </Col>
                         <Col span={12}>
                             <Form.Item<FormProps>
                                 label="用户名"
@@ -197,6 +186,17 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
                                 rules={[{ required: false, message: "请输入邮箱" }]}
                             >
                                 <Input allowClear placeholder="请输入邮箱" />
+                            </Form.Item>
+                        </Col>
+                        <Col span={24}>
+                            <Form.Item<FormProps>
+                                label="头像"
+                                labelCol={{ span: 3 }}
+                                wrapperCol={{ span: 21 }}
+                                name="avatar"
+                                rules={[{ required: true, message: "请上传头像" }]}
+                            >
+                                <AvatarUploader />
                             </Form.Item>
                         </Col>
                     </Row>

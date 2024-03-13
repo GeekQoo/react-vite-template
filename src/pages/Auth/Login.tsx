@@ -25,7 +25,7 @@ let Login: React.FC = () => {
                 setToken(res.headers.token);
                 message.success({
                     content: "登录成功，正在跳转...",
-                    duration: 2,
+                    duration: 1,
                     onClose: () => {
                         navigate("/workbench");
                     }

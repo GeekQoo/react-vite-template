@@ -39,6 +39,7 @@ let AvatarUploader: React.FC<AvatarUploaderProps> = (props) => {
     return (
         <ImgCrop rotationSlider>
             <Upload
+                className="h-110px"
                 action={UPLOAD_FILE_URL}
                 data={{ type: "avatar" }}
                 listType="picture-card"

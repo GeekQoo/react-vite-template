@@ -11,11 +11,20 @@ let LayoutHeaderCurrentUser: React.FC = () => {
 
     let items: MenuProps["items"] = [
         {
-            key: "1",
+            key: "user",
+            label: "用户中心",
+            icon: <DynamicIcon icon="UserOutlined" />,
+            onClick: async () => {}
+        },
+        {
+            key: "logout",
             label: "退出登录",
             icon: <DynamicIcon icon="LoginOutlined" />,
             onClick: async () => {
-                await message.success("退出成功，正在为您跳转...");
+                await message.success({
+                    content: "退出成功，正在为您跳转...",
+                    duration: 1
+                });
                 logout();
                 navigate("/login");
             }
