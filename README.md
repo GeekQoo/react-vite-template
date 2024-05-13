@@ -34,3 +34,7 @@
 -   `:arrows_counterclockwise: ci:` 持续集成
 -   `:ocean: types:` 类型定义文件更改
 -   `:computer: wip:` 开发中
+
+## 后端服务
+
+本项目后端服务使用[GeekQoo/nestjs-template](https://github.com/GeekQoo/nestjs-template)，搭配使用效果更佳。
