@@ -8,6 +8,7 @@ let Workbench = lazy(() => import("@/pages/Container/Workbench.tsx"));
 let UserList = lazy(() => import("@/pages/Container/Permission/User/UserList.tsx"));
 let RoleList = lazy(() => import("@/pages/Container/Permission/Role/RoleList.tsx"));
 let MenuList = lazy(() => import("@/pages/Container/Permission/Menu/MenuList.tsx"));
+let ArticleCategoryList = lazy(() => import("@/pages/Container/Article/ArticleCategory/ArticleCategoryList.tsx"));
 
 let routes = [
     {
@@ -42,6 +43,11 @@ let routes = [
                 path: "/permission/menu-list",
                 title: "菜单管理",
                 element: <MenuList />
+            },
+            {
+                path: "/article/category",
+                title: "文章分类",
+                element: <ArticleCategoryList />
             }
         ]
     },
