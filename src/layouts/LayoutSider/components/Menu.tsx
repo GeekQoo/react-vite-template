@@ -4,7 +4,7 @@ import { Menu, theme } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { NavMenuProps } from "#/permission.ts";
+import { NavMenuProps } from "#/permission.d";
 import { DynamicIcon } from "@/components/Dynamic";
 
 let { useToken } = theme;

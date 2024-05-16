@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { UserDataProps } from "#/permission.ts";
+import { UserDataProps } from "#/permission.d";
 import { useNavigate } from "react-router-dom";
 
 interface StateProps {
