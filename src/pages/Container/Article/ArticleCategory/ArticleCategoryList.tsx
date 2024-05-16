@@ -90,7 +90,7 @@ const ArticleCategoryList: React.FC = () => {
     }, [editModal]);
 
     return (
-        <div className="role-list-page">
+        <div className="article-category-page">
             <Card>
                 <Space className="mb">
                     <Button type="primary" onClick={() => openEditModal()}>

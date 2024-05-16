@@ -3,7 +3,6 @@ import { SysTableBase } from "#/system";
 /*
  * 角色类型
  */
-
 export interface RoleProps extends SysTableBase {
     roleName: string;
     remark: string;
@@ -26,7 +25,6 @@ export interface NavMenuProps extends SysTableBase {
 /*
  * 用户类型
  */
-
 export interface UserProps extends SysTableBase {
     username: string;
     password: string;

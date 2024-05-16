@@ -91,7 +91,7 @@ const MenuList: React.FC = () => {
     }, [editModal]);
 
     return (
-        <div className="role-list-page">
+        <div className="menu-list-page">
             <Card>
                 <Space className="mb">
                     <Button type="primary" onClick={() => openEditModal()}>
