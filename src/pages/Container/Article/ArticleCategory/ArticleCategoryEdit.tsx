@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { App, Button, Col, Form, Input, Modal, Row, TreeSelect } from "antd";
 import type { SysModalProps } from "#/system";
-import type { ArticleCategoryProps } from "#/article";
+import type { ArticleCategoryProps } from "#/modules/article";
 import {
     ADD_ARTICLE_CATEGORY,
     GET_ARTICLE_CATEGORY_BY_ID,

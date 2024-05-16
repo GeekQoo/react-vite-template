@@ -3,7 +3,7 @@ import { App, Button, Card, Space, Table } from "antd";
 import { useCommonTable } from "@/hooks";
 import dayjs from "dayjs";
 import type { ColumnsType } from "antd/es/table";
-import type { ArticleCategoryProps } from "#/article";
+import type { ArticleCategoryProps } from "#/modules/article";
 import type { SysModalConfig } from "#/system";
 import { DELETE_ARTICLE_CATEGORY, GET_ARTICLE_CATEGORY_LIST } from "@/api/article.ts";
 import ArticleCategoryEdit from "./ArticleCategoryEdit.tsx";
