@@ -4,11 +4,23 @@ import NotFound from "@/pages/NotFound.tsx";
 import Login from "@/pages/Auth/Login.tsx";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
+/*
+ * 工作台
+ */
 let Workbench = lazy(() => import("@/pages/Container/Workbench.tsx"));
+
+/*
+ * 权限模块
+ */
 let UserList = lazy(() => import("@/pages/Container/Permission/User/UserList.tsx"));
 let RoleList = lazy(() => import("@/pages/Container/Permission/Role/RoleList.tsx"));
 let MenuList = lazy(() => import("@/pages/Container/Permission/Menu/MenuList.tsx"));
+
+/*
+ * 文章模块
+ */
 let ArticleCategoryList = lazy(() => import("@/pages/Container/Article/ArticleCategory/ArticleCategoryList.tsx"));
+let ArticleTagList = lazy(() => import("@/pages/Container/Article/ArticleTag/ArticleTagList.tsx"));
 
 let routes = [
     {
@@ -48,6 +60,11 @@ let routes = [
                 path: "/article/category",
                 title: "文章分类",
                 element: <ArticleCategoryList />
+            },
+            {
+                path: "/article/tag",
+                title: "文章标签",
+                element: <ArticleTagList />
             }
         ]
     },
