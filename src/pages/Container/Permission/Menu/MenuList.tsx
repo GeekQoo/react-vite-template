@@ -7,6 +7,7 @@ import type { ColumnsType } from "antd/es/table";
 import type { SysModalConfig } from "#/system";
 import type { NavMenuProps } from "#/permission";
 import MenuEdit from "./MenuEdit.tsx";
+import { DynamicIcon } from "@/components/Dynamic";
 
 const MenuList: React.FC = () => {
     let { message, modal } = App.useApp();
@@ -16,6 +17,14 @@ const MenuList: React.FC = () => {
 
     let tableColumns: ColumnsType<NavMenuProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
+        {
+            title: "菜单图标",
+            align: "center",
+            dataIndex: "icon",
+            render: (_, record) => {
+                return record.icon ? <DynamicIcon className="text-20px" icon={record.icon} /> : "/";
+            }
+        },
         { title: "菜单名称", align: "center", dataIndex: "menuName" },
         { title: "菜单路由", align: "center", dataIndex: "router" },
         {
