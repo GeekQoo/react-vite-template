@@ -14,3 +14,13 @@ export interface ArticleCategoryProps extends SysTableBase {
 export interface ArticleTagProps extends SysTableBase {
     tagName: string;
 }
+
+/*
+ * 文章类型
+ */
+export interface ArticleProps extends SysTableBase {
+    title: string;
+    content: string;
+    categoryId: number;
+    tagIds: string;
+}

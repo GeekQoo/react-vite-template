@@ -76,7 +76,7 @@ const RoleBindMenus: React.FC<SysModalProps<RoleProps>> = (props) => {
     return (
         <Modal
             centered
-            title={props.value.configData ? "编辑角色" : "新增角色"}
+            title="绑定菜单"
             open={props.value.show}
             maskClosable={false}
             destroyOnClose

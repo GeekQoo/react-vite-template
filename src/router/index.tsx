@@ -21,6 +21,7 @@ let MenuList = lazy(() => import("@/pages/Container/Permission/Menu/MenuList.tsx
  */
 let ArticleCategoryList = lazy(() => import("@/pages/Container/Article/ArticleCategory/ArticleCategoryList.tsx"));
 let ArticleTagList = lazy(() => import("@/pages/Container/Article/ArticleTag/ArticleTagList.tsx"));
+let ArticleList = lazy(() => import("@/pages/Container/Article/Article/ArticleList.tsx"));
 
 let routes = [
     {
@@ -65,6 +66,11 @@ let routes = [
                 path: "/article/tag",
                 title: "文章标签",
                 element: <ArticleTagList />
+            },
+            {
+                path: "/article",
+                title: "文章列表",
+                element: <ArticleList />
             }
         ]
     },

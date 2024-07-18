@@ -111,3 +111,56 @@ export function UPDATE_ARTICLE_TAG<T = unknown>(params: UnKnownObject) {
         }
     });
 }
+
+// 获取文章列表
+export function GET_ARTICLE_LIST<T = unknown>(params: UnKnownObject) {
+    let { token } = useAuthStore.getState();
+    return httpRequest<T>("/article", "get", {
+        params,
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
+// 通过ID查询文章
+export function GET_ARTICLE_BY_ID<T = unknown>(params: UnKnownObject) {
+    let { token } = useAuthStore.getState();
+    return httpRequest<T>(`/article/${params.id}`, "get", {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
+// 删除文章
+export function DELETE_ARTICLE<T = unknown>(params: UnKnownObject) {
+    let { token } = useAuthStore.getState();
+    return httpRequest<T>(`/article/${params.id}`, "delete", {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
+// 新增文章
+export function ADD_ARTICLE<T = unknown>(params: UnKnownObject) {
+    let { token } = useAuthStore.getState();
+    return httpRequest<T>("/article", "post", {
+        data: params,
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
+// 更新文章
+export function UPDATE_ARTICLE<T = unknown>(params: UnKnownObject) {
+    let { token } = useAuthStore.getState();
+    return httpRequest<T>(`/article/${params.id}`, "patch", {
+        data: params,
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
