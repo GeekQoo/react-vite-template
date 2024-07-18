@@ -132,7 +132,7 @@ const IconSelector: React.FC<IconSelectorProps> = (props) => {
                     </Button>
                 }
                 addonAfter={
-                    <DynamicIcon icon={props.value || "MoreOutlined"} onClick={() => setPopoverOpen(!popoverOpen)} />
+                    <DynamicIcon icon={props.value ?? "MoreOutlined"} onClick={() => setPopoverOpen(!popoverOpen)} />
                 }
             />
         </Popover>

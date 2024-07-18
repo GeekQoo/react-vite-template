@@ -20,7 +20,7 @@ let AvatarUploader: React.FC<AvatarUploaderProps> = (props) => {
             if (newFileList[0].status === "error") {
                 message.error("请检查网络连接或文件大小是否超过限制");
             } else {
-                props.onChange?.(newFileList[0].response?.data?.url || "");
+                props.onChange?.(newFileList[0].response?.data?.url ?? "");
             }
         } else {
             props.onChange?.("");

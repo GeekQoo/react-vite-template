@@ -31,7 +31,7 @@ const UserList: React.FC = () => {
             title: "昵称",
             align: "center",
             dataIndex: "nickname",
-            render: (_, record) => record.nickname || "暂无"
+            render: (_, record) => record.nickname ?? "暂无"
         },
         {
             title: "创建时间",

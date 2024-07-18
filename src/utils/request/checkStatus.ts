@@ -44,7 +44,7 @@ export function checkStatus(status: number | null, msg: string = "服务异常�
             errorMessage("HTTP版本不受支持");
             break;
         default:
-            errorMessage(msg || "服务异常，请稍后再试");
+            errorMessage(msg ?? "服务异常，请稍后再试");
             break;
     }
 }
