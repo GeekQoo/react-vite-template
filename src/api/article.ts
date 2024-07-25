@@ -70,6 +70,16 @@ export function GET_ARTICLE_TAG_LIST<T = unknown>(params: UnKnownObject) {
     });
 }
 
+// 获取全部文章标签
+export function GET_ARTICLE_TAG_ALL<T = unknown>() {
+    let { token } = useAuthStore.getState();
+    return httpRequest<T>("/article/tag/all", "get", {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
 // 通过ID查询文章标签
 export function GET_ARTICLE_TAG_BY_ID<T = unknown>(params: UnKnownObject) {
     let { token } = useAuthStore.getState();

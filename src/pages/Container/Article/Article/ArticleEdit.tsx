@@ -6,9 +6,10 @@ import {
     ADD_ARTICLE,
     GET_ARTICLE_BY_ID,
     GET_ARTICLE_CATEGORY_LIST,
-    GET_ARTICLE_TAG_LIST,
+    GET_ARTICLE_TAG_ALL,
     UPDATE_ARTICLE
 } from "@/api/article.ts";
+import RichEditor from "@/components/RichEditor/RichEditor.tsx";
 
 const ArticleEdit: React.FC<SysModalProps<ArticleProps>> = (props) => {
     const { message } = App.useApp();
@@ -42,22 +43,10 @@ const ArticleEdit: React.FC<SysModalProps<ArticleProps>> = (props) => {
 
     const getOptions = () => {
         GET_ARTICLE_CATEGORY_LIST<ArticleCategoryProps[]>({}).then((res) => {
-            if (res.data.code === 0) {
-                setCategoryIdOptions(res.data.data ?? []);
-            }
+            if (res.data.code === 0) setCategoryIdOptions(res.data.data ?? []);
         });
-        GET_ARTICLE_TAG_LIST<{
-            list: ArticleTagProps[];
-            pagination: {
-                total: number;
-            };
-        }>({
-            page: 1,
-            size: 1000
-        }).then((res) => {
-            if (res.data.code === 0) {
-                setTagIdsOptions(res.data.data?.list ?? []);
-            }
+        GET_ARTICLE_TAG_ALL<ArticleTagProps[]>().then((res) => {
+            if (res.data.code === 0) setTagIdsOptions(res.data.data ?? []);
         });
     };
 
@@ -126,32 +115,20 @@ const ArticleEdit: React.FC<SysModalProps<ArticleProps>> = (props) => {
             <div className="w-100% pt">
                 <Form
                     name="modalForm"
-                    labelAlign="right"
-                    labelWrap
+                    layout="vertical"
                     form={formInst}
-                    labelCol={{ span: 6 }}
-                    wrapperCol={{ span: 18 }}
                     scrollToFirstError
                     onFinish={onSubmit}
                     onFinishFailed={onSubmitFailed}
                 >
                     <Row gutter={16}>
-                        <Col span={12}>
+                        <Col span={24}>
                             <Form.Item<FormProps>
                                 label="文章标题"
                                 name="title"
                                 rules={[{ required: true, message: "请输入文章标题" }]}
                             >
                                 <Input allowClear placeholder="请输入文章标题" />
-                            </Form.Item>
-                        </Col>
-                        <Col span={12}>
-                            <Form.Item<FormProps>
-                                label="文章内容"
-                                name="content"
-                                rules={[{ required: true, message: "请输入文章内容" }]}
-                            >
-                                <Input allowClear placeholder="请输入文章内容" />
                             </Form.Item>
                         </Col>
                         <Col span={12}>
@@ -184,6 +161,15 @@ const ArticleEdit: React.FC<SysModalProps<ArticleProps>> = (props) => {
                                     placeholder="请选择文章标签"
                                     options={tagIdsOptions}
                                 />
+                            </Form.Item>
+                        </Col>
+                        <Col span={24}>
+                            <Form.Item<FormProps>
+                                label="文章内容"
+                                name="content"
+                                rules={[{ required: true, message: "请输入文章内容" }]}
+                            >
+                                <RichEditor />
                             </Form.Item>
                         </Col>
                     </Row>
