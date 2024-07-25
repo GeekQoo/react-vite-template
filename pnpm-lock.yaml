@@ -14,6 +14,12 @@ importers:
       '@ant-design/pro-components':
         specifier: ^2.6.43
         version: 2.7.10(antd@5.19.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(rc-field-form@2.2.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@tiptap/extension-text-style':
+        specifier: ^2.5.6
+        version: 2.5.6(@tiptap/core@2.5.5(@tiptap/pm@2.5.5))
+      '@tiptap/extension-underline':
+        specifier: ^2.5.6
+        version: 2.5.6(@tiptap/core@2.5.5(@tiptap/pm@2.5.5))
       '@tiptap/react':
         specifier: ^2.5.5
         version: 2.5.5(@tiptap/core@2.5.5(@tiptap/pm@2.5.5))(@tiptap/pm@2.5.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -859,10 +865,20 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.5.5
 
+  '@tiptap/extension-text-style@2.5.6':
+    resolution: {integrity: sha512-rztXENp9Usyerl2qaknmbwNRqShAR+vm5syBTy6P+L7/u9j5TpZMYgLku7WGIf0gz6EhVhdc1Dnbfif3qi2l6g==}
+    peerDependencies:
+      '@tiptap/core': ^2.5.6
+
   '@tiptap/extension-text@2.5.5':
     resolution: {integrity: sha512-8c/hxcw7t/S3iKGSFwGNxC2I6AkKpRiySQJ95ML2miwSOAxWhnltoYYV7gobWCRgm25lnvzX/Z6BdpFzXBrBKA==}
     peerDependencies:
       '@tiptap/core': ^2.5.5
+
+  '@tiptap/extension-underline@2.5.6':
+    resolution: {integrity: sha512-1Bhi/iC3WTKXgUx4ha9cp7Vhds1hHrKnKGuiEWP02yUkwq+iGKPHWGBW/qoXyXSnvt6fXPYdeNIsaBJVtk4c/A==}
+    peerDependencies:
+      '@tiptap/core': ^2.5.6
 
   '@tiptap/pm@2.5.5':
     resolution: {integrity: sha512-ppePiLaeG6IKkm8Yq+mRENT4LIAS4qQyLT8EnKadznaTL6SNj/72mm0MjD44URkM38ySzIyvt/vqHDapNK0Hww==}
@@ -3146,7 +3162,15 @@ snapshots:
     dependencies:
       '@tiptap/core': 2.5.5(@tiptap/pm@2.5.5)
 
+  '@tiptap/extension-text-style@2.5.6(@tiptap/core@2.5.5(@tiptap/pm@2.5.5))':
+    dependencies:
+      '@tiptap/core': 2.5.5(@tiptap/pm@2.5.5)
+
   '@tiptap/extension-text@2.5.5(@tiptap/core@2.5.5(@tiptap/pm@2.5.5))':
+    dependencies:
+      '@tiptap/core': 2.5.5(@tiptap/pm@2.5.5)
+
+  '@tiptap/extension-underline@2.5.6(@tiptap/core@2.5.5(@tiptap/pm@2.5.5))':
     dependencies:
       '@tiptap/core': 2.5.5(@tiptap/pm@2.5.5)
 

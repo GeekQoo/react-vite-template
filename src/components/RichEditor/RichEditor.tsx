@@ -1,5 +1,7 @@
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Underline from "@tiptap/extension-underline";
+import TextStyle from "@tiptap/extension-text-style";
 import { Button, Select, Space, theme } from "antd";
 import React, { useEffect } from "react";
 import { DynamicIcon } from "@/components/Dynamic";
@@ -15,7 +17,27 @@ const RichEditor: React.FC<RichEditorProps> = (props) => {
     const { token } = useToken();
 
     const editor = useEditor({
-        extensions: [StarterKit],
+        extensions: [
+            StarterKit.configure({
+                heading: {
+                    HTMLAttributes: {
+                        style: `line-height:1.5;`
+                    }
+                },
+                paragraph: {
+                    HTMLAttributes: {
+                        style: `line-height:1.5;`
+                    }
+                },
+                codeBlock: {
+                    HTMLAttributes: {
+                        style: `background:#222;color:#fff;padding:10px;border-radius:5px;`
+                    }
+                }
+            }),
+            Underline,
+            TextStyle
+        ],
         content: props.value,
         editorProps: {
             attributes: { class: "min-h-[200px] focus:outline-none py-2 px-4" }
@@ -49,17 +71,50 @@ const RichEditor: React.FC<RichEditorProps> = (props) => {
                         options={[0, 1, 2, 3, 4, 5, 6].map((i) => ({ label: i > 0 ? `H${i}` : "文本", value: i }))}
                         onChange={(value) => {
                             if (value === 0) {
-                                editor?.commands.clearNodes();
+                                editor?.chain().focus().setParagraph().run();
                             } else {
-                                editor?.commands.toggleHeading({ level: value as 1 | 2 | 3 | 4 | 5 | 6 });
+                                editor
+                                    ?.chain()
+                                    .focus()
+                                    .toggleHeading({ level: value as 1 | 2 | 3 | 4 | 5 | 6 })
+                                    .run();
                             }
                         }}
                     />
                     <Button
                         type={editor?.isActive("bold") ? "primary" : "default"}
-                        onClick={() => editor?.commands.toggleBold()}
+                        onClick={() => editor?.chain().focus().toggleBold().run()}
                     >
                         <DynamicIcon icon="BoldOutlined" />
+                        <span>字体加粗</span>
+                    </Button>
+                    <Button
+                        type={editor?.isActive("italic") ? "primary" : "default"}
+                        onClick={() => editor?.chain().focus().toggleItalic().run()}
+                    >
+                        <DynamicIcon icon="ItalicOutlined" />
+                        <span>字体倾斜</span>
+                    </Button>
+                    <Button
+                        type={editor?.isActive("underline") ? "primary" : "default"}
+                        onClick={() => editor?.chain().focus().toggleUnderline().run()}
+                    >
+                        <DynamicIcon icon="UnderlineOutlined" />
+                        <span>下划线</span>
+                    </Button>
+                    <Button
+                        type={editor?.isActive("strike") ? "primary" : "default"}
+                        onClick={() => editor?.chain().focus().toggleStrike().run()}
+                    >
+                        <DynamicIcon icon="StrikethroughOutlined" />
+                        <span>删除线</span>
+                    </Button>
+                    <Button
+                        type={editor?.isActive("codeBlock") ? "primary" : "default"}
+                        onClick={() => editor?.chain().focus().toggleCodeBlock().run()}
+                    >
+                        <DynamicIcon icon="CodeOutlined" />
+                        <span>代码块</span>
                     </Button>
                 </Space>
             </div>
