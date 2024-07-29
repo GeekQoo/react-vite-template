@@ -3,7 +3,7 @@ import { App, Button, Col, Form, Input, Modal, Row, Select, Upload } from "antd"
 import { ADD_USER, GET_ROLE_ALL, GET_USER_BY_ID, UPDATE_USER } from "@/api/permission.ts";
 import type { SysModalProps } from "#/system";
 import type { RoleProps, UserProps } from "#/permission";
-import AvatarUploader from "@/components/Uploader/AvatarUploader.tsx";
+import { AvatarUploader } from "@/components/Uploader";
 
 const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
     let { message } = App.useApp();

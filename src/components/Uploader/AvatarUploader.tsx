@@ -10,7 +10,7 @@ interface AvatarUploaderProps {
     onChange?: (value: string) => void;
 }
 
-let AvatarUploader: React.FC<AvatarUploaderProps> = (props) => {
+export const AvatarUploader: React.FC<AvatarUploaderProps> = (props) => {
     let [fileList, setFileList] = useState<UploadFile[]>([]);
     let { message } = App.useApp();
 
@@ -52,5 +52,3 @@ let AvatarUploader: React.FC<AvatarUploaderProps> = (props) => {
         </ImgCrop>
     );
 };
-
-export default AvatarUploader;

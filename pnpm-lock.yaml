@@ -14,6 +14,9 @@ importers:
       '@ant-design/pro-components':
         specifier: ^2.6.43
         version: 2.7.10(antd@5.19.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(rc-field-form@2.2.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@tiptap/extension-image':
+        specifier: ^2.5.6
+        version: 2.5.6(@tiptap/core@2.5.5(@tiptap/pm@2.5.5))
       '@tiptap/extension-text-style':
         specifier: ^2.5.6
         version: 2.5.6(@tiptap/core@2.5.5(@tiptap/pm@2.5.5))
@@ -839,6 +842,11 @@ packages:
     peerDependencies:
       '@tiptap/core': ^2.5.5
       '@tiptap/pm': ^2.5.5
+
+  '@tiptap/extension-image@2.5.6':
+    resolution: {integrity: sha512-kQbnGcgfJ42NuuzGYxV+an8rHNMJrXsuv+WOsT9WyFZ7zcrhMp6wAdl77SIZ5tViZbk5dM0Ita8UF56fKWUYsw==}
+    peerDependencies:
+      '@tiptap/core': ^2.5.6
 
   '@tiptap/extension-italic@2.5.5':
     resolution: {integrity: sha512-PEeI68/u7Bm4n4xIcxVAV12jPhEa72fpHRnYfJe4CGp4x8mJfz/dowKN/P0/6CfjROB7Q8rY26u5E9fS+Cg73w==}
@@ -3141,6 +3149,10 @@ snapshots:
     dependencies:
       '@tiptap/core': 2.5.5(@tiptap/pm@2.5.5)
       '@tiptap/pm': 2.5.5
+
+  '@tiptap/extension-image@2.5.6(@tiptap/core@2.5.5(@tiptap/pm@2.5.5))':
+    dependencies:
+      '@tiptap/core': 2.5.5(@tiptap/pm@2.5.5)
 
   '@tiptap/extension-italic@2.5.5(@tiptap/core@2.5.5(@tiptap/pm@2.5.5))':
     dependencies:

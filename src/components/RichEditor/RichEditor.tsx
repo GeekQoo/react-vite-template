@@ -2,9 +2,12 @@ import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import TextStyle from "@tiptap/extension-text-style";
+import Image from "@tiptap/extension-image";
 import { Button, Select, Space, theme } from "antd";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { DynamicIcon } from "@/components/Dynamic";
+import ImageUploader from "./ImageUploader.tsx";
+import type { SysModalConfig } from "#/system";
 
 const { useToken } = theme;
 
@@ -19,29 +22,16 @@ const RichEditor: React.FC<RichEditorProps> = (props) => {
     const editor = useEditor({
         extensions: [
             StarterKit.configure({
-                heading: {
-                    HTMLAttributes: {
-                        style: `line-height:1.5;`
-                    }
-                },
-                paragraph: {
-                    HTMLAttributes: {
-                        style: `line-height:1.5;`
-                    }
-                },
-                codeBlock: {
-                    HTMLAttributes: {
-                        style: `background:#222;color:#fff;padding:10px;border-radius:5px;`
-                    }
-                }
+                heading: { HTMLAttributes: { style: `line-height:1.5;` } },
+                paragraph: { HTMLAttributes: { style: `line-height:1.5;` } },
+                codeBlock: { HTMLAttributes: { style: `background:#222;color:#fff;padding:10px;border-radius:5px;` } }
             }),
             Underline,
-            TextStyle
+            TextStyle,
+            Image.configure({ inline: true, allowBase64: true })
         ],
         content: props.value,
-        editorProps: {
-            attributes: { class: "min-h-[200px] focus:outline-none py-2 px-4" }
-        }
+        editorProps: { attributes: { class: "min-h-[200px] focus:outline-none py-2 px-4" } }
     });
 
     useEffect(() => {
@@ -58,6 +48,19 @@ const RichEditor: React.FC<RichEditorProps> = (props) => {
         }
     }, [editor, props.value, props.onChange]);
 
+    const [imageModal, setImageModal] = useState<SysModalConfig<{ url: string }>>({
+        show: false,
+        configData: { url: "" }
+    });
+
+    let openImageModal = () => setImageModal({ show: true, configData: { url: "" } });
+
+    useEffect(() => {
+        if (imageModal.configData?.url) {
+            editor?.chain().focus().setImage({ src: imageModal.configData?.url }).run();
+        }
+    }, [imageModal]);
+
     return (
         <div
             className="overflow-hidden"
@@ -66,9 +69,12 @@ const RichEditor: React.FC<RichEditorProps> = (props) => {
             <div className="p-4" style={{ borderBottom: `1px solid ${token.colorBorder}` }}>
                 <Space wrap>
                     <Select
-                        className="w-70px text-center"
+                        className="w-100px!"
                         value={editor?.isActive("heading") ? editor.getAttributes("heading").level : 0}
-                        options={[0, 1, 2, 3, 4, 5, 6].map((i) => ({ label: i > 0 ? `H${i}` : "文本", value: i }))}
+                        options={[0, 1, 2, 3, 4, 5, 6].map((i) => ({
+                            label: i > 0 ? `${i}号标题` : "默认文本",
+                            value: i
+                        }))}
                         onChange={(value) => {
                             if (value === 0) {
                                 editor?.chain().focus().setParagraph().run();
@@ -116,9 +122,14 @@ const RichEditor: React.FC<RichEditorProps> = (props) => {
                         <DynamicIcon icon="CodeOutlined" />
                         <span>代码块</span>
                     </Button>
+                    <Button type="default" onClick={() => openImageModal()}>
+                        <DynamicIcon icon="PictureOutlined" />
+                        <span>插入图片</span>
+                    </Button>
                 </Space>
             </div>
             <EditorContent editor={editor} />
+            <ImageUploader value={imageModal} updateValue={setImageModal} />
         </div>
     );
 };
