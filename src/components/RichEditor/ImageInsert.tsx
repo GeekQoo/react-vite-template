@@ -3,10 +3,10 @@ import { App, Button, Input, Modal, Space, Upload, type UploadFile, type UploadP
 import type { SysModalProps } from "#/system";
 import { UPLOAD_FILE_URL } from "@/api/netdisk.ts";
 
-const ImageUploader: React.FC<SysModalProps<{ url: string }>> = (props) => {
+export const ImageInsert: React.FC<SysModalProps<{ url: string }>> = (props) => {
     const { message } = App.useApp();
 
-    let [url, setUrl] = useState<string>("");
+    const [url, setUrl] = useState<string>("");
 
     // 关闭弹窗
     const closeModal = () => {
@@ -18,6 +18,7 @@ const ImageUploader: React.FC<SysModalProps<{ url: string }>> = (props) => {
     const onSubmit = () => {
         if (!url) return message.error("请输入图片地址或上传图片");
         props.updateValue({ show: false, configData: { url: url } });
+        setUrl("");
     };
 
     const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -69,7 +70,8 @@ const ImageUploader: React.FC<SysModalProps<{ url: string }>> = (props) => {
                         data={{ type: "richText" }}
                         fileList={fileList}
                         onChange={onChangeFile}
-                        itemRender={(originNode, file, currFileList) => false}
+                        maxCount={1}
+                        itemRender={() => false}
                     >
                         <Button size="large" type="primary">
                             上传
@@ -80,5 +82,3 @@ const ImageUploader: React.FC<SysModalProps<{ url: string }>> = (props) => {
         </Modal>
     );
 };
-
-export default ImageUploader;

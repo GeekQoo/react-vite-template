@@ -6,7 +6,7 @@ import Image from "@tiptap/extension-image";
 import { Button, Select, Space, theme } from "antd";
 import React, { useEffect, useState } from "react";
 import { DynamicIcon } from "@/components/Dynamic";
-import ImageUploader from "./ImageUploader.tsx";
+import { ImageInsert } from "./ImageInsert.tsx";
 import type { SysModalConfig } from "#/system";
 
 const { useToken } = theme;
@@ -53,12 +53,10 @@ const RichEditor: React.FC<RichEditorProps> = (props) => {
         configData: { url: "" }
     });
 
-    let openImageModal = () => setImageModal({ show: true, configData: { url: "" } });
+    const openImageModal = () => setImageModal({ show: true, configData: { url: "" } });
 
     useEffect(() => {
-        if (imageModal.configData?.url) {
-            editor?.chain().focus().setImage({ src: imageModal.configData?.url }).run();
-        }
+        if (imageModal.configData?.url) editor?.chain().focus().setImage({ src: imageModal.configData?.url }).run();
     }, [imageModal]);
 
     return (
@@ -129,7 +127,7 @@ const RichEditor: React.FC<RichEditorProps> = (props) => {
                 </Space>
             </div>
             <EditorContent editor={editor} />
-            <ImageUploader value={imageModal} updateValue={setImageModal} />
+            <ImageInsert value={imageModal} updateValue={setImageModal} />
         </div>
     );
 };
