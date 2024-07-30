@@ -28,7 +28,13 @@ const RichEditor: React.FC<RichEditorProps> = (props) => {
             }),
             Underline,
             TextStyle,
-            Image.configure({ inline: true, allowBase64: true })
+            Image.configure({
+                inline: true,
+                allowBase64: true,
+                HTMLAttributes: {
+                    style: "max-width:100%;width:auto;height:auto;display:block;margin:0 auto;"
+                }
+            })
         ],
         content: props.value,
         editorProps: { attributes: { class: "min-h-[200px] focus:outline-none py-2 px-4" } }
@@ -56,7 +62,13 @@ const RichEditor: React.FC<RichEditorProps> = (props) => {
     const openImageModal = () => setImageModal({ show: true, configData: { url: "" } });
 
     useEffect(() => {
-        if (imageModal.configData?.url) editor?.chain().focus().setImage({ src: imageModal.configData?.url }).run();
+        if (imageModal.configData?.url)
+            editor
+                ?.chain()
+                .setImage({
+                    src: imageModal.configData?.url
+                })
+                .run();
     }, [imageModal]);
 
     return (

@@ -58,7 +58,6 @@ export const ImageInsert: React.FC<SysModalProps<{ url: string }>> = (props) => 
             <div className="w-100% pt">
                 <Space.Compact className="w-100%">
                     <Input
-                        size="large"
                         className="mb"
                         allowClear
                         placeholder="请输入图片地址或上传图片"
@@ -73,9 +72,7 @@ export const ImageInsert: React.FC<SysModalProps<{ url: string }>> = (props) => 
                         maxCount={1}
                         itemRender={() => false}
                     >
-                        <Button size="large" type="primary">
-                            上传
-                        </Button>
+                        <Button type="primary">上传</Button>
                     </Upload>
                 </Space.Compact>
             </div>

@@ -95,12 +95,13 @@ const ArticleEdit: React.FC<SysModalProps<ArticleProps>> = (props) => {
 
     return (
         <Modal
+            wrapClassName="py-8"
             centered
             title={props.value.configData ? "编辑文章" : "新增文章"}
             open={props.value.show}
             maskClosable={false}
             destroyOnClose
-            width="800px"
+            width="80vw"
             onCancel={closeModal}
             forceRender
             footer={[
