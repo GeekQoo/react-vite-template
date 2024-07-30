@@ -19,3 +19,11 @@ export interface SysTableBase {
     createdAt: string;
     updatedAt: string;
 }
+
+/*
+ * value更新类型
+ */
+export interface SysValueUpdate {
+    value?: string;
+    onChange?: (value: string) => void;
+}

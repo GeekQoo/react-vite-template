@@ -7,14 +7,11 @@ import { Button, Select, Space, theme } from "antd";
 import React, { useEffect, useState } from "react";
 import { DynamicIcon } from "@/components/Dynamic";
 import { ImageInsert } from "./ImageInsert.tsx";
-import type { SysModalConfig } from "#/system";
+import { SysModalConfig, SysValueUpdate } from "#/system";
 
 const { useToken } = theme;
 
-interface RichEditorProps {
-    value?: string;
-    onChange?: (value: string) => void;
-}
+interface RichEditorProps extends SysValueUpdate {}
 
 const RichEditor: React.FC<RichEditorProps> = (props) => {
     const { token } = useToken();

@@ -4,13 +4,12 @@ import { App, Upload } from "antd";
 import ImgCrop from "antd-img-crop";
 import { UPLOAD_FILE_URL } from "@/api/netdisk.ts";
 import { DynamicIcon } from "@/components/Dynamic";
+import { SysValueUpdate } from "#/system";
 
-interface ImageUploaderProps {
+interface ImageUploaderProps extends SysValueUpdate {
     type: string;
     className?: string;
     aspect?: number;
-    value?: string;
-    onChange?: (value: string) => void;
 }
 
 export const ImageUploader: React.FC<ImageUploaderProps> = (props) => {
