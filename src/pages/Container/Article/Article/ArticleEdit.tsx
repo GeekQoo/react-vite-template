@@ -10,6 +10,7 @@ import {
     UPDATE_ARTICLE
 } from "@/api/article.ts";
 import RichEditor from "@/components/RichEditor/RichEditor.tsx";
+import { ImageUploader } from "@/components/Uploader";
 
 const ArticleEdit: React.FC<SysModalProps<ArticleProps>> = (props) => {
     const { message } = App.useApp();
@@ -30,6 +31,7 @@ const ArticleEdit: React.FC<SysModalProps<ArticleProps>> = (props) => {
                         title: formData.title,
                         content: formData.content,
                         summary: formData.summary,
+                        thumbnail: formData.thumbnail,
                         categoryId: formData.categoryId,
                         tagIds: formData.tagIds
                     });
@@ -163,6 +165,15 @@ const ArticleEdit: React.FC<SysModalProps<ArticleProps>> = (props) => {
                                     placeholder="请选择文章标签"
                                     options={tagIdsOptions}
                                 />
+                            </Form.Item>
+                        </Col>
+                        <Col span={24}>
+                            <Form.Item<FormProps>
+                                label="特色图"
+                                name="thumbnail"
+                                rules={[{ required: false, message: "请上传特色图" }]}
+                            >
+                                <ImageUploader type="thumbnail" aspect={16 / 9} />
                             </Form.Item>
                         </Col>
                         <Col span={24}>
