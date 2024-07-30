@@ -21,6 +21,7 @@ export interface ArticleTagProps extends SysTableBase {
 export interface ArticleProps extends SysTableBase {
     title: string;
     content: string;
+    summary: string;
     categoryId: number;
     tagIds: string;
 }
