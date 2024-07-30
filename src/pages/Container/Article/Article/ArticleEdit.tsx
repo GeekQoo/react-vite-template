@@ -29,6 +29,7 @@ const ArticleEdit: React.FC<SysModalProps<ArticleProps>> = (props) => {
                     formInst.setFieldsValue({
                         title: formData.title,
                         content: formData.content,
+                        summary: formData.summary,
                         categoryId: formData.categoryId,
                         tagIds: formData.tagIds
                     });
@@ -161,6 +162,21 @@ const ArticleEdit: React.FC<SysModalProps<ArticleProps>> = (props) => {
                                     allowClear
                                     placeholder="请选择文章标签"
                                     options={tagIdsOptions}
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col span={24}>
+                            <Form.Item<FormProps>
+                                label="文章概述"
+                                name="summary"
+                                rules={[{ required: false, message: "请输入文章概述" }]}
+                            >
+                                <Input.TextArea
+                                    autoSize
+                                    maxLength={200}
+                                    showCount
+                                    allowClear
+                                    placeholder="请输入文章概述，不填则自动截取"
                                 />
                             </Form.Item>
                         </Col>
