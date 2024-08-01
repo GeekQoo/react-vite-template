@@ -23,6 +23,11 @@ let ArticleCategoryList = lazy(() => import("@/pages/Container/Article/ArticleCa
 let ArticleTagList = lazy(() => import("@/pages/Container/Article/ArticleTag/ArticleTagList.tsx"));
 let ArticleList = lazy(() => import("@/pages/Container/Article/Article/ArticleList.tsx"));
 
+/*
+ * 设置模块
+ */
+let BannerList = lazy(() => import("@/pages/Container/Settings/Banner/BannerList.tsx"));
+
 let routes = [
     {
         path: "/login",
@@ -71,6 +76,11 @@ let routes = [
                 path: "/article",
                 title: "文章列表",
                 element: <ArticleList />
+            },
+            {
+                path: "/settings/banner",
+                title: "幻灯片管理",
+                element: <BannerList />
             }
         ]
     },
