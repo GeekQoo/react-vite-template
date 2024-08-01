@@ -9,7 +9,7 @@ import {
     GET_ARTICLE_TAG_ALL,
     UPDATE_ARTICLE
 } from "@/api/article.ts";
-import RichEditor from "@/components/RichEditor/RichEditor.tsx";
+import { RichEditor } from "@/components/RichEditor";
 import { ImageUploader } from "@/components/Uploader";
 
 const ArticleEdit: React.FC<SysModalProps<ArticleProps>> = (props) => {

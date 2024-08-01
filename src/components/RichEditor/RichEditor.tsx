@@ -13,7 +13,7 @@ let { useToken } = theme;
 
 interface RichEditorProps extends SysValueUpdate {}
 
-let RichEditor: React.FC<RichEditorProps> = (props) => {
+export const RichEditor: React.FC<RichEditorProps> = (props) => {
     let { token } = useToken();
 
     let editor = useEditor({
@@ -140,5 +140,3 @@ let RichEditor: React.FC<RichEditorProps> = (props) => {
         </div>
     );
 };
-
-export default RichEditor;
