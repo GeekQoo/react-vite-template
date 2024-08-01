@@ -4,19 +4,19 @@ import Underline from "@tiptap/extension-underline";
 import TextStyle from "@tiptap/extension-text-style";
 import Image from "@tiptap/extension-image";
 import { Button, Select, Space, theme } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DynamicIcon } from "@/components/Dynamic";
 import { ImageInsert } from "./ImageInsert.tsx";
 import { SysModalConfig, SysValueUpdate } from "#/system";
 
-const { useToken } = theme;
+let { useToken } = theme;
 
 interface RichEditorProps extends SysValueUpdate {}
 
-const RichEditor: React.FC<RichEditorProps> = (props) => {
-    const { token } = useToken();
+let RichEditor: React.FC<RichEditorProps> = (props) => {
+    let { token } = useToken();
 
-    const editor = useEditor({
+    let editor = useEditor({
         extensions: [
             StarterKit.configure({
                 heading: { HTMLAttributes: { style: `line-height:1.5;` } },
@@ -37,11 +37,16 @@ const RichEditor: React.FC<RichEditorProps> = (props) => {
         editorProps: { attributes: { class: "min-h-[200px] focus:outline-none py-2 px-4" } }
     });
 
+    let initValueSet = useRef(false);
+
     useEffect(() => {
         if (editor) {
-            if (props.value) editor.commands.setContent(props.value);
+            if (!initValueSet.current && props.value) {
+                editor.commands.setContent(props.value);
+                initValueSet.current = true;
+            }
 
-            const updateHandler = () => props.onChange?.(editor.getHTML());
+            let updateHandler = () => props.onChange?.(editor.getHTML());
 
             editor.on("update", updateHandler);
 
@@ -51,21 +56,16 @@ const RichEditor: React.FC<RichEditorProps> = (props) => {
         }
     }, [editor, props.value, props.onChange]);
 
-    const [imageModal, setImageModal] = useState<SysModalConfig<{ url: string }>>({
+    // 图片插入
+    let [imageModal, setImageModal] = useState<SysModalConfig<{ url: string }>>({
         show: false,
         configData: { url: "" }
     });
 
-    const openImageModal = () => setImageModal({ show: true, configData: { url: "" } });
+    let openImageModal = () => setImageModal({ show: true, configData: { url: "" } });
 
     useEffect(() => {
-        if (imageModal.configData?.url)
-            editor
-                ?.chain()
-                .setImage({
-                    src: imageModal.configData?.url
-                })
-                .run();
+        if (imageModal.configData?.url) editor?.chain().setImage({ src: imageModal.configData?.url }).run();
     }, [imageModal]);
 
     return (
