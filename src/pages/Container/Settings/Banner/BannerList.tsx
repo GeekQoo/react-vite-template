@@ -116,7 +116,7 @@ const BannerList: React.FC = () => {
     }, [tableParams.pagination?.current, tableParams.pagination?.pageSize, editModal]);
 
     return (
-        <div className="user-list-page">
+        <div className="banner-page">
             <Card>
                 <Space className="mb">
                     <Button type="primary" onClick={() => openEditModal()}>

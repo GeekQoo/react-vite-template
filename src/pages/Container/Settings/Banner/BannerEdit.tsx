@@ -149,7 +149,7 @@ const BannerEdit: React.FC<SysModalProps<BannerProps>> = (props) => {
                                 name="imageUrl"
                                 rules={[{ required: true, message: "请上传图片" }]}
                             >
-                                <ImageUploader type="thumbnail" aspect={16 / 9} />
+                                <ImageUploader type="thumbnail" aspect={1920 / 600} />
                             </Form.Item>
                         </Col>
                     </Row>

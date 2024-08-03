@@ -19,8 +19,8 @@ export const RichEditor: React.FC<RichEditorProps> = (props) => {
     let editor = useEditor({
         extensions: [
             StarterKit.configure({
-                heading: { HTMLAttributes: { style: `line-height:1.5;` } },
-                paragraph: { HTMLAttributes: { style: `line-height:1.5;` } },
+                heading: { HTMLAttributes: { style: `line-height:2;` } },
+                paragraph: { HTMLAttributes: { style: `line-height:2;` } },
                 codeBlock: { HTMLAttributes: { style: `background:#222;color:#fff;padding:10px;border-radius:5px;` } }
             }),
             Underline,
