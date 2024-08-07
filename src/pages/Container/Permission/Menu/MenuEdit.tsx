@@ -26,7 +26,7 @@ const MenuEdit: React.FC<SysModalProps<NavMenuProps>> = (props) => {
                         type: formData.type,
                         router: formData.router,
                         icon: formData.icon,
-                        orderNum: formData.orderNum
+                        sort: formData.sort
                     });
                 }
             });
@@ -115,7 +115,7 @@ const MenuEdit: React.FC<SysModalProps<NavMenuProps>> = (props) => {
                     labelCol={{ span: 6 }}
                     wrapperCol={{ span: 18 }}
                     scrollToFirstError
-                    initialValues={{ orderNum: 0 }}
+                    initialValues={{ sort: 0 }}
                     onFinish={onSubmit}
                     onFinishFailed={onSubmitFailed}
                 >
@@ -180,7 +180,7 @@ const MenuEdit: React.FC<SysModalProps<NavMenuProps>> = (props) => {
                         </Col>
                         <Col span={12}>
                             <Form.Item
-                                name="orderNum"
+                                name="sort"
                                 label="菜单排序"
                                 rules={[{ required: false, message: "请输入菜单排序" }]}
                             >

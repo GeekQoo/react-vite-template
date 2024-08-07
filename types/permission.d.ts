@@ -19,7 +19,7 @@ export interface NavMenuProps extends SysTableBase {
     type: 1 | 2 | 3;
     icon: string;
     router: string;
-    orderNum: number;
+    sort: number;
     children?: NavMenuProps[];
 }
 

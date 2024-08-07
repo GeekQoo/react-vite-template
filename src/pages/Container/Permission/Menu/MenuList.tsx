@@ -27,7 +27,7 @@ const MenuList: React.FC = () => {
         },
         { title: "菜单名称", align: "center", dataIndex: "menuName" },
         { title: "菜单路由", align: "center", dataIndex: "router" },
-        { title: "菜单排序", align: "center", dataIndex: "orderNum" },
+        { title: "菜单排序", align: "center", dataIndex: "sort" },
         {
             title: "创建时间",
             align: "center",
