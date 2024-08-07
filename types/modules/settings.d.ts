@@ -12,3 +12,14 @@ export interface BannerProps extends SysTableBase {
     linkUrl?: string;
     sort: number;
 }
+
+/*
+ * 全局设置类型
+ */
+export interface SettingsGlobalProps extends SysTableBase {
+    id?: number;
+    name: string;
+    key: string;
+    value: string;
+    sort: number;
+}

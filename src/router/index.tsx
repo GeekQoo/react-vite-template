@@ -27,6 +27,7 @@ let ArticleList = lazy(() => import("@/pages/Container/Article/Article/ArticleLi
  * 设置模块
  */
 let BannerList = lazy(() => import("@/pages/Container/Settings/Banner/BannerList.tsx"));
+let GlobalSettingsList = lazy(() => import("@/pages/Container/Settings/GlobalSettings/GlobalSettingsList.tsx"));
 
 let routes = [
     {
@@ -81,6 +82,11 @@ let routes = [
                 path: "/settings/banner",
                 title: "幻灯片管理",
                 element: <BannerList />
+            },
+            {
+                path: "/settings/global",
+                title: "全局设置",
+                element: <GlobalSettingsList />
             }
         ]
     },

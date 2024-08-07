@@ -177,7 +177,7 @@ const MenuEdit: React.FC<SysModalProps<NavMenuProps>> = (props) => {
                             >
                                 <IconSelect />
                             </Form.Item>
-                        </Col>{" "}
+                        </Col>
                         <Col span={12}>
                             <Form.Item
                                 name="orderNum"
