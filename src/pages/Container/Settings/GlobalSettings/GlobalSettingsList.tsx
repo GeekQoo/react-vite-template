@@ -26,9 +26,9 @@ const GlobalSettingsList: React.FC = () => {
 
     let tableColumns: ColumnsType<SettingsGlobalProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
-        { title: "设置项名称", align: "center", dataIndex: "name" },
+        { title: "设置项名", align: "center", dataIndex: "name" },
         { title: "设置项键", align: "center", dataIndex: "key" },
-        { title: "设置项值", align: "center", dataIndex: "value" },
+        // { title: "设置项值", align: "center", dataIndex: "value" },
         {
             title: "创建时间",
             align: "center",

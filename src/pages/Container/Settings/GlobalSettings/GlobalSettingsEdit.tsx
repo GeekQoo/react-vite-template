@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
-import { App, Button, Col, Form, Input, InputNumber, Modal, Row } from "antd";
+import { App, Button, Col, Form, Input, InputNumber, Modal, Row, Tabs } from "antd";
 import type { SysModalProps } from "#/system";
 import { ADD_GLOBAL_SETTINGS, GET_GLOBAL_SETTINGS_BY_ID, UPDATE_GLOBAL_SETTINGS } from "@/api/settings.ts";
 import type { SettingsGlobalProps } from "#/modules/settings";
+import { RichEditor } from "@/components/RichEditor";
 
 const GlobalSettingsEdit: React.FC<SysModalProps<SettingsGlobalProps>> = (props) => {
     const { message } = App.useApp();
+
+    const [tabActive, setTabActive] = React.useState("1");
 
     // 转成可选类型
     type FormProps = Partial<SettingsGlobalProps>;
@@ -75,7 +78,7 @@ const GlobalSettingsEdit: React.FC<SysModalProps<SettingsGlobalProps>> = (props)
     return (
         <Modal
             centered
-            title={props.value.configData ? "编辑标签" : "新增标签"}
+            title={props.value.configData ? "编辑设置项" : "新增设置项"}
             open={props.value.show}
             maskClosable={false}
             destroyOnClose
@@ -91,14 +94,22 @@ const GlobalSettingsEdit: React.FC<SysModalProps<SettingsGlobalProps>> = (props)
                 </Button>
             ]}
         >
-            <div className="w-100% pt">
+            <div className="w-100%">
+                <Tabs
+                    activeKey={tabActive}
+                    items={[
+                        { key: "1", label: "普通内容" },
+                        { key: "2", label: "富文本内容" }
+                    ]}
+                    onChange={(e) => {
+                        setTabActive(e);
+                    }}
+                />
                 <Form
                     name="modalForm"
                     labelAlign="right"
                     labelWrap
                     form={formInst}
-                    labelCol={{ span: 6 }}
-                    wrapperCol={{ span: 18 }}
                     scrollToFirstError
                     onFinish={onSubmit}
                     initialValues={{ sort: 0 }}
@@ -125,18 +136,35 @@ const GlobalSettingsEdit: React.FC<SysModalProps<SettingsGlobalProps>> = (props)
                         </Col>
                         <Col span={12}>
                             <Form.Item<FormProps>
-                                label="设置项值"
-                                name="value"
-                                rules={[{ required: true, message: "请输入设置项值" }]}
+                                name="sort"
+                                label="设置排序"
+                                rules={[{ required: true, message: "请输入排序" }]}
                             >
-                                <Input allowClear placeholder="请输入设置项值" />
-                            </Form.Item>
-                        </Col>
-                        <Col span={12}>
-                            <Form.Item name="sort" label="排序" rules={[{ required: false, message: "请输入排序" }]}>
                                 <InputNumber className="w-100%" min={0} placeholder="请输入排序" />
                             </Form.Item>
                         </Col>
+                        {tabActive === "1" && (
+                            <Col span={12}>
+                                <Form.Item<FormProps>
+                                    label="设置项值"
+                                    name="value"
+                                    rules={[{ required: true, message: "请输入设置项值" }]}
+                                >
+                                    <Input allowClear placeholder="请输入设置项值" />
+                                </Form.Item>
+                            </Col>
+                        )}
+                        {tabActive === "2" && (
+                            <Col span={24}>
+                                <Form.Item<FormProps>
+                                    label="设置项值"
+                                    name="value"
+                                    rules={[{ required: true, message: "请输入设置项值" }]}
+                                >
+                                    <RichEditor />
+                                </Form.Item>
+                            </Col>
+                        )}
                     </Row>
                 </Form>
             </div>
