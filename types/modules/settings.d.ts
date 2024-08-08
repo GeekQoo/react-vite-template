@@ -19,6 +19,7 @@ export interface BannerProps extends SysTableBase {
 export interface SettingsGlobalProps extends SysTableBase {
     id?: number;
     name: string;
+    type: 0 | 1 | 2;
     key: string;
     value: string;
     sort: number;

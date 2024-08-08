@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { App, Button, Col, Form, Input, InputNumber, Modal, Row, Tabs } from "antd";
+import { App, Button, Col, Form, Input, InputNumber, Modal, Radio, Row } from "antd";
 import type { SysModalProps } from "#/system";
 import { ADD_GLOBAL_SETTINGS, GET_GLOBAL_SETTINGS_BY_ID, UPDATE_GLOBAL_SETTINGS } from "@/api/settings.ts";
 import type { SettingsGlobalProps } from "#/modules/settings";
@@ -7,8 +7,6 @@ import { RichEditor } from "@/components/RichEditor";
 
 const GlobalSettingsEdit: React.FC<SysModalProps<SettingsGlobalProps>> = (props) => {
     const { message } = App.useApp();
-
-    const [tabActive, setTabActive] = React.useState("1");
 
     // 转成可选类型
     type FormProps = Partial<SettingsGlobalProps>;
@@ -25,6 +23,7 @@ const GlobalSettingsEdit: React.FC<SysModalProps<SettingsGlobalProps>> = (props)
                     formInst.setFieldsValue({
                         name: formData.name,
                         key: formData.key,
+                        type: formData.type,
                         value: formData.value,
                         sort: formData.sort
                     });
@@ -95,16 +94,6 @@ const GlobalSettingsEdit: React.FC<SysModalProps<SettingsGlobalProps>> = (props)
             ]}
         >
             <div className="w-100%">
-                <Tabs
-                    activeKey={tabActive}
-                    items={[
-                        { key: "1", label: "普通内容" },
-                        { key: "2", label: "富文本内容" }
-                    ]}
-                    onChange={(e) => {
-                        setTabActive(e);
-                    }}
-                />
                 <Form
                     name="modalForm"
                     labelAlign="right"
@@ -112,7 +101,7 @@ const GlobalSettingsEdit: React.FC<SysModalProps<SettingsGlobalProps>> = (props)
                     form={formInst}
                     scrollToFirstError
                     onFinish={onSubmit}
-                    initialValues={{ sort: 0 }}
+                    initialValues={{ sort: 0, type: 0 }}
                     onFinishFailed={onSubmitFailed}
                 >
                     <Row gutter={16}>
@@ -143,7 +132,22 @@ const GlobalSettingsEdit: React.FC<SysModalProps<SettingsGlobalProps>> = (props)
                                 <InputNumber className="w-100%" min={0} placeholder="请输入排序" />
                             </Form.Item>
                         </Col>
-                        {tabActive === "1" && (
+                        <Col span={12}>
+                            <Form.Item<FormProps>
+                                name="type"
+                                label="设置类型"
+                                rules={[{ required: true, message: "请选择设置类型" }]}
+                            >
+                                <Radio.Group
+                                    options={[
+                                        { label: "普通文本", value: 0 },
+                                        { label: "富文本", value: 1 },
+                                        { label: "图片", value: 2, disabled: true }
+                                    ]}
+                                />
+                            </Form.Item>
+                        </Col>
+                        {Form.useWatch("type", formInst) === 0 && (
                             <Col span={12}>
                                 <Form.Item<FormProps>
                                     label="设置项值"
@@ -154,7 +158,7 @@ const GlobalSettingsEdit: React.FC<SysModalProps<SettingsGlobalProps>> = (props)
                                 </Form.Item>
                             </Col>
                         )}
-                        {tabActive === "2" && (
+                        {Form.useWatch("type", formInst) === 1 && (
                             <Col span={24}>
                                 <Form.Item<FormProps>
                                     label="设置项值"
