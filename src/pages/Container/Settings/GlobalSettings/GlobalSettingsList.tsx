@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { App, Button, Card, Space, Table } from "antd";
+import { App, Button, Card, Space, Table, Typography } from "antd";
 import { useCommonTable } from "@/hooks";
 import GlobalSettingsEdit from "./GlobalSettingsEdit.tsx";
 import dayjs from "dayjs";
@@ -28,7 +28,22 @@ const GlobalSettingsList: React.FC = () => {
         { title: "ID", align: "center", dataIndex: "id" },
         { title: "设置项名", align: "center", dataIndex: "name" },
         { title: "设置项键", align: "center", dataIndex: "key" },
-        // { title: "设置项值", align: "center", dataIndex: "value" },
+        {
+            title: "设置类型",
+            align: "center",
+            dataIndex: "type",
+            render: (row) => {
+                if (row === 0) {
+                    return <Typography.Text>普通文本</Typography.Text>;
+                } else if (row === 1) {
+                    return <Typography.Text type="warning">富文本</Typography.Text>;
+                } else if (row === 2) {
+                    return <Typography.Text type="success">图片</Typography.Text>;
+                } else {
+                    return <Typography.Text type="danger">未知</Typography.Text>;
+                }
+            }
+        },
         {
             title: "创建时间",
             align: "center",
