@@ -9,6 +9,7 @@ import { SysValueUpdate } from "#/system";
 interface ImageUploaderProps extends SysValueUpdate {
     type: string;
     className?: string;
+    quality?: number;
     aspect?: number;
 }
 
@@ -28,18 +29,19 @@ export const ImageUploader: React.FC<ImageUploaderProps> = (props) => {
             props.onChange?.("");
         }
     };
+
     let onPreview = async (file: UploadFile) => {
         message.warning("暂不支持预览，敬请期待");
     };
 
     useEffect(() => {
         if (props.value) {
-            setFileList([{ uid: "-1", name: "avatar", status: "done", url: props.value }]);
+            setFileList([{ uid: "-1", name: "image", status: "done", url: props.value }]);
         }
     }, [props.value]);
 
     return (
-        <ImgCrop aspect={props.aspect ?? 16 / 9} rotationSlider>
+        <ImgCrop quality={props.quality ?? 1} aspect={props.aspect ?? 16 / 9} rotationSlider>
             <Upload
                 className="h-110px"
                 action={UPLOAD_FILE_URL}

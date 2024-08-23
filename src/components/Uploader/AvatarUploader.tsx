@@ -6,7 +6,9 @@ import { UPLOAD_FILE_URL } from "@/api/netdisk.ts";
 import { DynamicIcon } from "@/components/Dynamic";
 import { SysValueUpdate } from "#/system";
 
-interface AvatarUploaderProps extends SysValueUpdate {}
+interface AvatarUploaderProps extends SysValueUpdate {
+    quality?: number;
+}
 
 export const AvatarUploader: React.FC<AvatarUploaderProps> = (props) => {
     let [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -24,6 +26,7 @@ export const AvatarUploader: React.FC<AvatarUploaderProps> = (props) => {
             props.onChange?.("");
         }
     };
+
     let onPreview = async (file: UploadFile) => {
         message.warning("暂不支持预览，敬请期待");
     };
@@ -35,7 +38,7 @@ export const AvatarUploader: React.FC<AvatarUploaderProps> = (props) => {
     }, [props.value]);
 
     return (
-        <ImgCrop rotationSlider>
+        <ImgCrop quality={props.quality ?? 1} rotationSlider>
             <Upload
                 className="h-110px"
                 action={UPLOAD_FILE_URL}
