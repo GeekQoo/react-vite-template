@@ -19,7 +19,7 @@ const MenuEdit: React.FC<SysModalProps<NavMenuProps>> = (props) => {
         if (props.value.configData && props.value.show) {
             GET_MENU_BY_ID<FormProps>({ id: props.value.configData.id }).then((res) => {
                 if (res.data.code === 0 && res.data.data) {
-                    let formData = res.data.data;
+                    const formData = res.data.data;
                     formInst.setFieldsValue({
                         menuName: formData.menuName,
                         parentId: formData.parentId,

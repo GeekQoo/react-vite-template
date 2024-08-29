@@ -8,10 +8,10 @@ import type { SettingsGlobalProps } from "#/modules/settings";
 import { useNavigate } from "react-router-dom";
 
 const GlobalSettingsList: React.FC = () => {
-    let { message, modal } = App.useApp();
-    let navigate = useNavigate();
+    const { message, modal } = App.useApp();
+    const navigate = useNavigate();
 
-    let {
+    const {
         tableLoading,
         setTableLoading,
         tableData,
@@ -24,7 +24,7 @@ const GlobalSettingsList: React.FC = () => {
         setTableSelection
     } = useCommonTable<SettingsGlobalProps>("id");
 
-    let tableColumns: ColumnsType<SettingsGlobalProps> = [
+    const tableColumns: ColumnsType<SettingsGlobalProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
         { title: "设置项名", align: "center", dataIndex: "name" },
         { title: "设置项键", align: "center", dataIndex: "key" },
@@ -77,7 +77,7 @@ const GlobalSettingsList: React.FC = () => {
         }
     ];
 
-    let getTableData = () => {
+    const getTableData = () => {
         setTableLoading(true);
         GET_GLOBAL_SETTINGS_LIST<{
             list: SettingsGlobalProps[];
@@ -103,7 +103,7 @@ const GlobalSettingsList: React.FC = () => {
     };
 
     // 批量删除
-    let onDelete = (record?: SettingsGlobalProps) => {
+    const onDelete = (record?: SettingsGlobalProps) => {
         let ids = record ? [record.id] : tableSelection;
         if (ids.length < 1) return message.error("请先选择要删除的数据");
         modal.confirm({
@@ -121,7 +121,7 @@ const GlobalSettingsList: React.FC = () => {
     };
 
     // 新增编辑
-    let toEdit = (record?: SettingsGlobalProps) => {
+    const toEdit = (record?: SettingsGlobalProps) => {
         record ? navigate(`/settings/global/${record?.id}`) : navigate("/settings/global/add");
     };
 

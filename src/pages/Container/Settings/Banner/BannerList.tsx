@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { App, Button, Card, Space, Table } from "antd";
 import { DELETE_BANNER, GET_BANNER_LIST } from "@/api/settings.ts";
 import { useCommonTable } from "@/hooks";
-import BannerEdit from "./BannerEdit.tsx";
 import dayjs from "dayjs";
 import type { ColumnsType } from "antd/es/table";
-import type { SysModalConfig } from "#/system";
-import { BannerProps } from "#/modules/settings";
+import type { BannerProps } from "#/modules/settings";
+import { useNavigate } from "react-router-dom";
 
 const BannerList: React.FC = () => {
-    let { message, modal } = App.useApp();
+    const { message, modal } = App.useApp();
+    const navigate = useNavigate();
 
-    let {
+    const {
         tableLoading,
         setTableLoading,
         tableData,
@@ -24,7 +24,7 @@ const BannerList: React.FC = () => {
         setTableSelection
     } = useCommonTable<BannerProps>("id");
 
-    let tableColumns: ColumnsType<BannerProps> = [
+    const tableColumns: ColumnsType<BannerProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
         { title: "标题", align: "center", dataIndex: "title" },
         { title: "简介", align: "center", dataIndex: "description" },
@@ -47,7 +47,7 @@ const BannerList: React.FC = () => {
             width: 180,
             render: (_, record) => (
                 <Space>
-                    <Button type="primary" ghost onClick={() => openEditModal(record)}>
+                    <Button type="primary" ghost onClick={() => toEdit(record)}>
                         编辑
                     </Button>
                     <Button type="primary" danger ghost onClick={() => onDelete(record)}>
@@ -58,7 +58,7 @@ const BannerList: React.FC = () => {
         }
     ];
 
-    let getTableData = () => {
+    const getTableData = () => {
         setTableLoading(true);
         GET_BANNER_LIST<{
             list: BannerProps[];
@@ -84,8 +84,8 @@ const BannerList: React.FC = () => {
     };
 
     // 批量删除
-    let onDelete = (record?: BannerProps) => {
-        let ids = record ? [record.id] : tableSelection;
+    const onDelete = (record?: BannerProps) => {
+        const ids = record ? [record.id] : tableSelection;
         if (ids.length < 1) return message.error("请先选择要删除的数据");
         modal.confirm({
             title: "提示",
@@ -93,7 +93,7 @@ const BannerList: React.FC = () => {
             okText: "确认",
             cancelText: "取消",
             onOk: async () => {
-                let res = await DELETE_BANNER({ id: ids[0] });
+                const res = await DELETE_BANNER({ id: ids[0] });
                 res.data.code === 0 ? message.success("删除成功") : message.error(res.data.msg ?? "删除失败");
                 getTableData();
             },
@@ -102,24 +102,19 @@ const BannerList: React.FC = () => {
     };
 
     // 新增编辑
-    let [editModal, setEditModal] = useState<SysModalConfig<BannerProps>>({
-        show: false,
-        configData: null
-    });
-
-    let openEditModal = (record?: BannerProps) => {
-        setEditModal({ show: true, configData: record ?? null });
+    const toEdit = (record?: BannerProps) => {
+        record ? navigate(`/settings/banner/${record?.id}`) : navigate("/settings/banner/add");
     };
 
     useEffect(() => {
         getTableData();
-    }, [tableParams.pagination?.current, tableParams.pagination?.pageSize, editModal]);
+    }, [tableParams.pagination?.current, tableParams.pagination?.pageSize]);
 
     return (
         <div className="banner-page">
             <Card>
                 <Space className="mb">
-                    <Button type="primary" onClick={() => openEditModal()}>
+                    <Button type="primary" onClick={() => toEdit()}>
                         新增
                     </Button>
                 </Space>
@@ -139,7 +134,6 @@ const BannerList: React.FC = () => {
                     }}
                 />
             </Card>
-            <BannerEdit value={editModal} updateValue={setEditModal} />
         </div>
     );
 };

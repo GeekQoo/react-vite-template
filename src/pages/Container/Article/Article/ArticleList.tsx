@@ -9,9 +9,9 @@ import { DELETE_ARTICLE, GET_ARTICLE_LIST } from "@/api/article.ts";
 import ArticleEdit from "./ArticleEdit";
 
 const ArticleList: React.FC = () => {
-    let { message, modal } = App.useApp();
+    const { message, modal } = App.useApp();
 
-    let {
+    const {
         tableLoading,
         setTableLoading,
         tableData,
@@ -24,7 +24,7 @@ const ArticleList: React.FC = () => {
         setTableSelection
     } = useCommonTable<ArticleProps>("id");
 
-    let tableColumns: ColumnsType<ArticleProps> = [
+    const tableColumns: ColumnsType<ArticleProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
         { title: "文章标题", align: "center", dataIndex: "title" },
         {
@@ -57,7 +57,7 @@ const ArticleList: React.FC = () => {
         }
     ];
 
-    let getTableData = () => {
+    const getTableData = () => {
         setTableLoading(true);
         GET_ARTICLE_LIST<{
             list: ArticleProps[];
@@ -83,8 +83,8 @@ const ArticleList: React.FC = () => {
     };
 
     // 批量删除
-    let onDelete = (record?: ArticleProps) => {
-        let ids = record ? [record.id] : tableSelection;
+    const onDelete = (record?: ArticleProps) => {
+        const ids = record ? [record.id] : tableSelection;
         if (ids.length < 1) return message.error("请先选择要删除的数据");
         modal.confirm({
             title: "提示",
@@ -92,7 +92,7 @@ const ArticleList: React.FC = () => {
             okText: "确认",
             cancelText: "取消",
             onOk: async () => {
-                let res = await DELETE_ARTICLE({ id: ids[0] });
+                const res = await DELETE_ARTICLE({ id: ids[0] });
                 res.data.code === 0 ? message.success("删除成功") : message.error(res.data.msg ?? "删除失败");
                 getTableData();
             },
@@ -101,12 +101,12 @@ const ArticleList: React.FC = () => {
     };
 
     // 新增编辑
-    let [editModal, setEditModal] = useState<SysModalConfig<ArticleProps>>({
+    const [editModal, setEditModal] = useState<SysModalConfig<ArticleProps>>({
         show: false,
         configData: null
     });
 
-    let openEditModal = (record?: ArticleProps) => {
+    const openEditModal = (record?: ArticleProps) => {
         setEditModal({ show: true, configData: record ?? null });
     };
 

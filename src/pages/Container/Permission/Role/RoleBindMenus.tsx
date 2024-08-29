@@ -6,14 +6,14 @@ import type { RoleProps } from "#/permission";
 import { GET_MENU_LIST, GET_ROLE_MENU, UPDATE_ROLE } from "@/api/permission.ts";
 
 const RoleBindMenus: React.FC<SysModalProps<RoleProps>> = (props) => {
-    let { message } = App.useApp();
+    const { message } = App.useApp();
 
     /*
      *  获取菜单树
      */
-    let [menuTree, setMenuTree] = useState<TreeDataNode[]>([]);
+    const [menuTree, setMenuTree] = useState<TreeDataNode[]>([]);
 
-    let getMenuList = () => {
+    const getMenuList = () => {
         GET_MENU_LIST<TreeDataNode[]>({}).then((res) => {
             if (res.data.code === 0) {
                 setMenuTree(res.data.data ?? []);
@@ -24,9 +24,9 @@ const RoleBindMenus: React.FC<SysModalProps<RoleProps>> = (props) => {
     /*
      *  选中菜单
      */
-    let [checkedKeys, setCheckedKeys] = useState<React.Key[]>([]);
+    const [checkedKeys, setCheckedKeys] = useState<React.Key[]>([]);
 
-    let getCheckedKeys = () => {
+    const getCheckedKeys = () => {
         if (props.value.configData?.id) {
             GET_ROLE_MENU<React.Key[]>({ id: props.value.configData.id }).then((res) => {
                 if (res.data.code === 0) {
@@ -36,7 +36,7 @@ const RoleBindMenus: React.FC<SysModalProps<RoleProps>> = (props) => {
         }
     };
 
-    let onCheck: TreeProps["onCheck"] = (checkedKeysValue) => {
+    const onCheck: TreeProps["onCheck"] = (checkedKeysValue) => {
         if (Array.isArray(checkedKeysValue)) {
             setCheckedKeys(checkedKeysValue);
         } else {
@@ -45,12 +45,12 @@ const RoleBindMenus: React.FC<SysModalProps<RoleProps>> = (props) => {
     };
 
     // 关闭弹窗
-    let closeModal = () => {
+    const closeModal = () => {
         props.updateValue({ ...props.value, show: false });
     };
 
     // 提交
-    let onSubmit = () => {
+    const onSubmit = () => {
         if (props.value.configData) {
             UPDATE_ROLE({
                 id: props.value.configData.id,

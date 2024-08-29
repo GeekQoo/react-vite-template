@@ -2,9 +2,9 @@ import React from "react";
 import { Avatar, Card, Space, Statistic, Typography } from "antd";
 import { useAuthStore } from "@/store";
 
-let Workbench: React.FC = () => {
-    let { userData } = useAuthStore();
-    let { Title, Text } = Typography;
+const Workbench: React.FC = () => {
+    const { userData } = useAuthStore();
+    const { Title, Text } = Typography;
 
     return (
         <div className="workbench-page">

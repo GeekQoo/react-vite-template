@@ -8,9 +8,7 @@ import { RichEditor } from "@/components/RichEditor";
 const GlobalSettingsEdit: React.FC = () => {
     const { message } = App.useApp();
     const navigate = useNavigate();
-
-    // 获取路由参数
-    const routerParams = useParams<{ id: string }>();
+    const { id } = useParams<{ id: string }>();
 
     // 转成可选类型
     type FormProps = Partial<SettingsGlobalProps>;
@@ -20,9 +18,9 @@ const GlobalSettingsEdit: React.FC = () => {
 
     // 获取详情
     const getDetail = () => {
-        GET_GLOBAL_SETTINGS_BY_ID<FormProps>({ id: routerParams.id }).then((res) => {
+        GET_GLOBAL_SETTINGS_BY_ID<FormProps>({ id }).then((res) => {
             if (res.data.code === 0 && res.data.data) {
-                let formData = res.data.data;
+                const formData = res.data.data;
                 formInst.setFieldsValue({
                     name: formData.name,
                     key: formData.key,
@@ -40,9 +38,9 @@ const GlobalSettingsEdit: React.FC = () => {
 
     // 提交
     const onSubmit = (values: FormProps) => {
-        if (routerParams.id) {
+        if (id) {
             UPDATE_GLOBAL_SETTINGS({
-                id: Number(routerParams.id),
+                id: Number(id),
                 ...values
             }).then((res) => {
                 if (res.data.code === 0) {
@@ -69,15 +67,15 @@ const GlobalSettingsEdit: React.FC = () => {
     };
 
     useEffect(() => {
-        if (routerParams.id) getDetail();
-    }, [routerParams.id]);
+        if (id) getDetail();
+    }, [id]);
 
     return (
-        <div className="settings-edit-page">
+        <div className="global-settings-page">
             <Card
                 title={
                     <div className="flex-y-center">
-                        <div>{routerParams.id ? "编辑" : "新增"}全局设置</div>
+                        <div>{id ? "编辑" : "新增"}全局设置</div>
                         <Space className="ml-a">
                             <Button type="primary" onClick={() => formInst.submit()}>
                                 提交

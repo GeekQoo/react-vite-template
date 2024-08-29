@@ -2,8 +2,8 @@ import React from "react";
 import { Button, Result } from "antd";
 import { useNavigate } from "react-router-dom";
 
-let NotFound: React.FC = () => {
-    let navigate = useNavigate();
+const NotFound: React.FC = () => {
+    const navigate = useNavigate();
 
     return (
         <div className="w-100vw h-100vh flex-center">

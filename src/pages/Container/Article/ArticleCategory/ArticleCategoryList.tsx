@@ -9,12 +9,12 @@ import { DELETE_ARTICLE_CATEGORY, GET_ARTICLE_CATEGORY_LIST } from "@/api/articl
 import ArticleCategoryEdit from "./ArticleCategoryEdit.tsx";
 
 const ArticleCategoryList: React.FC = () => {
-    let { message, modal } = App.useApp();
+    const { message, modal } = App.useApp();
 
-    let { tableLoading, setTableLoading, tableData, setTableData, tableRowKey, tableSelection, setTableSelection } =
+    const { tableLoading, setTableLoading, tableData, setTableData, tableRowKey, tableSelection, setTableSelection } =
         useCommonTable<ArticleCategoryProps>("id");
 
-    let tableColumns: ColumnsType<ArticleCategoryProps> = [
+    const tableColumns: ColumnsType<ArticleCategoryProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
         { title: "分类名称", align: "center", dataIndex: "categoryName" },
         {
@@ -47,7 +47,7 @@ const ArticleCategoryList: React.FC = () => {
         }
     ];
 
-    let getTableData = () => {
+    const getTableData = () => {
         setTableLoading(true);
         GET_ARTICLE_CATEGORY_LIST<ArticleCategoryProps[]>({}).then((res) => {
             if (res.data.code === 0) {
@@ -58,8 +58,8 @@ const ArticleCategoryList: React.FC = () => {
     };
 
     // 批量删除
-    let onDelete = (record?: ArticleCategoryProps) => {
-        let ids = record ? [record.id] : tableSelection;
+    const onDelete = (record?: ArticleCategoryProps) => {
+        const ids = record ? [record.id] : tableSelection;
         if (ids.length < 1) return message.error("请先选择要删除的数据");
         modal.confirm({
             title: "提示",
@@ -67,7 +67,7 @@ const ArticleCategoryList: React.FC = () => {
             okText: "确认",
             cancelText: "取消",
             onOk: async () => {
-                let res = await DELETE_ARTICLE_CATEGORY({ id: ids[0] });
+                const res = await DELETE_ARTICLE_CATEGORY({ id: ids[0] });
                 res.data.code === 0 ? message.success("删除成功") : message.error(res.data.msg ?? "删除失败");
                 getTableData();
             },
@@ -76,12 +76,12 @@ const ArticleCategoryList: React.FC = () => {
     };
 
     // 新增编辑
-    let [editModal, setEditModal] = useState<SysModalConfig<ArticleCategoryProps>>({
+    const [editModal, setEditModal] = useState<SysModalConfig<ArticleCategoryProps>>({
         show: false,
         configData: null
     });
 
-    let openEditModal = (record?: ArticleCategoryProps) => {
+    const openEditModal = (record?: ArticleCategoryProps) => {
         setEditModal({ show: true, configData: record ?? null });
     };
 

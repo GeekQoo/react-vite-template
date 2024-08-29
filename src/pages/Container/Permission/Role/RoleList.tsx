@@ -10,9 +10,9 @@ import type { SysModalConfig } from "#/system";
 import type { RoleProps } from "#/permission";
 
 const RoleList: React.FC = () => {
-    let { message, modal } = App.useApp();
+    const { message, modal } = App.useApp();
 
-    let {
+    const {
         tableLoading,
         setTableLoading,
         tableData,
@@ -25,7 +25,7 @@ const RoleList: React.FC = () => {
         setTableSelection
     } = useCommonTable<RoleProps>("id");
 
-    let tableColumns: ColumnsType<RoleProps> = [
+    const tableColumns: ColumnsType<RoleProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
         { title: "角色名称", align: "center", dataIndex: "roleName" },
         {
@@ -61,7 +61,7 @@ const RoleList: React.FC = () => {
         }
     ];
 
-    let getTableData = () => {
+    const getTableData = () => {
         setTableLoading(true);
         GET_ROLE_LIST<{
             list: RoleProps[];
@@ -87,8 +87,8 @@ const RoleList: React.FC = () => {
     };
 
     // 批量删除
-    let onDelete = (record?: RoleProps) => {
-        let ids = record ? [record.id] : tableSelection;
+    const onDelete = (record?: RoleProps) => {
+        const ids = record ? [record.id] : tableSelection;
         if (ids.length < 1) return message.error("请先选择要删除的数据");
         modal.confirm({
             title: "提示",
@@ -96,7 +96,7 @@ const RoleList: React.FC = () => {
             okText: "确认",
             cancelText: "取消",
             onOk: async () => {
-                let res = await DELETE_ROLE({ id: ids[0] });
+                const res = await DELETE_ROLE({ id: ids[0] });
                 res.data.code === 0 ? message.success("删除成功") : message.error(res.data.msg ?? "删除失败");
                 getTableData();
             },
@@ -105,22 +105,22 @@ const RoleList: React.FC = () => {
     };
 
     // 新增编辑
-    let [editModal, setEditModal] = useState<SysModalConfig<RoleProps>>({
+    const [editModal, setEditModal] = useState<SysModalConfig<RoleProps>>({
         show: false,
         configData: null
     });
 
-    let openEditModal = (record?: RoleProps) => {
+    const openEditModal = (record?: RoleProps) => {
         setEditModal({ show: true, configData: record ?? null });
     };
 
     // 绑定菜单
-    let [bindModal, setBindModal] = useState<SysModalConfig<RoleProps>>({
+    const [bindModal, setBindModal] = useState<SysModalConfig<RoleProps>>({
         show: false,
         configData: null
     });
 
-    let openBindModal = (record?: RoleProps) => {
+    const openBindModal = (record?: RoleProps) => {
         setBindModal({ show: true, configData: record ?? null });
     };
 

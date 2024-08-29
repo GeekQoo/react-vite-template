@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { App, Button, Col, Form, Input, Modal, Row, Select, Upload } from "antd";
+import { App, Button, Col, Form, Input, Modal, Row, Select } from "antd";
 import { ADD_USER, GET_ROLE_ALL, GET_USER_BY_ID, UPDATE_USER } from "@/api/permission.ts";
 import type { SysModalProps } from "#/system";
 import type { RoleProps, UserProps } from "#/permission";
 import { AvatarUploader } from "@/components/Uploader";
 
 const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
-    let { message } = App.useApp();
+    const { message } = App.useApp();
 
     interface FormProps {
         username: string;
@@ -19,14 +19,14 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
     }
 
     // 获取表单实例
-    let [formInst] = Form.useForm<FormProps>();
+    const [formInst] = Form.useForm<FormProps>();
 
     // 获取详情
-    let getDetail = () => {
+    const getDetail = () => {
         if (props.value.configData && props.value.show) {
             GET_USER_BY_ID<FormProps>({ id: props.value.configData.id }).then((res) => {
                 if (res.data.code === 0 && res.data.data) {
-                    let formData = res.data.data;
+                    const formData = res.data.data;
                     formInst.setFieldsValue({
                         username: formData.username,
                         password: formData.password,
@@ -42,9 +42,9 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
     };
 
     // 获取选项
-    let [roleOptions, setRoleOptions] = useState<RoleProps[]>([]);
+    const [roleOptions, setRoleOptions] = useState<RoleProps[]>([]);
 
-    let getOption = () => {
+    const getOption = () => {
         GET_ROLE_ALL<RoleProps[]>({}).then((res) => {
             setRoleOptions(res.data.data ?? []);
         });
@@ -58,13 +58,13 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
     }, [props.value]);
 
     // 关闭弹窗
-    let closeModal = () => {
+    const closeModal = () => {
         props.updateValue({ ...props.value, show: false });
         formInst.resetFields();
     };
 
     // 提交
-    let onSubmit = (values: FormProps) => {
+    const onSubmit = (values: FormProps) => {
         if (props.value.configData) {
             UPDATE_USER({
                 id: props.value.configData.id,
@@ -89,7 +89,7 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
         }
     };
 
-    let onSubmitFailed = () => {
+    const onSubmitFailed = () => {
         message.error("提交失败，请检查后再试");
     };
 

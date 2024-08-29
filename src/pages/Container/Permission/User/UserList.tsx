@@ -9,9 +9,9 @@ import type { SysModalConfig } from "#/system";
 import type { UserProps } from "#/permission";
 
 const UserList: React.FC = () => {
-    let { message, modal } = App.useApp();
+    const { message, modal } = App.useApp();
 
-    let {
+    const {
         tableLoading,
         setTableLoading,
         tableData,
@@ -24,7 +24,7 @@ const UserList: React.FC = () => {
         setTableSelection
     } = useCommonTable<UserProps>("id");
 
-    let tableColumns: ColumnsType<UserProps> = [
+    const tableColumns: ColumnsType<UserProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
         { title: "用户名", align: "center", dataIndex: "username" },
         {
@@ -63,7 +63,7 @@ const UserList: React.FC = () => {
         }
     ];
 
-    let getTableData = () => {
+    const getTableData = () => {
         setTableLoading(true);
         GET_USER_LIST<{
             list: UserProps[];
@@ -89,8 +89,8 @@ const UserList: React.FC = () => {
     };
 
     // 批量删除
-    let onDelete = (record?: UserProps) => {
-        let ids = record ? [record.id] : tableSelection;
+    const onDelete = (record?: UserProps) => {
+        const ids = record ? [record.id] : tableSelection;
         if (ids.length < 1) return message.error("请先选择要删除的数据");
         modal.confirm({
             title: "提示",
@@ -98,7 +98,7 @@ const UserList: React.FC = () => {
             okText: "确认",
             cancelText: "取消",
             onOk: async () => {
-                let res = await DELETE_USER({ id: ids[0] });
+                const res = await DELETE_USER({ id: ids[0] });
                 res.data.code === 0 ? message.success("删除成功") : message.error(res.data.msg ?? "删除失败");
                 getTableData();
             },
@@ -107,12 +107,12 @@ const UserList: React.FC = () => {
     };
 
     // 新增编辑
-    let [editModal, setEditModal] = useState<SysModalConfig<UserProps>>({
+    const [editModal, setEditModal] = useState<SysModalConfig<UserProps>>({
         show: false,
         configData: null
     });
 
-    let openEditModal = (record?: UserProps) => {
+    const openEditModal = (record?: UserProps) => {
         setEditModal({ show: true, configData: record ?? null });
     };
 

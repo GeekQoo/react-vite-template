@@ -40,12 +40,12 @@ export default defineConfig(({ command, mode }) => {
             cors: false, // 为开发服务器配置 CORS。
             proxy: {
                 "/api": {
-                    target: "http://localhost:3000",
+                    target: "http://192.168.0.134:3000",
                     changeOrigin: true,
                     rewrite: (path) => path.replace(/^\/api/, "")
                 },
                 "/netdisk": {
-                    target: "http://localhost:3000",
+                    target: "http://192.168.0.134:3000",
                     changeOrigin: true
                 }
             }

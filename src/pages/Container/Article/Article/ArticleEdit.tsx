@@ -26,7 +26,7 @@ const ArticleEdit: React.FC<SysModalProps<ArticleProps>> = (props) => {
         if (props.value.configData && props.value.show) {
             GET_ARTICLE_BY_ID<FormProps>({ id: props.value.configData.id }).then((res) => {
                 if (res.data.code === 0 && res.data.data) {
-                    let formData = res.data.data;
+                    const formData = res.data.data;
                     formInst.setFieldsValue({
                         title: formData.title,
                         content: formData.content,

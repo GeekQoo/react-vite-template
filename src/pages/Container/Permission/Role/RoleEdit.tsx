@@ -5,7 +5,7 @@ import type { SysModalProps } from "#/system";
 import type { RoleProps } from "#/permission";
 
 const RoleEdit: React.FC<SysModalProps<RoleProps>> = (props) => {
-    let { message } = App.useApp();
+    const { message } = App.useApp();
 
     interface FormProps {
         roleName: string;
@@ -13,14 +13,14 @@ const RoleEdit: React.FC<SysModalProps<RoleProps>> = (props) => {
     }
 
     // 获取表单实例
-    let [formInst] = Form.useForm<FormProps>();
+    const [formInst] = Form.useForm<FormProps>();
 
     // 获取详情
-    let getDetail = () => {
+    const getDetail = () => {
         if (props.value.configData && props.value.show) {
             GET_ROLE_BY_ID<FormProps>({ id: props.value.configData.id }).then((res) => {
                 if (res.data.code === 0 && res.data.data) {
-                    let formData = res.data.data;
+                    const formData = res.data.data;
                     formInst.setFieldsValue({
                         roleName: formData.roleName,
                         remark: formData.remark
@@ -37,13 +37,13 @@ const RoleEdit: React.FC<SysModalProps<RoleProps>> = (props) => {
     }, [props.value]);
 
     // 关闭弹窗
-    let closeModal = () => {
+    const closeModal = () => {
         props.updateValue({ ...props.value, show: false });
         formInst.resetFields();
     };
 
     // 提交
-    let onSubmit = (values: FormProps) => {
+    const onSubmit = (values: FormProps) => {
         if (props.value.configData) {
             UPDATE_ROLE({
                 id: props.value.configData.id,
@@ -68,7 +68,7 @@ const RoleEdit: React.FC<SysModalProps<RoleProps>> = (props) => {
         }
     };
 
-    let onSubmitFailed = () => {
+    const onSubmitFailed = () => {
         message.error("提交失败，请检查后再试");
     };
 
