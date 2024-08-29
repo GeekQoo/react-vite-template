@@ -3,14 +3,14 @@ import { Layout } from "antd";
 import { LayoutSiderMenu } from "./components";
 import { useThemeStore } from "@/store";
 
-let { Sider } = Layout;
+const { Sider } = Layout;
 
-let LayoutSider: React.FC = () => {
-    let { currentTheme } = useThemeStore();
+const LayoutSider: React.FC = () => {
+    const { currentTheme } = useThemeStore();
 
-    let [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(false);
 
-    let toggleCollapsed = () => {
+    const toggleCollapsed = () => {
         setCollapsed(!collapsed);
     };
 

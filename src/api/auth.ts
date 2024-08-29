@@ -10,7 +10,7 @@ export function AUTH_LOGIN<T = unknown>(params: UnKnownObject) {
 
 // 获取登录用户信息
 export function GET_USERINFO<T = unknown>(params: UnKnownObject) {
-    let { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState();
     return httpRequest<T>("/auth/currentUser", "get", {
         params,
         headers: {

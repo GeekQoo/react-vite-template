@@ -8,7 +8,7 @@ import { httpRequest } from "@/utils/request";
 
 // 获取文章分类列表
 export function GET_ARTICLE_CATEGORY_LIST<T = unknown>(params: UnKnownObject) {
-    let { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState();
     return httpRequest<T>("/article/category", "get", {
         params,
         headers: {
@@ -19,7 +19,7 @@ export function GET_ARTICLE_CATEGORY_LIST<T = unknown>(params: UnKnownObject) {
 
 // 通过ID查询文章分类
 export function GET_ARTICLE_CATEGORY_BY_ID<T = unknown>(params: UnKnownObject) {
-    let { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState();
     return httpRequest<T>(`/article/category/${params.id}`, "get", {
         headers: {
             Authorization: `Bearer ${token}`
@@ -29,7 +29,7 @@ export function GET_ARTICLE_CATEGORY_BY_ID<T = unknown>(params: UnKnownObject) {
 
 // 删除文章分类
 export function DELETE_ARTICLE_CATEGORY<T = unknown>(params: UnKnownObject) {
-    let { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState();
     return httpRequest<T>(`/article/category/${params.id}`, "delete", {
         headers: {
             Authorization: `Bearer ${token}`
@@ -39,7 +39,7 @@ export function DELETE_ARTICLE_CATEGORY<T = unknown>(params: UnKnownObject) {
 
 // 新增文章分类
 export function ADD_ARTICLE_CATEGORY<T = unknown>(params: UnKnownObject) {
-    let { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState();
     return httpRequest<T>("/article/category", "post", {
         data: params,
         headers: {
@@ -50,7 +50,7 @@ export function ADD_ARTICLE_CATEGORY<T = unknown>(params: UnKnownObject) {
 
 // 更新文章分类
 export function UPDATE_ARTICLE_CATEGORY<T = unknown>(params: UnKnownObject) {
-    let { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState();
     return httpRequest<T>(`/article/category/${params.id}`, "patch", {
         data: params,
         headers: {
@@ -61,7 +61,7 @@ export function UPDATE_ARTICLE_CATEGORY<T = unknown>(params: UnKnownObject) {
 
 // 获取文章标签列表
 export function GET_ARTICLE_TAG_LIST<T = unknown>(params: UnKnownObject) {
-    let { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState();
     return httpRequest<T>("/article/tag", "get", {
         params,
         headers: {
@@ -72,7 +72,7 @@ export function GET_ARTICLE_TAG_LIST<T = unknown>(params: UnKnownObject) {
 
 // 获取全部文章标签
 export function GET_ARTICLE_TAG_ALL<T = unknown>() {
-    let { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState();
     return httpRequest<T>("/article/tag/all", "get", {
         headers: {
             Authorization: `Bearer ${token}`
@@ -82,7 +82,7 @@ export function GET_ARTICLE_TAG_ALL<T = unknown>() {
 
 // 通过ID查询文章标签
 export function GET_ARTICLE_TAG_BY_ID<T = unknown>(params: UnKnownObject) {
-    let { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState();
     return httpRequest<T>(`/article/tag/${params.id}`, "get", {
         headers: {
             Authorization: `Bearer ${token}`
@@ -92,7 +92,7 @@ export function GET_ARTICLE_TAG_BY_ID<T = unknown>(params: UnKnownObject) {
 
 // 删除文章标签
 export function DELETE_ARTICLE_TAG<T = unknown>(params: UnKnownObject) {
-    let { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState();
     return httpRequest<T>(`/article/tag/${params.id}`, "delete", {
         headers: {
             Authorization: `Bearer ${token}`
@@ -102,7 +102,7 @@ export function DELETE_ARTICLE_TAG<T = unknown>(params: UnKnownObject) {
 
 // 新增文章标签
 export function ADD_ARTICLE_TAG<T = unknown>(params: UnKnownObject) {
-    let { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState();
     return httpRequest<T>("/article/tag", "post", {
         data: params,
         headers: {
@@ -113,7 +113,7 @@ export function ADD_ARTICLE_TAG<T = unknown>(params: UnKnownObject) {
 
 // 更新文章标签
 export function UPDATE_ARTICLE_TAG<T = unknown>(params: UnKnownObject) {
-    let { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState();
     return httpRequest<T>(`/article/tag/${params.id}`, "patch", {
         data: params,
         headers: {
@@ -124,7 +124,7 @@ export function UPDATE_ARTICLE_TAG<T = unknown>(params: UnKnownObject) {
 
 // 获取文章列表
 export function GET_ARTICLE_LIST<T = unknown>(params: UnKnownObject) {
-    let { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState();
     return httpRequest<T>("/article", "get", {
         params,
         headers: {
@@ -135,7 +135,7 @@ export function GET_ARTICLE_LIST<T = unknown>(params: UnKnownObject) {
 
 // 通过ID查询文章
 export function GET_ARTICLE_BY_ID<T = unknown>(params: UnKnownObject) {
-    let { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState();
     return httpRequest<T>(`/article/${params.id}`, "get", {
         headers: {
             Authorization: `Bearer ${token}`
@@ -145,7 +145,7 @@ export function GET_ARTICLE_BY_ID<T = unknown>(params: UnKnownObject) {
 
 // 删除文章
 export function DELETE_ARTICLE<T = unknown>(params: UnKnownObject) {
-    let { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState();
     return httpRequest<T>(`/article/${params.id}`, "delete", {
         headers: {
             Authorization: `Bearer ${token}`
@@ -155,7 +155,7 @@ export function DELETE_ARTICLE<T = unknown>(params: UnKnownObject) {
 
 // 新增文章
 export function ADD_ARTICLE<T = unknown>(params: UnKnownObject) {
-    let { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState();
     return httpRequest<T>("/article", "post", {
         data: params,
         headers: {
@@ -166,7 +166,7 @@ export function ADD_ARTICLE<T = unknown>(params: UnKnownObject) {
 
 // 更新文章
 export function UPDATE_ARTICLE<T = unknown>(params: UnKnownObject) {
-    let { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState();
     return httpRequest<T>(`/article/${params.id}`, "patch", {
         data: params,
         headers: {

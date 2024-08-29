@@ -104,7 +104,7 @@ const GlobalSettingsList: React.FC = () => {
 
     // 批量删除
     const onDelete = (record?: SettingsGlobalProps) => {
-        let ids = record ? [record.id] : tableSelection;
+        const ids = record ? [record.id] : tableSelection;
         if (ids.length < 1) return message.error("请先选择要删除的数据");
         modal.confirm({
             title: "提示",
@@ -112,7 +112,7 @@ const GlobalSettingsList: React.FC = () => {
             okText: "确认",
             cancelText: "取消",
             onOk: async () => {
-                let res = await DELETE_GLOBAL_SETTINGS({ id: ids[0] });
+                const res = await DELETE_GLOBAL_SETTINGS({ id: ids[0] });
                 res.data.code === 0 ? message.success("删除成功") : message.error(res.data.msg ?? "删除失败");
                 getTableData();
             },
@@ -147,7 +147,7 @@ const GlobalSettingsList: React.FC = () => {
                     rowKey={tableRowKey}
                     rowSelection={{
                         type: "checkbox",
-                        onChange: (selectedRowKeys, selectedRows) => {
+                        onChange: (selectedRowKeys) => {
                             setTableSelection(selectedRowKeys);
                         }
                     }}

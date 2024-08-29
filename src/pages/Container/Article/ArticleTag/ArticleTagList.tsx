@@ -9,9 +9,9 @@ import type { ArticleTagProps } from "#/modules/article";
 import { DELETE_ARTICLE_TAG, GET_ARTICLE_TAG_LIST } from "@/api/article.ts";
 
 const ArticleTagList: React.FC = () => {
-    let { message, modal } = App.useApp();
+    const { message, modal } = App.useApp();
 
-    let {
+    const {
         tableLoading,
         setTableLoading,
         tableData,
@@ -24,7 +24,7 @@ const ArticleTagList: React.FC = () => {
         setTableSelection
     } = useCommonTable<ArticleTagProps>("id");
 
-    let tableColumns: ColumnsType<ArticleTagProps> = [
+    const tableColumns: ColumnsType<ArticleTagProps> = [
         { title: "ID", align: "center", dataIndex: "id" },
         { title: "标签名称", align: "center", dataIndex: "tagName" },
         {
@@ -58,7 +58,7 @@ const ArticleTagList: React.FC = () => {
         }
     ];
 
-    let getTableData = () => {
+    const getTableData = () => {
         setTableLoading(true);
         GET_ARTICLE_TAG_LIST<{
             list: ArticleTagProps[];
@@ -84,8 +84,8 @@ const ArticleTagList: React.FC = () => {
     };
 
     // 批量删除
-    let onDelete = (record?: ArticleTagProps) => {
-        let ids = record ? [record.id] : tableSelection;
+    const onDelete = (record?: ArticleTagProps) => {
+        const ids = record ? [record.id] : tableSelection;
         if (ids.length < 1) return message.error("请先选择要删除的数据");
         modal.confirm({
             title: "提示",
@@ -93,7 +93,7 @@ const ArticleTagList: React.FC = () => {
             okText: "确认",
             cancelText: "取消",
             onOk: async () => {
-                let res = await DELETE_ARTICLE_TAG({ id: ids[0] });
+                const res = await DELETE_ARTICLE_TAG({ id: ids[0] });
                 res.data.code === 0 ? message.success("删除成功") : message.error(res.data.msg ?? "删除失败");
                 getTableData();
             },
@@ -102,12 +102,12 @@ const ArticleTagList: React.FC = () => {
     };
 
     // 新增编辑
-    let [editModal, setEditModal] = useState<SysModalConfig<ArticleTagProps>>({
+    const [editModal, setEditModal] = useState<SysModalConfig<ArticleTagProps>>({
         show: false,
         configData: null
     });
 
-    let openEditModal = (record?: ArticleTagProps) => {
+    const openEditModal = (record?: ArticleTagProps) => {
         setEditModal({ show: true, configData: record ?? null });
     };
 
@@ -133,7 +133,7 @@ const ArticleTagList: React.FC = () => {
                     rowKey={tableRowKey}
                     rowSelection={{
                         type: "checkbox",
-                        onChange: (selectedRowKeys, selectedRows) => {
+                        onChange: (selectedRowKeys) => {
                             setTableSelection(selectedRowKeys);
                         }
                     }}

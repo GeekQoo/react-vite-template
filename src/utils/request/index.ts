@@ -11,7 +11,7 @@ interface ResponseProps<T = unknown> {
     [key: string]: unknown;
 }
 
-let service: AxiosInstance = axios.create({
+const service: AxiosInstance = axios.create({
     timeout: 30000,
     withCredentials: true,
     baseURL: import.meta.env.VITE_API_URL

@@ -2,7 +2,7 @@ import { router } from "@/router";
 import { message } from "antd";
 
 // 错误提示
-let errorMessage = (msg: string) => {
+const errorMessage = (msg: string) => {
     message.error(msg);
 };
 

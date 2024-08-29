@@ -5,7 +5,7 @@ import { httpRequest } from "@/utils/request";
 export const UPLOAD_FILE_URL = "/api/netdisk/upload";
 
 export function UPLOAD_FILE<T = unknown>(params: UnKnownObject) {
-    let { token } = useAuthStore.getState();
+    const { token } = useAuthStore.getState();
     return httpRequest<T>("/netdisk/upload", "post", {
         data: params,
         headers: {

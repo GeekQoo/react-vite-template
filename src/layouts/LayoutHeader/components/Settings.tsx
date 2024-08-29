@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { SettingOutlined } from "@ant-design/icons";
 import { ColorPicker, Divider, Drawer, InputNumber, Radio, Select, Typography } from "antd";
 import { useThemeStore } from "@/store";
 import { currentThemePreset, pageAnimationPreset, themeColorPreset } from "@/settings/theme.ts";
 import { DynamicIcon } from "@/components/Dynamic";
 
-let LayoutHeaderSettings: React.FC = () => {
-    let { Text } = Typography;
-    let {
+const LayoutHeaderSettings: React.FC = () => {
+    const { Text } = Typography;
+    const {
         pageAnimation,
         setPageAnimation,
         themeColor,
@@ -19,9 +18,9 @@ let LayoutHeaderSettings: React.FC = () => {
     } = useThemeStore();
 
     // 设置抽屉
-    let [drawerShow, setDrawerShow] = useState<boolean>(false);
+    const [drawerShow, setDrawerShow] = useState<boolean>(false);
 
-    let changeDrawerShow = (boolean: boolean) => {
+    const changeDrawerShow = (boolean: boolean) => {
         setDrawerShow(boolean);
     };
 

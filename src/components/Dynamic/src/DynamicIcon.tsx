@@ -10,7 +10,7 @@ interface DynamicIconProps {
     onClick?: () => void;
 }
 
-export let DynamicIcon: React.FC<DynamicIconProps> = (props) => {
+export const DynamicIcon: React.FC<DynamicIconProps> = (props) => {
     return (
         <Icon
             component={

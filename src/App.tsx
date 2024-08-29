@@ -5,8 +5,8 @@ import { App, ConfigProvider, theme } from "antd";
 import { useThemeStore } from "@/store";
 import { router } from "@/router";
 
-let MyApp: React.FC = () => {
-    let { themeColor, currentTheme, borderRadius } = useThemeStore();
+const MyApp: React.FC = () => {
+    const { themeColor, currentTheme, borderRadius } = useThemeStore();
 
     return (
         <ConfigProvider

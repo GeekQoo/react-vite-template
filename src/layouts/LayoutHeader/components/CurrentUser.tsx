@@ -4,12 +4,12 @@ import { useAuthStore } from "@/store";
 import { DynamicIcon } from "@/components/Dynamic";
 import { useNavigate } from "react-router-dom";
 
-let LayoutHeaderCurrentUser: React.FC = () => {
-    let { userData, logout } = useAuthStore();
-    let { message } = App.useApp();
-    let navigate = useNavigate();
+const LayoutHeaderCurrentUser: React.FC = () => {
+    const { userData, logout } = useAuthStore();
+    const { message } = App.useApp();
+    const navigate = useNavigate();
 
-    let items: MenuProps["items"] = [
+    const items: MenuProps["items"] = [
         {
             key: "user",
             label: "用户中心",

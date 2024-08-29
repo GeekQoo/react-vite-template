@@ -11,10 +11,10 @@ interface AvatarUploaderProps extends SysValueUpdate {
 }
 
 export const AvatarUploader: React.FC<AvatarUploaderProps> = (props) => {
-    let [fileList, setFileList] = useState<UploadFile[]>([]);
-    let { message } = App.useApp();
+    const [fileList, setFileList] = useState<UploadFile[]>([]);
+    const { message } = App.useApp();
 
-    let onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
+    const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
         setFileList(newFileList);
         if (newFileList.length) {
             if (newFileList[0].status === "error") {
@@ -27,7 +27,8 @@ export const AvatarUploader: React.FC<AvatarUploaderProps> = (props) => {
         }
     };
 
-    let onPreview = async (file: UploadFile) => {
+    const onPreview = async (file: UploadFile) => {
+        console.log(file);
         message.warning("暂不支持预览，敬请期待");
     };
 

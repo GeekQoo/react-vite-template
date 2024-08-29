@@ -4,8 +4,8 @@ import react from "@vitejs/plugin-react";
 import autoprefixer from "autoprefixer";
 import unocss from "unocss/vite";
 
-export default defineConfig(({ command, mode }) => {
-    let viteEnv = loadEnv(mode, process.cwd(), "");
+export default defineConfig(({ mode }) => {
+    const viteEnv = loadEnv(mode, process.cwd(), "");
 
     return {
         plugins: [react(), unocss()],

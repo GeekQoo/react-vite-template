@@ -6,26 +6,26 @@ import { useAuthStore } from "@/store";
 import { NavMenuProps } from "#/permission";
 import { DynamicIcon } from "@/components/Dynamic";
 
-let { useToken } = theme;
+const { useToken } = theme;
 
 interface ComponentProps {
     collapsed: boolean; // 侧边栏折叠状态
     toggleCollapsed: () => void; // 切换侧边栏折叠状态
 }
 
-let LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
+const LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
     type MenuItem = Required<MenuProps>["items"][number];
 
-    let navigate = useNavigate();
-    let { pathname } = useLocation();
-    let { userData } = useAuthStore();
-    let { token } = useToken();
+    const navigate = useNavigate();
+    const { pathname } = useLocation();
+    const { userData } = useAuthStore();
+    const { token } = useToken();
 
-    let getItems = (menus: NavMenuProps[]): MenuItem[] => {
+    const getItems = (menus: NavMenuProps[]): MenuItem[] => {
         return (menus ?? [])
             .filter((i) => i.type !== 3)
             .map((i) => {
-                let children = i.children && i.children.length > 0 ? getItems(i.children) : undefined;
+                const children = i.children && i.children.length > 0 ? getItems(i.children) : undefined;
                 return {
                     label: i.menuName,
                     key: i.router,
@@ -35,27 +35,27 @@ let LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
             });
     };
 
-    let onMenuClick: MenuProps["onClick"] = ({ key }) => {
+    const onMenuClick: MenuProps["onClick"] = ({ key }) => {
         navigate(key);
     };
 
-    let renderOpenKeys = () => {
-        let arr = pathname.split("/").slice(0, -1);
+    const renderOpenKeys = () => {
+        const arr = pathname.split("/").slice(0, -1);
         return arr.map((_, index) => "/" + arr.slice(1, index + 1).join("/"));
     };
 
     // 判断当前路径是否在菜单中，用于默认选中菜单
-    let isPathInMenu = (path: string, menus: NavMenuProps[]): boolean => {
-        for (let menu of menus) {
+    const isPathInMenu = (path: string, menus: NavMenuProps[]): boolean => {
+        for (const menu of menus) {
             if (menu.router === path) return true;
             if (menu.children && isPathInMenu(path, menu.children)) return true;
         }
         return false;
     };
 
-    let getSelectedKeys = () => {
-        let arr = pathname.split("/").slice(1);
-        let paths = arr.map((_, index) => "/" + arr.slice(0, index + 1).join("/"));
+    const getSelectedKeys = () => {
+        const arr = pathname.split("/").slice(1);
+        const paths = arr.map((_, index) => "/" + arr.slice(0, index + 1).join("/"));
         return paths.filter((path) => isPathInMenu(path, userData?.menus ?? []));
     };
 

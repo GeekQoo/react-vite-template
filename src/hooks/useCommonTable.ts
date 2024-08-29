@@ -7,13 +7,13 @@ interface TableParamProps {
 
 export function useCommonTable<T = UnKnownObject>(rowKeyName?: keyof T) {
     // 表格加载状态
-    let [tableLoading, setTableLoading] = useState<boolean>(false);
+    const [tableLoading, setTableLoading] = useState<boolean>(false);
 
     // 表格数据
-    let [tableData, setTableData] = useState<T[]>([]);
+    const [tableData, setTableData] = useState<T[]>([]);
 
     // 表格参数
-    let [tableParams, setTableParams] = useState<TableParamProps>({
+    const [tableParams, setTableParams] = useState<TableParamProps>({
         pagination: {
             showQuickJumper: true,
             showSizeChanger: true,
@@ -24,10 +24,10 @@ export function useCommonTable<T = UnKnownObject>(rowKeyName?: keyof T) {
     });
 
     // 表格rowKey
-    let tableRowKey = rowKeyName ?? "id";
+    const tableRowKey = rowKeyName ?? "id";
 
     // 表格变化事件，包括分页、排序、筛选，目前只处理分页
-    let handleTableChange = (pagination: TablePaginationConfig) => {
+    const handleTableChange = (pagination: TablePaginationConfig) => {
         setTableParams({ pagination });
         if (pagination.pageSize !== tableParams.pagination?.pageSize) {
             setTableData([]);
@@ -35,7 +35,7 @@ export function useCommonTable<T = UnKnownObject>(rowKeyName?: keyof T) {
     };
 
     // 表格选中项
-    let [tableSelection, setTableSelection] = useState<React.Key[]>([]);
+    const [tableSelection, setTableSelection] = useState<React.Key[]>([]);
 
     return {
         tableLoading,

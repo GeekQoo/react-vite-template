@@ -9,14 +9,14 @@ import { DynamicIcon } from "@/components/Dynamic";
 import { ImageInsert } from "./ImageInsert.tsx";
 import { SysModalConfig, SysValueUpdate } from "#/system";
 
-let { useToken } = theme;
+const { useToken } = theme;
 
 interface RichEditorProps extends SysValueUpdate {}
 
 export const RichEditor: React.FC<RichEditorProps> = (props) => {
-    let { token } = useToken();
+    const { token } = useToken();
 
-    let editor = useEditor({
+    const editor = useEditor({
         extensions: [
             StarterKit.configure({
                 heading: { HTMLAttributes: { style: `line-height:2;` } },
@@ -37,7 +37,7 @@ export const RichEditor: React.FC<RichEditorProps> = (props) => {
         editorProps: { attributes: { class: "min-h-[200px] focus:outline-none py-2 px-4" } }
     });
 
-    let initValueSet = useRef(false);
+    const initValueSet = useRef(false);
 
     useEffect(() => {
         if (editor) {
@@ -46,7 +46,7 @@ export const RichEditor: React.FC<RichEditorProps> = (props) => {
                 initValueSet.current = true;
             }
 
-            let updateHandler = () => props.onChange?.(editor.getHTML());
+            const updateHandler = () => props.onChange?.(editor.getHTML());
 
             editor.on("update", updateHandler);
 
@@ -57,12 +57,12 @@ export const RichEditor: React.FC<RichEditorProps> = (props) => {
     }, [editor, props.value, props.onChange]);
 
     // 图片插入
-    let [imageModal, setImageModal] = useState<SysModalConfig<{ url: string }>>({
+    const [imageModal, setImageModal] = useState<SysModalConfig<{ url: string }>>({
         show: false,
         configData: { url: "" }
     });
 
-    let openImageModal = () => setImageModal({ show: true, configData: { url: "" } });
+    const openImageModal = () => setImageModal({ show: true, configData: { url: "" } });
 
     useEffect(() => {
         if (imageModal.configData?.url) editor?.chain().setImage({ src: imageModal.configData?.url }).run();

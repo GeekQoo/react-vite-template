@@ -18,7 +18,7 @@ const ArticleTagEdit: React.FC<SysModalProps<ArticleTagProps>> = (props) => {
         if (props.value.configData && props.value.show) {
             GET_ARTICLE_TAG_BY_ID<FormProps>({ id: props.value.configData.id }).then((res) => {
                 if (res.data.code === 0 && res.data.data) {
-                    let formData = res.data.data;
+                    const formData = res.data.data;
                     formInst.setFieldsValue({
                         tagName: formData.tagName
                     });

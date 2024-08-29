@@ -7,7 +7,7 @@ import { useAuthStore, useThemeStore } from "@/store";
 import { GET_USERINFO } from "@/api/auth.ts";
 import { UserDataProps } from "#/permission";
 
-let MyLayout: React.FC = () => {
+const MyLayout: React.FC = () => {
     return (
         <Layout className="h-100vh">
             <LayoutHeader />
@@ -19,11 +19,11 @@ let MyLayout: React.FC = () => {
     );
 };
 
-let BasicLayout: React.FC = () => {
-    let { globalLoading, setGlobalLoading } = useThemeStore();
-    let { setUserData } = useAuthStore();
+const BasicLayout: React.FC = () => {
+    const { globalLoading, setGlobalLoading } = useThemeStore();
+    const { setUserData } = useAuthStore();
 
-    let getUserData = () => {
+    const getUserData = () => {
         setGlobalLoading(true);
         GET_USERINFO<UserDataProps>({}).then((res) => {
             setUserData(res.data.data);

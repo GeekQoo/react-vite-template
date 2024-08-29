@@ -4,11 +4,11 @@ import { CSSTransition, SwitchTransition } from "react-transition-group";
 import { Layout, Spin } from "antd";
 import { useThemeStore } from "@/store";
 
-let { Content } = Layout;
+const { Content } = Layout;
 
-let LayoutContent: React.FC = () => {
-    let { pageAnimation } = useThemeStore();
-    let { pathname } = useLocation();
+const LayoutContent: React.FC = () => {
+    const { pageAnimation } = useThemeStore();
+    const { pathname } = useLocation();
 
     return (
         <Content>

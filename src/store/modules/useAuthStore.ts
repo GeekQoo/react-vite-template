@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { UserDataProps } from "#/permission";
-import { useNavigate } from "react-router-dom";
 
 interface StateProps {
     token: string;
@@ -11,7 +10,7 @@ interface StateProps {
     logout: () => void;
 }
 
-let useAuthStore = create<StateProps>()(
+const useAuthStore = create<StateProps>()(
     persist(
         (set) => ({
             token: "",

@@ -15,7 +15,7 @@ interface StateProps {
     setBorderRadius: (value: number) => void;
 }
 
-let useAuthStore = create<StateProps>()(
+const useAuthStore = create<StateProps>()(
     persist(
         (set) => ({
             globalLoading: false,

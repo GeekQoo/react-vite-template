@@ -5,18 +5,18 @@ import { useAuthStore } from "@/store";
 import { useNavigate } from "react-router-dom";
 import { DynamicIcon } from "@/components/Dynamic";
 
-let Login: React.FC = () => {
-    let { message } = App.useApp();
-    let { token, setToken } = useAuthStore();
+const Login: React.FC = () => {
+    const { message } = App.useApp();
+    const { setToken } = useAuthStore();
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
-    let [formData, setFormData] = React.useState({
+    const [formData, setFormData] = React.useState({
         username: "admin",
         password: "admin"
     });
 
-    let onSubmit = () => {
+    const onSubmit = () => {
         AUTH_LOGIN({
             username: formData.username,
             password: formData.password
@@ -41,6 +41,7 @@ let Login: React.FC = () => {
                     <img
                         src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
                         className="block h-50px mr-2"
+                        alt="logo"
                     />
                     <div className="text-24px">React Vite template</div>
                 </div>
