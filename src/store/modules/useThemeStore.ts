@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { defaultThemeConfig } from "@/setttings/theme.ts";
+import { defaultThemeConfig } from "@/settings/theme.ts";
 
 interface StateProps {
     globalLoading: boolean; // 全局loading

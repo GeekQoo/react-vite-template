@@ -3,7 +3,7 @@ import { App, Button, Col, Form, Input, InputNumber, Modal, Row, Select, TreeSel
 import { ADD_MENU, GET_MENU_BY_ID, GET_MENU_LIST, UPDATE_MENU } from "@/api/permission.ts";
 import type { SysModalProps } from "#/system";
 import type { NavMenuProps } from "#/permission";
-import IconSelect from "@/components/Selector/IconSelector.tsx";
+import { IconSelector } from "@/components/Selector";
 
 const MenuEdit: React.FC<SysModalProps<NavMenuProps>> = (props) => {
     const { message } = App.useApp();
@@ -175,7 +175,7 @@ const MenuEdit: React.FC<SysModalProps<NavMenuProps>> = (props) => {
                                 label="菜单图标"
                                 rules={[{ required: false, message: "请选择图标" }]}
                             >
-                                <IconSelect />
+                                <IconSelector />
                             </Form.Item>
                         </Col>
                         <Col span={12}>

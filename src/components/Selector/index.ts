@@ -1,1 +1,1 @@
-export * from "./IconSelector.tsx";
+export * from "./src/IconSelector.tsx";

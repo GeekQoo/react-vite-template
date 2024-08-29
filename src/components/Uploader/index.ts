@@ -1,2 +1,2 @@
-export * from "./AvatarUploader.tsx";
-export * from "./ImageUploader.tsx";
+export * from "./src/AvatarUploader.tsx";
+export * from "./src/ImageUploader.tsx";

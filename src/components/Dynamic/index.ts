@@ -1,1 +1,1 @@
-export * from "./DynamicIcon.tsx";
+export * from "./src/DynamicIcon.tsx";

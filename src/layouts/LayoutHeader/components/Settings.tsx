@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { SettingOutlined } from "@ant-design/icons";
 import { ColorPicker, Divider, Drawer, InputNumber, Radio, Select, Typography } from "antd";
 import { useThemeStore } from "@/store";
-import { currentThemePreset, pageAnimationPreset, themeColorPreset } from "@/setttings/theme.ts";
+import { currentThemePreset, pageAnimationPreset, themeColorPreset } from "@/settings/theme.ts";
 
 let LayoutHeaderSettings: React.FC = () => {
     let { Text } = Typography;

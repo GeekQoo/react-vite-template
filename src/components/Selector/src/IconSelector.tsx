@@ -7,7 +7,7 @@ import { SysValueUpdate } from "#/system";
 
 interface IconSelectorProps extends SysValueUpdate {}
 
-const IconSelector: React.FC<IconSelectorProps> = (props) => {
+export const IconSelector: React.FC<IconSelectorProps> = (props) => {
     const [popoverOpen, setPopoverOpen] = useState(false);
     const [iconTheme, setIconTheme] = useState<"Outlined" | "Filled" | "TwoTone">("Outlined");
 
@@ -136,4 +136,3 @@ const IconSelector: React.FC<IconSelectorProps> = (props) => {
         </Popover>
     );
 };
-export default IconSelector;
