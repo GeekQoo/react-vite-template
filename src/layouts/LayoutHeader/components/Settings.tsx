@@ -3,6 +3,7 @@ import { SettingOutlined } from "@ant-design/icons";
 import { ColorPicker, Divider, Drawer, InputNumber, Radio, Select, Typography } from "antd";
 import { useThemeStore } from "@/store";
 import { currentThemePreset, pageAnimationPreset, themeColorPreset } from "@/settings/theme.ts";
+import { DynamicIcon } from "@/components/Dynamic";
 
 let LayoutHeaderSettings: React.FC = () => {
     let { Text } = Typography;
@@ -26,7 +27,11 @@ let LayoutHeaderSettings: React.FC = () => {
 
     return (
         <div>
-            <SettingOutlined className="block text-20px cursor-pointer" onClick={() => changeDrawerShow(true)} />
+            <DynamicIcon
+                icon="SettingOutlined"
+                className="block text-20px cursor-pointer"
+                onClick={() => changeDrawerShow(true)}
+            />
             <Drawer
                 title="系统风格设置"
                 width={350}

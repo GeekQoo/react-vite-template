@@ -3,33 +3,14 @@ import BasicLayout from "@/layouts";
 import NotFound from "@/pages/NotFound.tsx";
 import Login from "@/pages/Auth/Login.tsx";
 import { createBrowserRouter, Navigate } from "react-router-dom";
+import { article, permission, settings } from "./modules";
 
 /*
  * 工作台
  */
-let Workbench = lazy(() => import("@/pages/Container/Workbench.tsx"));
+const Workbench = lazy(() => import("@/pages/Container/Workbench.tsx"));
 
-/*
- * 权限模块
- */
-let UserList = lazy(() => import("@/pages/Container/Permission/User/UserList.tsx"));
-let RoleList = lazy(() => import("@/pages/Container/Permission/Role/RoleList.tsx"));
-let MenuList = lazy(() => import("@/pages/Container/Permission/Menu/MenuList.tsx"));
-
-/*
- * 文章模块
- */
-let ArticleCategoryList = lazy(() => import("@/pages/Container/Article/ArticleCategory/ArticleCategoryList.tsx"));
-let ArticleTagList = lazy(() => import("@/pages/Container/Article/ArticleTag/ArticleTagList.tsx"));
-let ArticleList = lazy(() => import("@/pages/Container/Article/Article/ArticleList.tsx"));
-
-/*
- * 设置模块
- */
-let BannerList = lazy(() => import("@/pages/Container/Settings/Banner/BannerList.tsx"));
-let GlobalSettingsList = lazy(() => import("@/pages/Container/Settings/GlobalSettings/GlobalSettingsList.tsx"));
-
-let routes = [
+const routes = [
     {
         path: "/login",
         title: "登录",
@@ -48,46 +29,9 @@ let routes = [
                 title: "工作台",
                 element: <Workbench />
             },
-            {
-                path: "/permission/user-list",
-                title: "用户管理",
-                element: <UserList />
-            },
-            {
-                path: "/permission/role-list",
-                title: "角色管理",
-                element: <RoleList />
-            },
-            {
-                path: "/permission/menu-list",
-                title: "菜单管理",
-                element: <MenuList />
-            },
-            {
-                path: "/article/category",
-                title: "文章分类",
-                element: <ArticleCategoryList />
-            },
-            {
-                path: "/article/tag",
-                title: "文章标签",
-                element: <ArticleTagList />
-            },
-            {
-                path: "/article",
-                title: "文章列表",
-                element: <ArticleList />
-            },
-            {
-                path: "/settings/banner",
-                title: "幻灯片管理",
-                element: <BannerList />
-            },
-            {
-                path: "/settings/global",
-                title: "全局设置",
-                element: <GlobalSettingsList />
-            }
+            ...permission,
+            ...settings,
+            ...article
         ]
     },
     {
@@ -96,6 +40,6 @@ let routes = [
     }
 ];
 
-let router = createBrowserRouter(routes);
+const router = createBrowserRouter(routes);
 
 export { routes, router };

@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { App, Button, Card, Space, Table, Typography } from "antd";
 import { useCommonTable } from "@/hooks";
-import GlobalSettingsEdit from "./GlobalSettingsEdit.tsx";
 import dayjs from "dayjs";
 import type { ColumnsType } from "antd/es/table";
-import type { SysModalConfig } from "#/system";
 import { DELETE_GLOBAL_SETTINGS, GET_GLOBAL_SETTINGS_LIST } from "@/api/settings.ts";
 import type { SettingsGlobalProps } from "#/modules/settings";
+import { useNavigate } from "react-router-dom";
 
 const GlobalSettingsList: React.FC = () => {
     let { message, modal } = App.useApp();
+    let navigate = useNavigate();
 
     let {
         tableLoading,
@@ -65,7 +65,7 @@ const GlobalSettingsList: React.FC = () => {
             width: 180,
             render: (_, record) => (
                 <Space>
-                    <Button type="primary" ghost onClick={() => openEditModal(record)}>
+                    <Button type="primary" ghost onClick={() => toEdit(record)}>
                         编辑
                     </Button>
 
@@ -121,24 +121,19 @@ const GlobalSettingsList: React.FC = () => {
     };
 
     // 新增编辑
-    let [editModal, setEditModal] = useState<SysModalConfig<SettingsGlobalProps>>({
-        show: false,
-        configData: null
-    });
-
-    let openEditModal = (record?: SettingsGlobalProps) => {
-        setEditModal({ show: true, configData: record ?? null });
+    let toEdit = (record?: SettingsGlobalProps) => {
+        record ? navigate(`/settings/global/${record?.id}`) : navigate("/settings/global/add");
     };
 
     useEffect(() => {
         getTableData();
-    }, [tableParams.pagination?.current, tableParams.pagination?.pageSize, editModal]);
+    }, [tableParams.pagination?.current, tableParams.pagination?.pageSize]);
 
     return (
         <div className="global-settings-page">
             <Card>
                 <Space className="mb">
-                    <Button type="primary" onClick={() => openEditModal()}>
+                    <Button type="primary" onClick={() => toEdit()}>
                         新增
                     </Button>
                 </Space>
@@ -158,7 +153,6 @@ const GlobalSettingsList: React.FC = () => {
                     }}
                 />
             </Card>
-            <GlobalSettingsEdit value={editModal} updateValue={setEditModal} />
         </div>
     );
 };

@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
-import { App, Button, Col, Form, Input, InputNumber, Modal, Radio, Row } from "antd";
-import type { SysModalProps } from "#/system";
+import { App, Button, Card, Col, Form, Input, InputNumber, Radio, Row, Space } from "antd";
+import { useNavigate, useParams } from "react-router-dom";
 import { ADD_GLOBAL_SETTINGS, GET_GLOBAL_SETTINGS_BY_ID, UPDATE_GLOBAL_SETTINGS } from "@/api/settings.ts";
 import type { SettingsGlobalProps } from "#/modules/settings";
 import { RichEditor } from "@/components/RichEditor";
 
-const GlobalSettingsEdit: React.FC<SysModalProps<SettingsGlobalProps>> = (props) => {
+const GlobalSettingsEdit: React.FC = () => {
     const { message } = App.useApp();
+    const navigate = useNavigate();
+
+    // 获取路由参数
+    const routerParams = useParams<{ id: string }>();
 
     // 转成可选类型
     type FormProps = Partial<SettingsGlobalProps>;
@@ -16,38 +20,34 @@ const GlobalSettingsEdit: React.FC<SysModalProps<SettingsGlobalProps>> = (props)
 
     // 获取详情
     const getDetail = () => {
-        if (props.value.configData && props.value.show) {
-            GET_GLOBAL_SETTINGS_BY_ID<FormProps>({ id: props.value.configData.id }).then((res) => {
-                if (res.data.code === 0 && res.data.data) {
-                    let formData = res.data.data;
-                    formInst.setFieldsValue({
-                        name: formData.name,
-                        key: formData.key,
-                        type: formData.type,
-                        value: formData.value,
-                        sort: formData.sort
-                    });
-                }
-            });
-        }
+        GET_GLOBAL_SETTINGS_BY_ID<FormProps>({ id: routerParams.id }).then((res) => {
+            if (res.data.code === 0 && res.data.data) {
+                let formData = res.data.data;
+                formInst.setFieldsValue({
+                    name: formData.name,
+                    key: formData.key,
+                    type: formData.type,
+                    value: formData.value,
+                    sort: formData.sort
+                });
+            }
+        });
     };
 
-    // 关闭弹窗
-    const closeModal = () => {
-        props.updateValue({ ...props.value, show: false });
-        formInst.resetFields();
+    const onBack = () => {
+        navigate(-1);
     };
 
     // 提交
     const onSubmit = (values: FormProps) => {
-        if (props.value.configData) {
+        if (routerParams.id) {
             UPDATE_GLOBAL_SETTINGS({
-                id: props.value.configData.id,
+                id: Number(routerParams.id),
                 ...values
             }).then((res) => {
                 if (res.data.code === 0) {
                     message.success("编辑成功");
-                    closeModal();
+                    onBack();
                 } else {
                     message.error(res.data.msg ?? "编辑失败");
                 }
@@ -56,7 +56,7 @@ const GlobalSettingsEdit: React.FC<SysModalProps<SettingsGlobalProps>> = (props)
             ADD_GLOBAL_SETTINGS({ ...values }).then((res) => {
                 if (res.data.code === 0) {
                     message.success("新增成功");
-                    closeModal();
+                    onBack();
                 } else {
                     message.error(res.data.msg ?? "新增失败");
                 }
@@ -69,33 +69,27 @@ const GlobalSettingsEdit: React.FC<SysModalProps<SettingsGlobalProps>> = (props)
     };
 
     useEffect(() => {
-        if (props.value.show) {
-            getDetail();
-        }
-    }, [props.value]);
+        if (routerParams.id) getDetail();
+    }, [routerParams.id]);
 
     return (
-        <Modal
-            centered
-            title={props.value.configData ? "编辑设置项" : "新增设置项"}
-            open={props.value.show}
-            maskClosable={false}
-            destroyOnClose
-            width="800px"
-            onCancel={closeModal}
-            forceRender
-            footer={[
-                <Button key="submit" type="primary" onClick={() => formInst.submit()}>
-                    提交
-                </Button>,
-                <Button key="back" type="primary" danger onClick={() => closeModal()}>
-                    取消
-                </Button>
-            ]}
-        >
-            <div className="w-100%">
+        <div className="settings-edit-page">
+            <Card
+                title={
+                    <div className="flex-y-center">
+                        <div>{routerParams.id ? "编辑" : "新增"}全局设置</div>
+                        <Space className="ml-a">
+                            <Button type="primary" onClick={() => formInst.submit()}>
+                                提交
+                            </Button>
+                            <Button onClick={() => onBack()}>返回</Button>
+                        </Space>
+                    </div>
+                }
+            >
                 <Form
-                    name="modalForm"
+                    className="max-w-1200px mx-auto"
+                    name="editForm"
                     labelAlign="right"
                     labelWrap
                     form={formInst}
@@ -171,8 +165,8 @@ const GlobalSettingsEdit: React.FC<SysModalProps<SettingsGlobalProps>> = (props)
                         )}
                     </Row>
                 </Form>
-            </div>
-        </Modal>
+            </Card>
+        </div>
     );
 };
 

@@ -1,9 +1,9 @@
 import React from "react";
 import { App, Button, Card, Input } from "antd";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { AUTH_LOGIN } from "@/api/auth.ts";
 import { useAuthStore } from "@/store";
 import { useNavigate } from "react-router-dom";
+import { DynamicIcon } from "@/components/Dynamic";
 
 let Login: React.FC = () => {
     let { message } = App.useApp();
@@ -47,7 +47,7 @@ let Login: React.FC = () => {
                 <Input
                     className="mt"
                     placeholder="请输入用户名"
-                    prefix={<UserOutlined />}
+                    prefix={<DynamicIcon icon="UserOutlined" />}
                     value={formData.username}
                     onChange={(e) => {
                         setFormData({
@@ -59,7 +59,7 @@ let Login: React.FC = () => {
                 <Input.Password
                     className="mt"
                     placeholder="请输入密码"
-                    prefix={<LockOutlined />}
+                    prefix={<DynamicIcon icon="LockOutlined" />}
                     value={formData.password}
                     onChange={(e) => {
                         setFormData({

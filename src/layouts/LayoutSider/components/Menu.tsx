@@ -3,7 +3,6 @@ import type { MenuProps } from "antd";
 import { Menu, theme } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { NavMenuProps } from "#/permission";
 import { DynamicIcon } from "@/components/Dynamic";
 
@@ -45,6 +44,21 @@ let LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
         return arr.map((_, index) => "/" + arr.slice(1, index + 1).join("/"));
     };
 
+    // 判断当前路径是否在菜单中，用于默认选中菜单
+    let isPathInMenu = (path: string, menus: NavMenuProps[]): boolean => {
+        for (let menu of menus) {
+            if (menu.router === path) return true;
+            if (menu.children && isPathInMenu(path, menu.children)) return true;
+        }
+        return false;
+    };
+
+    let getSelectedKeys = () => {
+        let arr = pathname.split("/").slice(1);
+        let paths = arr.map((_, index) => "/" + arr.slice(0, index + 1).join("/"));
+        return paths.filter((path) => isPathInMenu(path, userData?.menus ?? []));
+    };
+
     return (
         <div className="h-100%">
             <Menu
@@ -52,7 +66,7 @@ let LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
                 mode="inline"
                 items={getItems(userData?.menus ?? [])}
                 onClick={onMenuClick}
-                defaultSelectedKeys={[pathname]}
+                defaultSelectedKeys={getSelectedKeys()}
                 defaultOpenKeys={renderOpenKeys()}
             />
             <div
@@ -63,9 +77,9 @@ let LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
                 }}
             >
                 {props.collapsed ? (
-                    <MenuUnfoldOutlined className="text-20px" />
+                    <DynamicIcon icon="MenuUnfoldOutlined" className="text-20px" />
                 ) : (
-                    <MenuFoldOutlined className="text-20px" />
+                    <DynamicIcon icon="MenuFoldOutlined" className="text-20px" />
                 )}
             </div>
         </div>
