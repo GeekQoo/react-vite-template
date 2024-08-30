@@ -75,7 +75,7 @@ const BannerEdit: React.FC = () => {
             <Card
                 title={
                     <div className="flex-y-center">
-                        <div>{id ? "编辑" : "新增"}全局设置</div>
+                        <div>{id ? "编辑" : "新增"}幻灯片</div>
                         <Space className="ml-a">
                             <Button type="primary" onClick={() => formInst.submit()}>
                                 提交

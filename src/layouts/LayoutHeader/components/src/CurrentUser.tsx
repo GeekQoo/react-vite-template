@@ -1,11 +1,12 @@
 import React from "react";
 import { App, Avatar, Dropdown, MenuProps } from "antd";
-import { useAuthStore } from "@/store";
+import { useAuthStore, useNavigationStore } from "@/store";
 import { DynamicIcon } from "@/components/Dynamic";
 import { useNavigate } from "react-router-dom";
 
 const LayoutHeaderCurrentUser: React.FC = () => {
     const { userData, logout } = useAuthStore();
+    const { setNavigations } = useNavigationStore();
     const { message } = App.useApp();
     const navigate = useNavigate();
 
@@ -26,6 +27,7 @@ const LayoutHeaderCurrentUser: React.FC = () => {
                     duration: 1
                 });
                 logout();
+                setNavigations([]);
                 navigate("/login");
             }
         }

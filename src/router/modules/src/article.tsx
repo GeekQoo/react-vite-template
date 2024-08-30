@@ -7,7 +7,7 @@ const ArticleList = lazy(() => import("@/pages/Container/Article/Article/Article
 export default [
     {
         path: "/article",
-        title: "系统设置",
+        title: "文章管理",
         children: [
             {
                 path: "/article/category",
@@ -20,7 +20,7 @@ export default [
                 element: <ArticleTagList />
             },
             {
-                path: "/article",
+                path: "/article/list",
                 title: "文章列表",
                 element: <ArticleList />
             }

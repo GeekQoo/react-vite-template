@@ -1,3 +1,5 @@
+import React from "react";
+
 /*
  * Modal操作类型
  */
@@ -26,4 +28,16 @@ export interface SysTableBase {
 export interface SysValueUpdate {
     value?: string;
     onChange?: (value: string) => void;
+}
+
+/*
+ * route类型
+ */
+export interface SysRouteProps {
+    path: string;
+    fullPath?: string;
+    title?: string;
+    children?: SysRouteProps[];
+    element?: React.ReactNode;
+    params?: Record<string, string>;
 }
