@@ -5,7 +5,7 @@ import LayoutSider from "./LayoutSider";
 import LayoutContent from "./LayoutContent";
 import { useAuthStore, useThemeStore } from "@/store";
 import { GET_USERINFO } from "@/api/auth.ts";
-import { UserDataProps } from "#/permission";
+import type { UserDataProps } from "#/permission";
 
 const MyLayout: React.FC = () => {
     return (

@@ -1,4 +1,4 @@
-import { SysTableBase } from "#/system";
+import type { SysTableBase } from "#/system";
 
 /*
  * 文章分类类型

@@ -3,7 +3,7 @@ import type { MenuProps } from "antd";
 import { Menu, theme } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store";
-import { NavMenuProps } from "#/permission";
+import type { NavMenuProps } from "#/permission";
 import { DynamicIcon } from "@/components/Dynamic";
 
 const { useToken } = theme;

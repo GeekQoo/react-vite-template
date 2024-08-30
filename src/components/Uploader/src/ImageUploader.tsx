@@ -4,7 +4,7 @@ import { App, Upload } from "antd";
 import ImgCrop from "antd-img-crop";
 import { UPLOAD_FILE_URL } from "@/api/netdisk.ts";
 import { DynamicIcon } from "@/components/Dynamic";
-import { SysValueUpdate } from "#/system";
+import type { SysValueUpdate } from "#/system";
 
 interface ImageUploaderProps extends SysValueUpdate {
     type: string;

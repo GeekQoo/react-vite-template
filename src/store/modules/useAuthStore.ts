@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { UserDataProps } from "#/permission";
+import type { UserDataProps } from "#/permission";
 
 interface StateProps {
     token: string;

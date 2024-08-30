@@ -45,7 +45,7 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
     const [roleOptions, setRoleOptions] = useState<RoleProps[]>([]);
 
     const getOption = () => {
-        GET_ROLE_ALL<RoleProps[]>({}).then((res) => {
+        GET_ROLE_ALL<RoleProps[]>().then((res) => {
             setRoleOptions(res.data.data ?? []);
         });
     };

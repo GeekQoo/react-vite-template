@@ -3,7 +3,7 @@ import { Button, Col, Input, Popover, Row, Segmented } from "antd";
 import * as AntdIcons from "@ant-design/icons";
 import { DynamicIcon } from "@/components/Dynamic";
 import { ProCard } from "@ant-design/pro-components";
-import { SysValueUpdate } from "#/system";
+import type { SysValueUpdate } from "#/system";
 
 interface IconSelectorProps extends SysValueUpdate {}
 

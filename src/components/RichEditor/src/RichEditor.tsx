@@ -7,7 +7,7 @@ import { Button, Select, Space, theme } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import { DynamicIcon } from "@/components/Dynamic";
 import { ImageInsert } from "./ImageInsert.tsx";
-import { SysModalConfig, SysValueUpdate } from "#/system";
+import type { SysModalConfig, SysValueUpdate } from "#/system";
 
 const { useToken } = theme;
 

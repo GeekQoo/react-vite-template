@@ -1,4 +1,4 @@
-import { SysTableBase } from "#/system";
+import type { SysTableBase } from "#/system";
 
 /*
  * 幻灯片类型

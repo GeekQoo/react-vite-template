@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { App, Button, Card, Col, Form, Input, InputNumber, Row, Space } from "antd";
 import { ADD_BANNER, GET_BANNER_BY_ID, UPDATE_BANNER } from "@/api/settings";
-import { BannerProps } from "#/modules/settings";
+import type { BannerProps } from "#/modules/settings";
 import { ImageUploader } from "@/components/Uploader";
 import { useNavigate, useParams } from "react-router-dom";
 
