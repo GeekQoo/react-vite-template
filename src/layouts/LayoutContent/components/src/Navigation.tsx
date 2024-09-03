@@ -25,6 +25,7 @@ const LayoutContentNavigation: React.FC = () => {
 
     // 滚动容器
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const selectedTagRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const scrollContainer = scrollContainerRef.current;
@@ -40,8 +41,14 @@ const LayoutContentNavigation: React.FC = () => {
         }
     }, []);
 
+    useEffect(() => {
+        if (selectedTagRef.current) {
+            selectedTagRef.current.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+        }
+    }, [pathname, navigations.length]);
+
     return (
-        <div className="overflow-x-auto" ref={scrollContainerRef}>
+        <div className="overflow-x-hidden" ref={scrollContainerRef}>
             <Space size="small" className="mb">
                 {navigations.map((item) => (
                     <Tag
@@ -53,6 +60,7 @@ const LayoutContentNavigation: React.FC = () => {
                         onClose={() => {
                             setNavigations(navigations.filter((i) => i.fullPath !== item.fullPath));
                         }}
+                        ref={pathname === item.fullPath ? selectedTagRef : null}
                     >
                         {item.title}
                         {item.params && Object.keys(item.params).length > 0 && (
