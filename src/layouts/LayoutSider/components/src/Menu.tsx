@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import type { MenuProps } from "antd";
 import { Menu, theme } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -57,6 +57,15 @@ const LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
         return paths.filter((path) => isPathInMenu(path, userData?.menus ?? []));
     };
 
+    // 选中的菜单
+    const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
+    const [openKeys, setOpenKeys] = useState<string[]>([]);
+
+    useEffect(() => {
+        setSelectedKeys(getSelectedKeys());
+        setOpenKeys(renderOpenKeys());
+    }, [pathname]);
+
     return (
         <div className="h-100%">
             <Menu
@@ -64,8 +73,9 @@ const LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
                 mode="inline"
                 items={getItems(userData?.menus ?? [])}
                 onClick={onMenuClick}
-                defaultSelectedKeys={getSelectedKeys()}
-                defaultOpenKeys={renderOpenKeys()}
+                selectedKeys={selectedKeys}
+                openKeys={openKeys}
+                onOpenChange={(keys) => setOpenKeys(keys)}
             />
             <div
                 className="w-100% h-50px flex-center cursor-pointer"
