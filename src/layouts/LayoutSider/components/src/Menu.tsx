@@ -51,19 +51,23 @@ const LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
         return false;
     };
 
+    // 选中和展开的相关逻辑
     const getSelectedKeys = () => {
         const arr = pathname.split("/").slice(1);
         const paths = arr.map((_, index) => "/" + arr.slice(0, index + 1).join("/"));
         return paths.filter((path) => isPathInMenu(path, userData?.menus ?? []));
     };
 
-    // 选中的菜单
     const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
     const [openKeys, setOpenKeys] = useState<string[]>([]);
 
+    const onOpenChange = (keys: string[]) => {
+        setOpenKeys(keys);
+    };
+
     useEffect(() => {
         setSelectedKeys(getSelectedKeys());
-        setOpenKeys(renderOpenKeys());
+        setOpenKeys((prevOpenKeys) => [...new Set([...prevOpenKeys, ...renderOpenKeys()])]);
     }, [pathname]);
 
     return (
@@ -75,7 +79,7 @@ const LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
                 onClick={onMenuClick}
                 selectedKeys={selectedKeys}
                 openKeys={openKeys}
-                onOpenChange={(keys) => setOpenKeys(keys)}
+                onOpenChange={onOpenChange}
             />
             <div
                 className="w-100% h-50px flex-center cursor-pointer"
