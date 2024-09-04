@@ -57,7 +57,11 @@ const LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
     const [openKeys, setOpenKeys] = useState<string[]>([]);
 
     const onOpenChange = (keys: string[]) => {
-        setOpenKeys(keys);
+        if (props.collapsed) {
+            setOpenKeys([]);
+        } else {
+            setOpenKeys(keys);
+        }
     };
 
     const renderOpenKeys = () => {
@@ -67,8 +71,10 @@ const LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
 
     useEffect(() => {
         setSelectedKeys(getSelectedKeys());
-        setOpenKeys((prevOpenKeys) => [...new Set([...prevOpenKeys, ...renderOpenKeys()])]);
-    }, [pathname]);
+        if (!props.collapsed) {
+            setOpenKeys((prevOpenKeys) => [...new Set([...prevOpenKeys, ...renderOpenKeys()])]);
+        }
+    }, [pathname, props.collapsed]);
 
     return (
         <div className="h-100%">
