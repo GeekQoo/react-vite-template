@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { App, Button, Col, Form, Input, Modal, Row, Select, TreeSelect } from "antd";
-import type { SysModalProps } from "#/system";
+import { App, Button, Card, Col, Form, Input, Row, Select, Space, TreeSelect } from "antd";
 import type { ArticleCategoryProps, ArticleProps, ArticleTagProps } from "#/modules/article";
 import {
     ADD_ARTICLE,
@@ -11,9 +10,12 @@ import {
 } from "@/api/article.ts";
 import { RichEditor } from "@/components/RichEditor";
 import { ImageUploader } from "@/components/Uploader";
+import { useNavigate, useParams } from "react-router-dom";
 
-const ArticleEdit: React.FC<SysModalProps<ArticleProps>> = (props) => {
+const ArticleEdit: React.FC = () => {
     const { message } = App.useApp();
+    const navigate = useNavigate();
+    const { id } = useParams<{ id: string }>();
 
     // 转成可选类型
     type FormProps = Partial<ArticleProps>;
@@ -23,21 +25,19 @@ const ArticleEdit: React.FC<SysModalProps<ArticleProps>> = (props) => {
 
     // 获取详情
     const getDetail = () => {
-        if (props.value.configData && props.value.show) {
-            GET_ARTICLE_BY_ID<FormProps>({ id: props.value.configData.id }).then((res) => {
-                if (res.data.code === 0 && res.data.data) {
-                    const formData = res.data.data;
-                    formInst.setFieldsValue({
-                        title: formData.title,
-                        content: formData.content,
-                        summary: formData.summary,
-                        thumbnail: formData.thumbnail,
-                        categoryId: formData.categoryId,
-                        tagIds: formData.tagIds
-                    });
-                }
-            });
-        }
+        GET_ARTICLE_BY_ID<FormProps>({ id }).then((res) => {
+            if (res.data.code === 0 && res.data.data) {
+                const formData = res.data.data;
+                formInst.setFieldsValue({
+                    title: formData.title,
+                    content: formData.content,
+                    summary: formData.summary,
+                    thumbnail: formData.thumbnail,
+                    categoryId: formData.categoryId,
+                    tagIds: formData.tagIds
+                });
+            }
+        });
     };
 
     // 获取选项
@@ -53,22 +53,28 @@ const ArticleEdit: React.FC<SysModalProps<ArticleProps>> = (props) => {
         });
     };
 
-    // 关闭弹窗
-    const closeModal = () => {
-        props.updateValue({ ...props.value, show: false });
-        formInst.resetFields();
+    useEffect(() => {
+        getOptions();
+    }, []);
+
+    useEffect(() => {
+        if (id) getDetail();
+    }, [id]);
+
+    const onBack = () => {
+        navigate(-1);
     };
 
     // 提交
     const onSubmit = (values: FormProps) => {
-        if (props.value.configData) {
+        if (id) {
             UPDATE_ARTICLE({
-                id: props.value.configData.id,
+                id: Number(id),
                 ...values
             }).then((res) => {
                 if (res.data.code === 0) {
                     message.success("编辑成功");
-                    closeModal();
+                    onBack();
                 } else {
                     message.error(res.data.msg ?? "编辑失败");
                 }
@@ -77,7 +83,7 @@ const ArticleEdit: React.FC<SysModalProps<ArticleProps>> = (props) => {
             ADD_ARTICLE({ ...values }).then((res) => {
                 if (res.data.code === 0) {
                     message.success("新增成功");
-                    closeModal();
+                    onBack();
                 } else {
                     message.error(res.data.msg ?? "新增失败");
                 }
@@ -89,36 +95,24 @@ const ArticleEdit: React.FC<SysModalProps<ArticleProps>> = (props) => {
         message.error("提交失败，请检查后再试");
     };
 
-    useEffect(() => {
-        if (props.value.show) {
-            getOptions();
-            getDetail();
-        }
-    }, [props.value]);
-
     return (
-        <Modal
-            wrapClassName="py-8"
-            centered
-            title={props.value.configData ? "编辑文章" : "新增文章"}
-            open={props.value.show}
-            maskClosable={false}
-            destroyOnClose
-            width="80vw"
-            onCancel={closeModal}
-            forceRender
-            footer={[
-                <Button key="submit" type="primary" onClick={() => formInst.submit()}>
-                    提交
-                </Button>,
-                <Button key="back" type="primary" danger onClick={() => closeModal()}>
-                    取消
-                </Button>
-            ]}
-        >
-            <div className="w-100% pt">
+        <div className="article-page">
+            <Card
+                title={
+                    <div className="flex-y-center">
+                        <div>{id ? "编辑" : "新增"}文章</div>
+                        <Space className="ml-a">
+                            <Button type="primary" onClick={() => formInst.submit()}>
+                                提交
+                            </Button>
+                            <Button onClick={() => onBack()}>返回</Button>
+                        </Space>
+                    </div>
+                }
+            >
                 <Form
-                    name="modalForm"
+                    className="max-w-1200px mx-auto"
+                    name="editForm"
                     layout="vertical"
                     form={formInst}
                     scrollToFirstError
@@ -202,8 +196,8 @@ const ArticleEdit: React.FC<SysModalProps<ArticleProps>> = (props) => {
                         </Col>
                     </Row>
                 </Form>
-            </div>
-        </Modal>
+            </Card>
+        </div>
     );
 };
 
