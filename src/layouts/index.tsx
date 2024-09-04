@@ -10,9 +10,9 @@ import type { UserDataProps } from "#/permission";
 const MyLayout: React.FC = () => {
     return (
         <Layout className="h-100vh">
-            <LayoutHeader />
+            <LayoutSider />
             <Layout>
-                <LayoutSider />
+                <LayoutHeader />
                 <LayoutContent />
             </Layout>
         </Layout>

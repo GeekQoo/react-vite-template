@@ -7,6 +7,7 @@ type CustomIconComponentProps = GetProps<typeof Icon>;
 interface DynamicIconProps {
     icon: string;
     className?: string;
+    style?: React.CSSProperties;
     onClick?: () => void;
 }
 
@@ -20,6 +21,7 @@ export const DynamicIcon: React.FC<DynamicIconProps> = (props) => {
                     }
                 )[props.icon] as React.FC
             }
+            style={props.style}
             className={props.className}
             onClick={props.onClick}
         />

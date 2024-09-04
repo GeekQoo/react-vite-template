@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { ColorPicker, Divider, Drawer, InputNumber, Radio, Select, Typography } from "antd";
+import { ColorPicker, Divider, Drawer, InputNumber, Radio, Select, theme, Typography } from "antd";
 import { useThemeStore } from "@/store";
 import { currentThemePreset, pageAnimationPreset, themeColorPreset } from "@/settings/theme.ts";
 import { DynamicIcon } from "@/components/Dynamic";
 
 const LayoutHeaderSettings: React.FC = () => {
+    const { token } = theme.useToken();
     const { Text } = Typography;
     const {
         pageAnimation,
@@ -29,6 +30,9 @@ const LayoutHeaderSettings: React.FC = () => {
             <DynamicIcon
                 icon="SettingOutlined"
                 className="block text-20px cursor-pointer"
+                style={{
+                    color: token.colorTextBase
+                }}
                 onClick={() => changeDrawerShow(true)}
             />
             <Drawer

@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { findRoute, routes } from "@/router";
 import { DynamicIcon } from "@/components/Dynamic";
 
-const LayoutContentNavigation: React.FC = () => {
+const LayoutNavigation: React.FC = () => {
     const { modal } = App.useApp();
     const { navigations, setNavigations } = useNavigationStore();
     const { themeColor } = useThemeStore();
@@ -81,7 +81,7 @@ const LayoutContentNavigation: React.FC = () => {
     ];
 
     return (
-        <div className="flex-y-center mb">
+        <div className="flex-y-center">
             <div className="overflow-x-hidden flex-1" ref={scrollContainerRef}>
                 <Space size="small">
                     {navigations.map((item) => (
@@ -120,4 +120,4 @@ const LayoutContentNavigation: React.FC = () => {
     );
 };
 
-export default LayoutContentNavigation;
+export default LayoutNavigation;

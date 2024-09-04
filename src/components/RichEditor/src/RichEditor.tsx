@@ -9,12 +9,10 @@ import { DynamicIcon } from "@/components/Dynamic";
 import { ImageInsert } from "./ImageInsert.tsx";
 import type { SysModalConfig, SysValueUpdate } from "#/system";
 
-const { useToken } = theme;
-
 interface RichEditorProps extends SysValueUpdate {}
 
 export const RichEditor: React.FC<RichEditorProps> = (props) => {
-    const { token } = useToken();
+    const { token } = theme.useToken();
 
     const editor = useEditor({
         extensions: [

@@ -3,7 +3,6 @@ import { Outlet, useLocation } from "react-router-dom";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import { Layout, Spin } from "antd";
 import { useThemeStore } from "@/store";
-import { LayoutContentNavigation } from "./components";
 
 const { Content } = Layout;
 
@@ -14,7 +13,6 @@ const LayoutContent: React.FC = () => {
     return (
         <Content>
             <div className="wh-100% p-4 overflow-y-auto overflow-x-hidden">
-                <LayoutContentNavigation />
                 <Suspense fallback={<Spin size="large" className="wh-100% flex-center" />}>
                     <SwitchTransition mode="out-in">
                         <CSSTransition

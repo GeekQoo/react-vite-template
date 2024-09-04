@@ -19,7 +19,7 @@ const LayoutSider: React.FC = () => {
             trigger={null}
             collapsed={collapsed}
             collapsible
-            className="shadow-lg"
+            className="shadow-md"
             theme={currentTheme === "darkAlgorithm" ? "dark" : "light"}
         >
             <LayoutSiderMenu collapsed={collapsed} toggleCollapsed={toggleCollapsed} />

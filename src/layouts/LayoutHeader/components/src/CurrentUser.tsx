@@ -1,10 +1,11 @@
 import React from "react";
-import { App, Avatar, Dropdown, MenuProps } from "antd";
+import { App, Avatar, Dropdown, MenuProps, theme } from "antd";
 import { useAuthStore, useNavigationStore } from "@/store";
 import { DynamicIcon } from "@/components/Dynamic";
 import { useNavigate } from "react-router-dom";
 
 const LayoutHeaderCurrentUser: React.FC = () => {
+    const { token } = theme.useToken();
     const { userData, logout } = useAuthStore();
     const { setNavigations } = useNavigationStore();
     const { message } = App.useApp();
@@ -37,7 +38,14 @@ const LayoutHeaderCurrentUser: React.FC = () => {
         <Dropdown menu={{ items }}>
             <div className="flex-y-center cursor-pointer">
                 <Avatar size={30} src={<img src={userData.avatar} alt="avatar" />} />
-                <div className="ml-2">{userData.nickname}</div>
+                <div
+                    className="ml-2"
+                    style={{
+                        color: token.colorTextBase
+                    }}
+                >
+                    {userData.nickname}
+                </div>
             </div>
         </Dropdown>
     );

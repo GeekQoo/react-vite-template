@@ -6,8 +6,6 @@ import { useAuthStore } from "@/store";
 import type { NavMenuProps } from "#/permission";
 import { DynamicIcon } from "@/components/Dynamic";
 
-const { useToken } = theme;
-
 interface ComponentProps {
     collapsed: boolean; // 侧边栏折叠状态
     toggleCollapsed: () => void; // 切换侧边栏折叠状态
@@ -19,7 +17,7 @@ const LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const { userData } = useAuthStore();
-    const { token } = useToken();
+    const { token } = theme.useToken();
 
     const getItems = (menus: NavMenuProps[]): MenuItem[] => {
         return (menus ?? [])
