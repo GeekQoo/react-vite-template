@@ -37,11 +37,6 @@ const LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
         navigate(key);
     };
 
-    const renderOpenKeys = () => {
-        const arr = pathname.split("/").slice(0, -1);
-        return arr.map((_, index) => "/" + arr.slice(1, index + 1).join("/"));
-    };
-
     // 判断当前路径是否在菜单中，用于默认选中菜单
     const isPathInMenu = (path: string, menus: NavMenuProps[]): boolean => {
         for (const menu of menus) {
@@ -63,6 +58,11 @@ const LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
 
     const onOpenChange = (keys: string[]) => {
         setOpenKeys(keys);
+    };
+
+    const renderOpenKeys = () => {
+        const arr = pathname.split("/").slice(0, -1);
+        return arr.map((_, index) => "/" + arr.slice(1, index + 1).join("/")).filter((key) => key !== "/");
     };
 
     useEffect(() => {
