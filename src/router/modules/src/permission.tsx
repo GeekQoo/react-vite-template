@@ -1,6 +1,7 @@
 import React, { lazy } from "react";
 
 const UserList = lazy(() => import("@/pages/Container/Permission/User/UserList.tsx"));
+const UserEdit = lazy(() => import("@/pages/Container/Permission/User/UserEdit.tsx"));
 const RoleList = lazy(() => import("@/pages/Container/Permission/Role/RoleList.tsx"));
 const MenuList = lazy(() => import("@/pages/Container/Permission/Menu/MenuList.tsx"));
 
@@ -10,9 +11,19 @@ export default [
         title: "权限管理",
         children: [
             {
-                path: "/permission/user-list",
+                path: "/permission/user",
                 title: "用户管理",
                 element: <UserList />
+            },
+            {
+                path: "/permission/user/add",
+                title: "新增用户",
+                element: <UserEdit />
+            },
+            {
+                path: "/permission/user/:id",
+                title: "编辑用户",
+                element: <UserEdit />
             },
             {
                 path: "/permission/role-list",

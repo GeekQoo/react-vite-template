@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { App, Button, Col, Form, Input, Modal, Row, Select } from "antd";
+import { App, Button, Card, Col, Form, Input, Row, Select, Space } from "antd";
 import { ADD_USER, GET_ROLE_ALL, GET_USER_BY_ID, UPDATE_USER } from "@/api/permission.ts";
-import type { SysModalProps } from "#/system";
-import type { RoleProps, UserProps } from "#/permission";
+import type { RoleProps } from "#/permission";
 import { AvatarUploader } from "@/components/Uploader";
+import { useNavigate, useParams } from "react-router-dom";
 
-const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
+const UserEdit: React.FC = () => {
     const { message } = App.useApp();
+    const navigate = useNavigate();
+    const { id } = useParams<{ id: string }>();
 
     interface FormProps {
         username: string;
@@ -23,22 +25,20 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
 
     // 获取详情
     const getDetail = () => {
-        if (props.value.configData && props.value.show) {
-            GET_USER_BY_ID<FormProps>({ id: props.value.configData.id }).then((res) => {
-                if (res.data.code === 0 && res.data.data) {
-                    const formData = res.data.data;
-                    formInst.setFieldsValue({
-                        username: formData.username,
-                        password: formData.password,
-                        roles: formData.roles,
-                        nickname: formData.nickname,
-                        email: formData.email,
-                        phone: formData.phone,
-                        avatar: formData.avatar
-                    });
-                }
-            });
-        }
+        GET_USER_BY_ID<FormProps>({ id }).then((res) => {
+            if (res.data.code === 0 && res.data.data) {
+                const formData = res.data.data;
+                formInst.setFieldsValue({
+                    username: formData.username,
+                    password: formData.password,
+                    roles: formData.roles,
+                    nickname: formData.nickname,
+                    email: formData.email,
+                    phone: formData.phone,
+                    avatar: formData.avatar
+                });
+            }
+        });
     };
 
     // 获取选项
@@ -51,28 +51,27 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
     };
 
     useEffect(() => {
-        if (props.value.show) {
-            getOption();
-            getDetail();
-        }
-    }, [props.value]);
+        getOption();
+    }, []);
 
-    // 关闭弹窗
-    const closeModal = () => {
-        props.updateValue({ ...props.value, show: false });
-        formInst.resetFields();
+    useEffect(() => {
+        if (id) getDetail();
+    }, [id]);
+
+    const onBack = () => {
+        navigate(-1);
     };
 
     // 提交
     const onSubmit = (values: FormProps) => {
-        if (props.value.configData) {
+        if (id) {
             UPDATE_USER({
-                id: props.value.configData.id,
+                id: Number(id),
                 ...values
             }).then((res) => {
                 if (res.data.code === 0) {
                     message.success("编辑成功");
-                    closeModal();
+                    onBack();
                 } else {
                     message.error(res.data.msg ?? "编辑失败");
                 }
@@ -81,7 +80,7 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
             ADD_USER({ ...values }).then((res) => {
                 if (res.data.code === 0) {
                     message.success("新增成功");
-                    closeModal();
+                    onBack();
                 } else {
                     message.error(res.data.msg ?? "新增失败");
                 }
@@ -94,32 +93,28 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
     };
 
     return (
-        <Modal
-            centered
-            title={props.value.configData ? "编辑用户" : "新增用户"}
-            open={props.value.show}
-            maskClosable={false}
-            destroyOnClose
-            width="800px"
-            onCancel={closeModal}
-            forceRender
-            footer={[
-                <Button key="submit" type="primary" onClick={() => formInst.submit()}>
-                    提交
-                </Button>,
-                <Button key="back" type="primary" danger onClick={() => closeModal()}>
-                    取消
-                </Button>
-            ]}
-        >
-            <div className="w-100% pt">
+        <div className="user-page">
+            <Card
+                title={
+                    <div className="flex-y-center">
+                        <div>{id ? "编辑" : "新增"}用户</div>
+                        <Space className="ml-a">
+                            <Button type="primary" onClick={() => formInst.submit()}>
+                                提交
+                            </Button>
+                            <Button onClick={() => onBack()}>返回</Button>
+                        </Space>
+                    </div>
+                }
+            >
                 <Form
-                    name="modalForm"
+                    className="max-w-1200px mx-auto"
+                    name="editForm"
                     labelAlign="right"
                     labelWrap
                     form={formInst}
-                    labelCol={{ span: 6 }}
-                    wrapperCol={{ span: 18 }}
+                    labelCol={{ span: 7 }}
+                    wrapperCol={{ span: 17 }}
                     scrollToFirstError
                     onFinish={onSubmit}
                     onFinishFailed={onSubmitFailed}
@@ -138,7 +133,7 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
                             <Form.Item<FormProps>
                                 label="登录密码"
                                 name="password"
-                                rules={[{ required: !props.value.configData, message: "请输入密码" }]}
+                                rules={[{ required: !id, message: "请输入密码" }]}
                             >
                                 <Input.Password allowClear placeholder="请输入密码" />
                             </Form.Item>
@@ -188,11 +183,9 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
                                 <Input allowClear placeholder="请输入邮箱" />
                             </Form.Item>
                         </Col>
-                        <Col span={24}>
+                        <Col span={12}>
                             <Form.Item<FormProps>
                                 label="头像"
-                                labelCol={{ span: 3 }}
-                                wrapperCol={{ span: 21 }}
                                 name="avatar"
                                 rules={[{ required: true, message: "请上传头像" }]}
                             >
@@ -201,8 +194,8 @@ const UserEdit: React.FC<SysModalProps<UserProps>> = (props) => {
                         </Col>
                     </Row>
                 </Form>
-            </div>
-        </Modal>
+            </Card>
+        </div>
     );
 };
 

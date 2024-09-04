@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { App, Button, Card, Space, Table } from "antd";
 import { DELETE_USER, GET_USER_LIST } from "@/api/permission.ts";
 import { useCommonTable } from "@/hooks";
-import UserEdit from "./UserEdit.tsx";
 import dayjs from "dayjs";
 import type { ColumnsType } from "antd/es/table";
-import type { SysModalConfig } from "#/system";
 import type { UserProps } from "#/permission";
+import { useNavigate } from "react-router-dom";
 
 const UserList: React.FC = () => {
     const { message, modal } = App.useApp();
-
+    const navigate = useNavigate();
     const {
         tableLoading,
         setTableLoading,
@@ -52,7 +51,7 @@ const UserList: React.FC = () => {
             width: 180,
             render: (_, record) => (
                 <Space>
-                    <Button type="primary" ghost onClick={() => openEditModal(record)}>
+                    <Button type="primary" ghost onClick={() => toEdit(record)}>
                         编辑
                     </Button>
                     <Button type="primary" danger ghost onClick={() => onDelete(record)}>
@@ -107,24 +106,19 @@ const UserList: React.FC = () => {
     };
 
     // 新增编辑
-    const [editModal, setEditModal] = useState<SysModalConfig<UserProps>>({
-        show: false,
-        configData: null
-    });
-
-    const openEditModal = (record?: UserProps) => {
-        setEditModal({ show: true, configData: record ?? null });
+    const toEdit = (record?: UserProps) => {
+        record ? navigate(`/permission/user/${record?.id}`) : navigate("/permission/user/add");
     };
 
     useEffect(() => {
         getTableData();
-    }, [tableParams.pagination?.current, tableParams.pagination?.pageSize, editModal]);
+    }, [tableParams.pagination?.current, tableParams.pagination?.pageSize]);
 
     return (
-        <div className="user-list-page">
+        <div className="user-page">
             <Card>
                 <Space className="mb">
-                    <Button type="primary" onClick={() => openEditModal()}>
+                    <Button type="primary" onClick={() => toEdit()}>
                         新增
                     </Button>
                 </Space>
@@ -144,7 +138,6 @@ const UserList: React.FC = () => {
                     }}
                 />
             </Card>
-            <UserEdit value={editModal} updateValue={setEditModal} />
         </div>
     );
 };

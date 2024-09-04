@@ -40,7 +40,7 @@ const BannerEdit: React.FC = () => {
     const onSubmit = (values: FormProps) => {
         if (id) {
             UPDATE_BANNER({
-                id,
+                id: Number(id),
                 ...values
             }).then((res) => {
                 if (res.data.code === 0) {
