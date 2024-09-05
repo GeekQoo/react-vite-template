@@ -5,7 +5,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store";
 import type { NavMenuProps } from "#/permission";
 import { DynamicIcon } from "@/components/Dynamic";
-import { routes } from "@/router";
 
 interface ComponentProps {
     collapsed: boolean; // 侧边栏折叠状态
@@ -64,11 +63,8 @@ const LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
     const renderOpenKeys = () => {
         const arr = pathname.split("/").slice(1);
         const paths = arr.map((_, index) => "/" + arr.slice(0, index + 1).join("/"));
-        if (pathname === "/workbench") {
-            return ["/"];
-        } else {
-            return paths.filter((key) => key !== "/");
-        }
+        const entrancePath = "/workbench";
+        return pathname === entrancePath ? ["/"] : paths.filter((key) => key !== "/");
     };
 
     useEffect(() => {
