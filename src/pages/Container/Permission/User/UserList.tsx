@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { App, Button, Card, Space, Table } from "antd";
-import { DELETE_USER, GET_USER_LIST } from "@/api/permission.ts";
+import { App, Button, Card, Form, Space, Table } from "antd";
+import { DELETE_USER, GET_ROLE_ALL, GET_USER_LIST } from "@/api/permission.ts";
 import { useCommonTable } from "@/hooks";
 import dayjs from "dayjs";
 import type { ColumnsType } from "antd/es/table";
-import type { UserProps } from "#/permission";
+import type { RoleProps, UserProps } from "#/permission";
 import { useNavigate } from "react-router-dom";
+import { ProFormSelect, ProFormText, QueryFilter } from "@ant-design/pro-components";
 
 const UserList: React.FC = () => {
     const { message, modal } = App.useApp();
@@ -71,7 +72,8 @@ const UserList: React.FC = () => {
             };
         }>({
             page: tableParams.pagination?.current,
-            size: tableParams.pagination?.pageSize
+            size: tableParams.pagination?.pageSize,
+            ...queryFilterInst.getFieldsValue()
         }).then((res) => {
             if (res.data.code === 0) {
                 setTableData(res.data.data?.list ?? []);
@@ -114,9 +116,35 @@ const UserList: React.FC = () => {
         getTableData();
     }, [tableParams.pagination?.current, tableParams.pagination?.pageSize]);
 
+    // 搜索表单
+    const [queryFilterInst] = Form.useForm<Partial<UserProps>>();
+
     return (
         <div className="user-page">
-            <Card>
+            <Card classNames={{ body: "p-0!" }}>
+                <QueryFilter
+                    form={queryFilterInst}
+                    onFinish={() => {
+                        getTableData();
+                    }}
+                >
+                    <ProFormText label="用户名" name="username" />
+                    <ProFormSelect
+                        label="所属角色"
+                        name="roles"
+                        mode="multiple"
+                        placeholder="请选择角色"
+                        fieldProps={{
+                            fieldNames: { label: "roleName", value: "id" }
+                        }}
+                        request={async () => {
+                            const res = await GET_ROLE_ALL<RoleProps[]>();
+                            return res.data.data ?? [];
+                        }}
+                    />
+                </QueryFilter>
+            </Card>
+            <Card className="mt">
                 <Space className="mb">
                     <Button type="primary" onClick={() => toEdit()}>
                         新增
