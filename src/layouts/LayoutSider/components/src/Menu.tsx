@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store";
 import type { NavMenuProps } from "#/permission";
 import { DynamicIcon } from "@/components/Dynamic";
+import { routes } from "@/router";
 
 interface ComponentProps {
     collapsed: boolean; // 侧边栏折叠状态
@@ -57,16 +58,17 @@ const LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
     const [openKeys, setOpenKeys] = useState<string[]>([]);
 
     const onOpenChange = (keys: string[]) => {
-        if (props.collapsed) {
-            setOpenKeys([]);
-        } else {
-            setOpenKeys(keys);
-        }
+        setOpenKeys(keys);
     };
 
     const renderOpenKeys = () => {
-        const arr = pathname.split("/").slice(0, -1);
-        return arr.map((_, index) => "/" + arr.slice(1, index + 1).join("/")).filter((key) => key !== "/");
+        const arr = pathname.split("/").slice(1);
+        const paths = arr.map((_, index) => "/" + arr.slice(0, index + 1).join("/"));
+        if (pathname === "/workbench") {
+            return ["/"];
+        } else {
+            return paths.filter((key) => key !== "/");
+        }
     };
 
     useEffect(() => {
@@ -90,15 +92,9 @@ const LayoutSiderMenu: React.FC<ComponentProps> = (props) => {
             <div
                 className="w-100% h-50px flex-center cursor-pointer"
                 style={{ borderTop: `1px solid ${token.colorBorder}` }}
-                onClick={() => {
-                    props.toggleCollapsed();
-                }}
+                onClick={() => props.toggleCollapsed()}
             >
-                {props.collapsed ? (
-                    <DynamicIcon icon="MenuUnfoldOutlined" className="text-20px" />
-                ) : (
-                    <DynamicIcon icon="MenuFoldOutlined" className="text-20px" />
-                )}
+                <DynamicIcon icon={props.collapsed ? "MenuUnfoldOutlined" : "MenuFoldOutlined"} className="text-20px" />
             </div>
         </div>
     );
