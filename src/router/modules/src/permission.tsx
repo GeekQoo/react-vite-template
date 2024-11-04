@@ -11,7 +11,7 @@ export default [
         title: "权限管理",
         children: [
             {
-                path: "/permission/user",
+                path: "/permission/user-list",
                 title: "用户管理",
                 element: <UserList />
             },
